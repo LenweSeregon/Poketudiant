@@ -1,0 +1,139 @@
+# Un pokétudiant est défini par plusieurs choses :
+#	- Son nom 
+#	- Son type
+#	- Capturabilité
+#	- Une évolution possible
+#	- Une attaque
+#	- Une defense
+# 	- Un taux de PV max
+#
+# Les différents types N pour les pokétudiants sont les suivants : 
+#	- NOISY
+#	- LAZY
+#	- MOTIVATED
+#	- TEACHER
+#
+# Remarque, il ne peut y avoir dans ce fichier qu’une instance
+# d’un TEACHER puisque c’est l’enseignant-dresseur lui même
+#
+# Ce fichier va permettre au jeu d’instancier les différents 
+# pokétudiants et de disposer de leurs modèles logique.
+# Le format est le suivant :
+#
+# { //Debut d’un nouveau pokétudiant
+#	name = x
+#	type = [N]
+#  	capturable = [true,false]
+#	evolution = [none,X]
+#	attack = x 
+#	defense = x
+#	pv_max = x 
+# } //Fin du pokétudiant
+
+# NOISY area
+{
+	name = Parlfor
+	type = NOISY
+	capturable = true
+	evolution = none
+	attack = 60
+	defense = 40
+	pv_max = 60
+}
+
+{
+	name = Ismar
+	type = NOISY
+	capturable = true
+	evolution = Rigolamor
+	attack = 50
+	defense = 30
+	pv_max = 40
+}
+
+{
+	name = Rigolamor
+	type = NOISY
+	capturable = false
+	evolution = none
+	attack = 85
+	defense = 55
+	pv_max = 70
+}
+
+# LAZY area 
+
+{
+	name = Procrastino
+	type = LAZY
+	capturable = true
+	evolution = none
+	attack = 40
+	defense = 60
+	pv_max = 60
+}
+
+{
+	name = Couchtar
+	type = LAZY
+	capturable = true
+	evolution = Nuidebou
+	attack = 30
+	defense = 50
+	pv_max = 40
+}
+
+{
+	name = Nuidebou
+	type = LAZY
+	capturable = false
+	evolution = none
+	attack = 55
+	defense = 85
+	pv_max = 70
+}
+
+# MOTIVATED area
+
+{
+	name = Buchafon
+	type = MOTIVATED
+	capturable = true
+	evolution = none
+	attack = 50
+	defense = 50
+	pv_max = 60
+}
+
+{
+	name = Belmention
+	type = MOTIVATED
+	capturable = true
+	evolution = Promomajor
+	attack = 30
+	defense = 50
+	pv_max = 40
+}
+
+{
+	name = Promomajor
+	type = MOTIVATED
+	capturable = false
+	evolution = none
+	attack = 70
+	defense = 70
+	pv_max = 70
+}
+
+# TEACHER area
+
+{
+	name = Enseignant-dresseur
+	type = TEACHER
+	capturable = false
+	evolution = none
+	attack = 100
+	defense = 100
+	pv_max = 100
+}
+

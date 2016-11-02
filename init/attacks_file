@@ -1,0 +1,101 @@
+# Une attaque est définie par plusieurs choses :
+#	- Son nom
+#	- Son type
+#	- Sa puissance
+#
+# Les différents types N pour les attaques sont les suivantes
+# et sont les mêmes que pour les pokétudiants : 
+#	- NOISY
+#	- LAZY
+#	- MOTIVATED
+#	- TEACHER
+#
+# Ce fichier va permettre au jeu d’instancier les différentes attaques possibles 
+# et de disposer ainsi de leurs modèles logique.
+# Le format est le suivant :
+#
+# { //Debut d’une nouvelle attaque
+#	name = x
+#	type = [N]
+#	pow = x
+# } // Fin d’une attaque
+
+# NOISY area
+{
+	name = Bavardage
+	type = NOISY
+	pow = 10
+}
+
+{
+	name = Groboucan
+	type = NOISY
+	pow = 15
+}
+
+{
+	name = Megaphone-vocal
+	type = NOISY
+	pow = 20
+}
+
+# LAZY area
+
+{
+	name = Baillement
+	type = LAZY
+	pow = 10
+}
+
+{
+	name = Pti’somme
+	type = LAZY
+	pow = 15
+}
+
+{
+	name = Superdodo
+	type = LAZY
+	pow = 20
+}
+
+
+# MOTIVATED area
+
+{
+	name = Oboulo
+	type = MOTIVATED
+	pow = 10
+}
+
+{
+	name = Exo-maison
+	type = MOTIVATED
+	pow = 15
+}
+
+{
+	name = Max-reviz
+	type = MOTIVATED
+	pow = 20
+}
+
+# TEACHER area
+
+{
+	name = Tit’question
+	type = TEACHER
+	pow = 10
+}
+
+{
+	name = Poser-colle
+	type = TEACHER
+	pow = 15
+}
+
+{
+	name = Fatal-interro
+	type = TEACHER
+	pow = 20
+}
