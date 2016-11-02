@@ -20,7 +20,7 @@ OBJS = 			$(B)/main.o\
 
 
 executable : 		$(OBJS)
-	$(CC) -o $@ $^
+	$(CC) -o $@ $^ -lm
 
 $(B)/main.o : 		$(S)/main.c\
 			$(I)/container.h\
