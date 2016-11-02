@@ -20,6 +20,7 @@
 
 #include "factories.h"
 
+/* lol */
 int main(void)
 {
   Hash_table* att;
