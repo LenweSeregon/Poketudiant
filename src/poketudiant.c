@@ -83,11 +83,17 @@ int take_damage(Poketudiant* pok, unsigned int damage)
 
 int earn_experience(Poketudiant* pok, unsigned int experience)
 {
-  pok->xp += experience;
-  
-  if(pok->xp >= pok->xp_next)
+  if(pok->level < 10)
     {
-      return 1;
+      pok->xp += experience;
+      if(pok->xp >= pok->xp_next)
+	{
+	  return 1;
+	}
+    }
+  else
+    {
+      pok->xp = pok->xp_next;
     }
   return 0;
 }
@@ -95,8 +101,8 @@ int earn_experience(Poketudiant* pok, unsigned int experience)
 void print_complete_poketudiant(const Poketudiant* pok)
 {
   printf("ID = %d | Variety = %s | Type = %s\n",pok->id,pok->variety,string_from_enum_type_poke(pok->type));
-  printf("Attack = %d | Defense = %d | Hp = %d\n",pok->attack,pok->defense,pok->hp);
-  printf("Level = %d | XP = %d | XP needed = %d\n",pok->level,pok->xp,pok->xp_next);
+  printf("Attack = %d | Defense = %d | Hp = %d / %d\n",pok->attack,pok->defense,pok->hp,pok->hp_max);
+  printf("Level = %d | XP = %d / %d\n",pok->level,pok->xp,pok->xp_next);
   printf("\n");
   printf("Attack :\n");
   printf("\t");print_attack(pok->ref_attack_1);

@@ -44,4 +44,17 @@ int random_int(int min, int max);
  */
 double random_double(double min,double max);
 
+/*
+ * @author : Nicolas
+ * @date   : 02 / 11 / 2016
+ * @state  : [No bug]
+ * 
+ * @name   : random_double_in_poke_range
+ * @desc   : This function is used to generate random integer value between random generation
+             use in all poke system that mean 0.9, 1.0 or 1.1
+ *
+ * @return : return random double value generated;
+ */
+double random_double_in_poke_range();
+
 #endif

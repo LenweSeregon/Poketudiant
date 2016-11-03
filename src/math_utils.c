@@ -22,3 +22,14 @@ double random_double(double min, double max)
   double div = RAND_MAX / range;
   return min + (rand() / div);
 }
+
+double random_double_in_poke_range()
+{
+  int value = random_int(0,2);
+  if(value == 0)
+    return 0.9;
+  else if(value == 1)
+    return 1.0;
+  else
+    return 1.1;
+}

@@ -18,6 +18,7 @@
 #include "generic_control_function.h"
 #include "loading_module.h"
 
+#include "evolve_module.h"
 #include "factories.h"
 
 /* lol */
@@ -27,6 +28,7 @@ int main(void)
   Hash_table* poke;
   Poketudiant_factory* factory_poke;
   Poketudiant* test;
+  Evolve_center* center;
   init_seed_to_null();
   /*Poketudiant *poketudiant_1, *poketudiant_2;
   Attack *att_1, *att_2, *att_3, *att_4;
@@ -66,17 +68,27 @@ int main(void)
   load_base_poketudiant(poke,"init/pokemons_file");
   
   factory_poke = create_poketudiant_factory(poke,att);
+  center = create_evolve_center(poke);
   
-  /* test = generate_poketudiant_from_name(factory_poke,"Nuidebou"); */
-  test = generate_random_poketudiant(factory_poke);
+  test = generate_poketudiant_from_name(factory_poke,"Belmention");
+  /* test = generate_random_poketudiant(factory_poke);*/
+  test->attack = 33;
+  test->defense = 45;
+  test->hp_max = 40;
 
   print_complete_poketudiant(test);
-  /*print_hash_table(poke);
-  printf("\n\n##########\n\n");
-  print_hash_table(att);
-  */
+  printf("#########\n");
+
+  if(earn_experience(test,750))
+    make_poketudiant_upgrade(center,test);
+  if(earn_experience(test,100))
+    make_poketudiant_upgrade(center,test);
+
+  print_complete_poketudiant(test);
+  
   delete_poketudiant(test);
   delete_poketudiant_factory(factory_poke);
+  delete_evolve_center(center);
   delete_hash_table(poke);
   delete_hash_table(att);
   return 0;

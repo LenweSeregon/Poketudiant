@@ -50,12 +50,12 @@ Poketudiant* generate_random_poketudiant(Poketudiant_factory* factory)
       /* First build basic poketudiant */ 
       poke = create_poketudiant_from_another(getter_base);
       /* Now let's apply some random modifier */
-      r_att = random_double(0.9,1.1);
-      r_def = random_double(0.9,1.1);
-      r_hp =  random_double(0.9,1.1);
-      poke->attack = (int)floor(poke->attack * r_att);
-      poke->defense = (int)floor(poke->defense * r_def);
-      poke->hp_max = (int)floor(poke->hp_max * r_hp);
+      r_att = random_double_in_poke_range();
+      r_def = random_double_in_poke_range();
+      r_hp =  random_double_in_poke_range();
+      poke->attack = (int)round(poke->attack * r_att);
+      poke->defense = (int)round(poke->defense * r_def);
+      poke->hp_max = (int)round(poke->hp_max * r_hp);
       poke->hp = poke->hp_max;
       /*Finally, let's build attacks for our poketudiant randomly
       For it, we need an attack with same type as poketudiant and another random
@@ -108,12 +108,12 @@ Poketudiant* generate_poketudiant_from_name(Poketudiant_factory* factory,char* n
       /* First build basic poketudiant */ 
       poke = create_poketudiant_from_another(getter_base);
       /* Now let's apply some random modifier */
-      r_att = random_double(0.9,1.1);
-      r_def = random_double(0.9,1.1);
-      r_hp =  random_double(0.9,1.1);
-      poke->attack = (int)floor(poke->attack * r_att);
-      poke->defense = (int)floor(poke->defense * r_def);
-      poke->hp_max = (int)floor(poke->hp_max * r_hp);
+      r_att = random_double_in_poke_range();
+      r_def = random_double_in_poke_range();
+      r_hp =  random_double_in_poke_range();
+      poke->attack = (int)round(poke->attack * r_att);
+      poke->defense = (int)round(poke->defense * r_def);
+      poke->hp_max = (int)round(poke->hp_max * r_hp);
       poke->hp = poke->hp_max;
       /*Finally, let's build attacks for our poketudiant randomly
       For it, we need an attack with same type as poketudiant and another random
