@@ -16,7 +16,7 @@ Pokecafetaria* create_pokecafetaria()
   return caf; 
 }
 
-int add_poketudiant_to_cafetaria(Pokecafetaria* caf, const Poketudiant* etu)
+int add_poketudiant_to_cafetaria(Pokecafetaria* caf, Poketudiant* etu)
 {
   int i;
   for(i=0;i<MAX_POKETUDIANT_BY_TABLE*NB_TABLE_POKECAFETARIA;i++)
@@ -30,10 +30,12 @@ int add_poketudiant_to_cafetaria(Pokecafetaria* caf, const Poketudiant* etu)
   return 0;
 }
 
-int add_poketudiant_to_cafetaria_by_position(Pokecafetaria* caf, const Poketudiant* etu, int t, int c)
+int add_poketudiant_to_cafetaria_by_position(Pokecafetaria* caf, Poketudiant* etu, int t, int c)
 {
   int pos = calcul_pos_pokecafetaria(t,c);
   if(caf->list[pos]!=NULL) caf->list[pos]=etu;
+
+  return 0;/* pour les warning */
 }
 
 Poketudiant* get_poketudiant_from_cafetaria_by_position(Pokecafetaria* caf, int t, int c)
@@ -45,8 +47,8 @@ void swap_position_poketudiant_in_cafetaria(Pokecafetaria* caf, int t1, int c1, 
 {
   Poketudiant* tmp;
   int pos1, pos2;
-  pos1 = calcul_pos_cafetaria(t1,c1);
-  pos2 = calcul_pos_cafetaria(t2,c2);
+  pos1 = calcul_pos_pokecafetaria(t1,c1);
+  pos2 = calcul_pos_pokecafetaria(t2,c2);
 
   tmp = caf->list[pos1];
   caf->list[pos1] = caf->list[pos2];
@@ -57,16 +59,16 @@ Poketudiant* pop_poketudiant_from_cafetaria(Pokecafetaria* caf, int t, int c)
 {
   int pos1;
   Poketudiant* tmp;
-  pos1 = calcul_pos_cafetaria(t,c);
-  tmp = caf->list[pos];
-  caf->list[pos] = NULL;
+  pos1 = calcul_pos_pokecafetaria(t,c);
+  tmp = caf->list[pos1];
+  caf->list[pos1] = NULL;
   return tmp;
 }
 
-void delete_poketudiant_from_table(Pokecafetaria* caf, int t, int c)
+/*void delete_poketudiant_from_table(Pokecafetaria* caf, int t, int c)
 {
 
-}
+}*/
 
 void delete_pokecafetaria(Pokecafetaria* caf)
 {

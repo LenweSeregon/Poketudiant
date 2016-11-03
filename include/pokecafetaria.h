@@ -37,7 +37,7 @@ Pokecafetaria* create_pokecafetaria();
  *
  * @return : return 1 if there were a free position, 0 otherwise
  */
-int add_poketudiant_to_cafetaria(Pokecafetaria* caf, const Poketudiant* etu);
+int add_poketudiant_to_cafetaria(Pokecafetaria* caf, Poketudiant* etu);
 
 /*
  * @author : Gabriel
@@ -53,7 +53,7 @@ int add_poketudiant_to_cafetaria(Pokecafetaria* caf, const Poketudiant* etu);
  *
  * @return : return 1 if it were a free position, 0 otherwise
  */
-int add_poketudiant_to_cafetaria_by_position(Pokecafetaria* caf, const Poketudiant* etu, int t, int c);
+int add_poketudiant_to_cafetaria_by_position(Pokecafetaria* caf, Poketudiant* etu, int t, int c);
 
 /*
  * @author : Gabriel
@@ -110,7 +110,10 @@ Poketudiant* pop_poketudiant_from_cafetaria(Pokecafetaria* caf, int t, int c);
  *
  * @return : none
  */
+
+/*
 void delete_poketudiant_from_table(Pokecafetaria* caf, int t, int c);
+*/
 
 /*
  * @author : Gabriel
