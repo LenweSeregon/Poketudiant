@@ -20,13 +20,16 @@
 
 #include "factories.h"
 
-/* lol */
+#include "pokecafetaria.h"
+
+/* lol  mdr */
 int main(void)
 {
   Hash_table* att;
   Hash_table* poke;
   Poketudiant_factory* factory_poke;
   Poketudiant* test;
+  Pokecafetaria* cafe;
   init_seed_to_null();
   /*Poketudiant *poketudiant_1, *poketudiant_2;
   Attack *att_1, *att_2, *att_3, *att_4;
@@ -75,7 +78,11 @@ int main(void)
   printf("\n\n##########\n\n");
   print_hash_table(att);
   */
-  delete_poketudiant(test);
+  cafe = create_pokecafetaria();
+  add_poketudiant_to_cafetaria(cafe,test);
+  add_poketudiant_to_cafetaria_by_position(cafe,test,0,3);
+  delete_pokecafetaria(cafe);
+  /*delete_poketudiant(test);*/
   delete_poketudiant_factory(factory_poke);
   delete_hash_table(poke);
   delete_hash_table(att);

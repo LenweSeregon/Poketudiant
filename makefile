@@ -16,7 +16,8 @@ OBJS = 			$(B)/main.o\
 			$(B)/loading_module.o\
 			$(B)/math_utils.o\
 			$(B)/generic_control_function.o\
-			$(B)/factories.o
+			$(B)/factories.o\
+			$(B)/pokecafetaria.o
 
 
 executable : 		$(OBJS)
@@ -28,8 +29,9 @@ $(B)/main.o : 		$(S)/main.c\
 			$(I)/hash_table.h\
 			$(I)/math_utils.h\
 			$(I)/generic_control_function.h\
-			$(I)/factories.h
-	$(CC) $(CFLAGS) -c $< -I $(I) -o $@ 
+			$(I)/factories.h\
+			$(I)/pokecafetaria.h
+	$(CC) $(CFLAGS) -c $< -I $(I) -o $@
 
 $(B)/factories.o : 	$(S)/factories.c\
 			$(I)/factories.h\
@@ -100,6 +102,13 @@ $(B)/math_utils.o :	$(S)/math_utils.c\
 $(B)/string_utils.o : 	$(S)/string_utils.c\
 			$(I)/string_utils.h
 	$(CC) $(CFLAGS) -c $< -I $(I) -o $@
+
+$(B)/pokecafetaria.o :	$(S)/pokecafetaria.c\
+			$(I)/type_poke.h\
+			$(I)/attack.h\
+			$(I)/poketudiant.h\
+			$(I)/pokecafetaria.h
+	$(CC) $(CFLAGS) -c $< -I $(I) -o $@ 
 
 clean :
 	@rm -rf $(B)/* 2>/dev/null || true
