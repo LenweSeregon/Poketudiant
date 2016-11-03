@@ -89,7 +89,6 @@ int main(void)
 
   print_complete_poketudiant(test);
   
-  delete_poketudiant(test);
   /*print_hash_table(poke);
   printf("\n\n##########\n\n");
   print_hash_table(att);
