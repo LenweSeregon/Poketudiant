@@ -30,6 +30,7 @@ int main(void)
   Hash_table* poke;
   Poketudiant_factory* factory_poke;
   Poketudiant* test;
+  Poketudiant *g0,*g1,*g2,*g3;
   Evolve_center* center;
   Pokecafetaria* cafe;
   init_seed_to_null();
@@ -82,23 +83,29 @@ int main(void)
   print_complete_poketudiant(test);
   printf("#########\n");
 
-  if(earn_experience(test,750))
+  /*if(earn_experience(test,750))
     make_poketudiant_upgrade(center,test);
   if(earn_experience(test,100))
-    make_poketudiant_upgrade(center,test);
+  make_poketudiant_upgrade(center,test);*/
 
   print_complete_poketudiant(test);
-  
+  delete_poketudiant(test);
   /*print_hash_table(poke);
   printf("\n\n##########\n\n");
   print_hash_table(att);
   */
+  g0 = generate_random_poketudiant(factory_poke);
+  g1 = generate_random_poketudiant(factory_poke);
+  g2 = generate_random_poketudiant(factory_poke);
+  g3 = generate_random_poketudiant(factory_poke);
   cafe = create_pokecafetaria();
-  add_poketudiant_to_cafetaria(cafe,test);
-  add_poketudiant_to_cafetaria_by_position(cafe,test,0,3);
+  add_poketudiant_to_cafetaria(cafe,g0);
+  add_poketudiant_to_cafetaria_by_position(cafe,g1,0,3);
+  add_poketudiant_to_cafetaria_by_position(cafe,g2,2,0);
+  add_poketudiant_to_cafetaria(cafe,g3);
   
+  print_pokecafetaria(cafe);
   delete_pokecafetaria(cafe);
-  /*delete_poketudiant(test);*/
   delete_poketudiant_factory(factory_poke);
   delete_evolve_center(center);
   delete_hash_table(poke);
