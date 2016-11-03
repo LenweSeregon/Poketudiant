@@ -17,12 +17,8 @@ OBJS = 			$(B)/main.o\
 			$(B)/math_utils.o\
 			$(B)/generic_control_function.o\
 			$(B)/factories.o\
-<<<<<<< HEAD
-			$(B)/evolve_module.o
-=======
+			$(B)/evolve_module.o\
 			$(B)/pokecafetaria.o
->>>>>>> 7be70886d307d1f49384beab5db33e55e205c6bc
-
 
 executable : 		$(OBJS)
 	$(CC) -o $@ $^ -lm
