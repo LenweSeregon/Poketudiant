@@ -17,7 +17,11 @@ OBJS = 			$(B)/main.o\
 			$(B)/math_utils.o\
 			$(B)/generic_control_function.o\
 			$(B)/factories.o\
+<<<<<<< HEAD
 			$(B)/evolve_module.o
+=======
+			$(B)/pokecafetaria.o
+>>>>>>> 7be70886d307d1f49384beab5db33e55e205c6bc
 
 
 executable : 		$(OBJS)
@@ -29,8 +33,9 @@ $(B)/main.o : 		$(S)/main.c\
 			$(I)/hash_table.h\
 			$(I)/math_utils.h\
 			$(I)/generic_control_function.h\
-			$(I)/factories.h
-	$(CC) $(CFLAGS) -c $< -I $(I) -o $@ 
+			$(I)/factories.h\
+			$(I)/pokecafetaria.h
+	$(CC) $(CFLAGS) -c $< -I $(I) -o $@
 
 $(B)/evolve_module.o : 	$(S)/evolve_module.c\
 			$(I)/evolve_module.h\
@@ -113,6 +118,13 @@ $(B)/math_utils.o :	$(S)/math_utils.c\
 $(B)/string_utils.o : 	$(S)/string_utils.c\
 			$(I)/string_utils.h
 	$(CC) $(CFLAGS) -c $< -I $(I) -o $@
+
+$(B)/pokecafetaria.o :	$(S)/pokecafetaria.c\
+			$(I)/type_poke.h\
+			$(I)/attack.h\
+			$(I)/poketudiant.h\
+			$(I)/pokecafetaria.h
+	$(CC) $(CFLAGS) -c $< -I $(I) -o $@ 
 
 clean :
 	@rm -rf $(B)/* 2>/dev/null || true

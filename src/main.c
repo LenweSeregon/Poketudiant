@@ -21,14 +21,20 @@
 #include "evolve_module.h"
 #include "factories.h"
 
-/* lol */
+#include "pokecafetaria.h"
+
+/* lol  mdr */
 int main(void)
 {
   Hash_table* att;
   Hash_table* poke;
   Poketudiant_factory* factory_poke;
   Poketudiant* test;
+<<<<<<< HEAD
   Evolve_center* center;
+=======
+  Pokecafetaria* cafe;
+>>>>>>> 7be70886d307d1f49384beab5db33e55e205c6bc
   init_seed_to_null();
   /*Poketudiant *poketudiant_1, *poketudiant_2;
   Attack *att_1, *att_2, *att_3, *att_4;
@@ -77,6 +83,7 @@ int main(void)
   test->hp_max = 40;
 
   print_complete_poketudiant(test);
+<<<<<<< HEAD
   printf("#########\n");
 
   if(earn_experience(test,750))
@@ -87,6 +94,17 @@ int main(void)
   print_complete_poketudiant(test);
   
   delete_poketudiant(test);
+=======
+  /*print_hash_table(poke);
+  printf("\n\n##########\n\n");
+  print_hash_table(att);
+  */
+  cafe = create_pokecafetaria();
+  add_poketudiant_to_cafetaria(cafe,test);
+  add_poketudiant_to_cafetaria_by_position(cafe,test,0,3);
+  delete_pokecafetaria(cafe);
+  /*delete_poketudiant(test);*/
+>>>>>>> 7be70886d307d1f49384beab5db33e55e205c6bc
   delete_poketudiant_factory(factory_poke);
   delete_evolve_center(center);
   delete_hash_table(poke);
