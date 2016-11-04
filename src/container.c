@@ -63,6 +63,20 @@ int add_to_container_if_not_exist(Container* container, void* element)
     }
 }
 
+void empty_container(Container* container)
+{
+  unsigned int i;
+  for(i = 0; i < container->current; i++) 
+    {
+      if(container->has_memory_element_responsability)
+	{
+	  container->delete_fct(container->list[i]);  
+	}
+      container->list[i] = NULL;
+    }
+  container->current = 0;
+}
+
 void* remove_to_container(Container* container, void* element)
 {
   void* to_return = NULL;

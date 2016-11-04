@@ -97,6 +97,20 @@ int add_to_container_if_not_exist(Container* container, void* element);
 
 /*
  * @author : Nicolas
+ * @date   : 04 / 11 / 2016
+ * @state  : [No bug]
+ * 
+ * @name   : empty_container
+ * @arg    : container , pointer on container that's we want to empty 
+ * @desc   : This function is use to empty the container ! It's also free element
+             if container is responsable of memory
+ *
+ * @return : return the removed element;
+ */
+void empty_container(Container* container);
+
+/*
+ * @author : Nicolas
  * @date   : 28 / 10 / 2016
  * @state  : [No bug]
  * 

@@ -22,6 +22,7 @@ Battle_module* create_battle_module(Poketudiant_factory* ref_poke_facto,
 				    Evolve_center* ref_evolve_center);
 void delete_battle_module(Battle_module* battle_module);
 
+void distribute_xp_to_poketudiants(Battle_module* battle_module, Container* all_poke, int total_xp);
 int attack_poketudiant(Poketudiant* poke_att, Poketudiant* poke_def, Attack* att);
 int try_to_capture(Poketudiant* poketudiant_ia);
 int try_to_escape(Poketudiant* poketudiant_player, Poketudiant* poketudiant_ia);
@@ -42,13 +43,13 @@ int trainer_versus_random_wild_poketudiant(Battle_module* battle_module,
 					    int min_level, 
 					    int max_level);
 
-/*
+
 int trainer_versus_random_trainer(Battle_module* battle_module,
 				   Trainer* trainer, 
 				   int min_level,
 				   int max_level);
 
-int trainer_versus_trainer(Battle_module* battle_module,
+/*int trainer_versus_trainer(Battle_module* battle_module,
 			    Trainer* trainer,
 			    Trainer* ia);
 */

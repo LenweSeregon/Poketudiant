@@ -87,6 +87,15 @@ int cmp_poketudiant_fct_via_capturable(void* a, void* b)
     return 1;
 }
 
+int cmp_poketudiant_fct_via_type_refuse(void* a,void* b)
+{
+   Poketudiant* aBis = (Poketudiant*)a;
+  Type_poke type = *((Type_poke*)b);
+  
+  if(aBis->type == type) return 1;
+  else return 0;
+}
+
 int hash_attack_fct(void* element)
 {
   Attack* p = (Attack*)element;

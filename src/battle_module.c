@@ -16,6 +16,8 @@
 #include "evolve_module.h"
 #include "battle_module.h"
 
+#define XP_START_WILD_POKE 300
+
 Battle_module* create_battle_module(Poketudiant_factory* ref_poke_facto,
 				    Evolve_center* ref_evolve_center)
 {
@@ -143,6 +145,22 @@ State_action manage_order_vs_trainer()
 }
 */
 
+void distribute_xp_to_poketudiants(Battle_module* battle_module, Container* all_poke, int total_xp)
+{
+  unsigned int xp_per_poke = (int)round(total_xp/(float)all_poke->current);
+  unsigned int i;
+  printf("Experience won = %d\n",total_xp);
+  printf("Experience per poke = %d\n",xp_per_poke);
+  for(i = 0; i < all_poke->current; i++)
+    {
+      if(earn_experience((Poketudiant*)all_poke->list[i],xp_per_poke))
+	{
+	  make_poketudiant_upgrade(battle_module->ref_evolve_center,
+				   (Poketudiant*)all_poke->list[i]);
+	}
+    }
+}
+
 int attack_poketudiant(Poketudiant* poke_att, Poketudiant* poke_def, Attack* att)
 {
   /* Attaque avec les resistances etc a voir */
@@ -258,6 +276,13 @@ int trainer_versus_random_wild_poketudiant(Battle_module* battle_module,
   container_poke_participate->delete_fct = delete_poketudiant_fct;
   add_to_container_if_not_exist(container_poke_participate,current_fighter);
   win = 0;
+
+  /* If poketudiant is level 1 let's make him with 300 xp to allow player to gain xp
+     XP_START_WILD_POKE has value 300 */
+  if(current_opponent->level == 1)
+    {
+      current_opponent->xp = XP_START_WILD_POKE;
+    }
 
   if(current_fighter == NULL)
     {
@@ -380,17 +405,7 @@ int trainer_versus_random_wild_poketudiant(Battle_module* battle_module,
   if(win)
     {
       unsigned int xp_won = (int)round((current_opponent->xp * 10)/100.0); /* 10% of enemy exp */
-      unsigned int xp_per_poke = (int)round(xp_won /(float)container_poke_participate->current);
-      unsigned int i;
-      printf("Experience won = %d\n",xp_won);
-      printf("Experience per poke = %d\n",xp_per_poke);
-      for(i = 0; i < container_poke_participate->current; i++)
-	{
-	  if(earn_experience(container_poke_participate->list[i],xp_per_poke))
-	    {
-	      make_poketudiant_upgrade(battle_module->ref_evolve_center,container_poke_participate->list[i]);
-	    }
-	}
+      distribute_xp_to_poketudiants(battle_module,container_poke_participate,xp_won);
     }
 
   delete_container(container_poke_participate);
@@ -398,16 +413,175 @@ int trainer_versus_random_wild_poketudiant(Battle_module* battle_module,
   return win;
 }
 
-/*
+
 int trainer_versus_random_trainer(Battle_module* battle_module,
 				   Trainer* trainer, 
 				   int min_level,
 				   int max_level)
 {
 
+  Container* container_poke_participate;
+  Trainer* opponent_trainer;
+  int random_level;
+  Poketudiant* current_fighter;
+  Poketudiant* current_opponent;
+  int win;
+
+  random_level = random_int(min_level,max_level);
+  opponent_trainer = generate_random_trainer(battle_module->ref_poke_factory,random_level);
+
+  container_poke_participate = create_container(DYNAMIC,3,0);
+  current_opponent = select_first_poketudiant_in_life(opponent_trainer);
+  current_fighter = select_first_poketudiant_in_life(trainer);
+ 
+  container_poke_participate->cmp_fct = cmp_poketudiant_fct_via_id;
+  container_poke_participate->delete_fct = delete_poketudiant_fct;
+  add_to_container_if_not_exist(container_poke_participate,current_fighter);
+  win = 0;
+
+
+  if(current_fighter == NULL)
+    {
+      printf("You doesn't have poketudiant able to fight ...\n");
+      printf("You lose this battle\n");
+      win = 0;
+    }
+  else
+    {
+      int battle_ended = 0;
+      while(!battle_ended)
+	{
+	  State_action action_player;
+	  /* Trainer play */
+	  /* Before making action, we need to check if our fighter is still able to fight 
+	     if he isn't player has to choose a new poketudiant and do nothing for this turn
+	  */
+	  if(current_fighter->hp < 1)
+	    {
+	      printf("Your %s is dead !\n",current_fighter->variety);
+	      current_fighter = change_current_poketudiant_fighter(trainer,current_fighter);
+	      if(current_fighter == NULL)
+		{
+		  printf("All your poketudiant are dead ...\n");
+		  printf("You lose this battle\n");
+		  win = 0;
+		  battle_ended = 1;
+		}
+	      else
+		{
+		  add_to_container_if_not_exist(container_poke_participate,current_fighter);
+		}
+	    }
+	  /* In this case, we're sure that our fighter have at least 1 hp, so player can make
+	     choice in menu
+	  */
+	  else
+	    {
+	      display_opponents(current_fighter, current_opponent);
+	      display_battle_menu_vs_wild_poketudiant();
+	      action_player = manage_order_vs_wild_poketudiant();
+	      
+	      switch(action_player)
+		{
+		case FIRST_ATTACK:
+		  {
+		    int res = attack_poketudiant(current_fighter,current_opponent,current_fighter->ref_attack_1);
+		    if(res)
+		      {
+			printf("Congratz ! %s has fallen\n",current_opponent->variety);
+		      }
+		    break;
+		  }
+		case SECOND_ATTACK:
+		  { 
+		    int res = attack_poketudiant(current_fighter,current_opponent,current_fighter->ref_attack_2);
+		    if(res)
+		      {
+			printf("Congratz ! %s has fallen.\n",current_opponent->variety);
+		      }
+		    break;
+		  }
+		case CHANGE_POKE:
+		  {
+		    Poketudiant* new_pok = change_current_poketudiant_fighter(trainer,current_fighter);
+		    if(new_pok != NULL)
+		      {
+			current_fighter = new_pok;
+			add_to_container_if_not_exist(container_poke_participate,current_fighter);
+		      }
+		    break;
+		  }
+		case TRY_CAPTURE:
+		  {
+		    int res = try_to_capture(current_opponent);
+		    if(res)
+		      {
+			printf("Capture succeed ! You capture %s , level %d\n",current_opponent->variety,current_opponent->level);
+			battle_ended = 1;
+			win = 1;
+		      }
+		    break;
+		  }
+		case TRY_ESCAPE:
+		  {
+		    int res = try_to_escape(current_fighter, current_opponent);
+		    if(res)
+		      {
+			printf("You succeed to escape battle !\n");
+			battle_ended = 1;
+			win = 1;
+		      }
+		    break;
+		  }
+		}
+	    }
+	  
+	  /* If battle is no ended that mean damage have been inflict and to escape or capture */
+	  if(!battle_ended)
+	    {
+	      /* Wild poketudiant play */
+	      /* Before making action, we need to check if our fighter is still able to fight 
+		 if he isn't player has to choose a new poketudiant and do nothing for this turn
+	      */
+	      if(current_opponent->hp < 1)
+		{
+		  unsigned int xp_won = (int)round((current_opponent->xp * 10)/100.0); /* 10%*/
+		  distribute_xp_to_poketudiants(battle_module,container_poke_participate,xp_won);
+		  empty_container(container_poke_participate);
+		  add_to_container_if_not_exist(container_poke_participate,current_fighter);
+ 		  
+		  current_opponent = select_first_poketudiant_in_life(opponent_trainer);
+		  if(current_opponent == NULL)
+		    {
+		      printf("All enemy's poketudiant are dead ...\n");
+		      printf("You win this battle\n");
+		      win = 1;
+		      battle_ended = 1;
+		    }
+		}
+	      /* Here current opponent poketudiant is not dead, so ia can play round as attacker */
+	      else
+		{
+		  int random_choice_ia = random_int(1,2);
+		  if(random_choice_ia == 1)
+		    {
+		  attack_poketudiant(current_opponent,current_fighter,current_opponent->ref_attack_1);
+		    }
+		  else
+		    {
+		      attack_poketudiant(current_opponent,current_fighter,current_opponent->ref_attack_2);
+		    }
+		}
+	    }
+	}
+    }
+
+  delete_container(container_poke_participate);
+  delete_trainer(opponent_trainer);
+  return win;
 }
 
-int trainer_versus_trainer(Battle_module* battle_module,
+/*int trainer_versus_trainer(Battle_module* battle_module,
 			    Trainer* trainer,
 			    Trainer* ia)
 {

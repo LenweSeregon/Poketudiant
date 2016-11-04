@@ -15,5 +15,6 @@ int make_poketudiant_evolve(Evolve_center* center,
 			    double coeff_att,
 			    double coeff_def,
 			    double coeff_hp);
+
 void make_poketudiant_upgrade(Evolve_center* center, Poketudiant* poke);
 #endif

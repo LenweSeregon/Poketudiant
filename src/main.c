@@ -76,28 +76,10 @@ int main(void)
   
   print_team(trainer);
 
-  trainer_versus_random_wild_poketudiant(battle,trainer,1,2);
-
+  /*trainer_versus_random_wild_poketudiant(battle,trainer,1,2);*/
+  
+  trainer_versus_random_trainer(battle,trainer,1,1);
   print_team(trainer);
-  /*
-  swap_poketudiant_position(trainer,1,3);
-  to_remove = (Poketudiant*)remove_poketudiant_from_team(trainer,1);
-  if(to_remove)
-    delete_poketudiant(to_remove);
-  printf("######\n");
-  */
-  /* print_team(trainer);
-   */
-  /*if(earn_experience(test,750))
-    make_poketudiant_upgrade(center,test);
-  if(earn_experience(test,100))
-  make_poketudiant_upgrade(center,test);*/
-
-  /*print_hash_table(poke);
-  printf("\n\n##########\n\n");
-  print_hash_table(att);
-  */
-
 
   
   g0 = generate_random_poketudiant(factory_poke,1);
@@ -111,7 +93,8 @@ int main(void)
   add_poketudiant_to_cafetaria_by_position(cafe,g1,0,3);
   add_poketudiant_to_cafetaria_by_position(cafe,g2,2,0);
   add_poketudiant_to_cafetaria(cafe,g3);
-  print_pokecafetaria(cafe);
+  
+  /*print_pokecafetaria(cafe);*/
 
 
   delete_poketudiant(test4);

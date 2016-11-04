@@ -10,6 +10,7 @@ int cmp_poketudiant_fct_via_type(void* a,void* b);
 int cmp_poketudiant_fct_via_variety(void* a, void* b);
 int cmp_poketudiant_fct_via_id(void* a, void* b);
 int cmp_poketudiant_fct_via_capturable(void* a, void* b);
+int cmp_poketudiant_fct_via_type_refuse(void* a,void* b);
 
 int hash_attack_fct(void* element);
 void print_attack_fct(void* element);

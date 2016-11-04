@@ -63,6 +63,23 @@ void delete_poketudiant_factory(Poketudiant_factory* factory);
  */
 Poketudiant* generate_random_poketudiant(Poketudiant_factory* factory,int level);
 
+
+/*
+ * @author : Nicolas
+ * @date   : 01 / 11 / 2016
+ * @state  : [No bug]
+ * 
+ * @name   : generate_random_poketudiant
+ * @arg    : factory , pointer on factory with which we want to generate poketudiant
+ * @arg    : level , level that we want our generated poketudiant to have
+ * @desc   : This function is used to generate a random poketudiant at level specify in parameters
+             and without teacher poketudiant
+ *
+ * @return : pointer on poketudiant created;
+ */
+Poketudiant* generate_random_poketudiant_without_teacher(Poketudiant_factory* factory,int level);
+
+
 /*
  * @author : Nicolas
  * @date   : 03 / 11 / 2016
@@ -93,5 +110,20 @@ Poketudiant* generate_random_capturable_poketudiant(Poketudiant_factory* factory
  * @return : pointer on poketudiant created;
  */
 Poketudiant* generate_poketudiant_from_name(Poketudiant_factory* factory, char* name, int level);
+
+/*
+ * @author : Nicolas
+ * @date   : 04 / 11 / 2016
+ * @state  : [No bug]
+ * 
+ * @name   : generate_random_trainer
+ * @arg    : factory , pointer on factory with which we want to generate trainer
+ * @arg    : level , level that we want our trainer's poketudiant to get
+ * @desc   : This function is used to generate a trainer with 3 poketudiant with right level
+             according to parameter
+ *
+ * @return : pointer on trainer created;
+ */
+Trainer* generate_random_trainer(Poketudiant_factory* factory, int level);
 
 #endif

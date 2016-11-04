@@ -97,7 +97,7 @@ void* get_random_element_in_hash_table(Hash_table* table)
   int random_value;
   unsigned int i;
   void* to_return;
-  Container* container = create_container(DYNAMIC,30,0);
+  Container* container = create_container(DYNAMIC,10,0);
   for(i = 0; i < table->size; i++)
     {
       if(table->array[i] != NULL)
