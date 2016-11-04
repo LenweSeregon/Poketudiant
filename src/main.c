@@ -38,33 +38,12 @@ int main(void)
   Poketudiant* test3;
   Poketudiant* test4;
   /*Poketudiant* to_remove;*/
+  Poketudiant *g0,*g1,*g2,*g3;
   Evolve_center* center;
   Pokecafetaria* cafe;
   Trainer* trainer;
   Battle_module* battle;
   init_seed_to_null();
-  /*Poketudiant *poketudiant_1, *poketudiant_2;
-  Attack *att_1, *att_2, *att_3, *att_4;
-
-  att_1 = create_attack("Flemme",LAZY,10);
-  att_2 = create_attack("Boucan",NOISY,10);
-  att_3 = create_attack("Silence",MOTIVATED,10);
-  att_4 = create_attack("Interro",TEACHER,20);
-
-  poketudiant_1 = create_poketudiant(LAZY,"Someilprofon",att_1,att_3,10,10,20,1,"lol");
-  poketudiant_2 = create_poketudiant(MOTIVATED,"AlleEnCours",att_3,att_2,10,10,30,1,"mdr");
-
-  print_complete_poketudiant(poketudiant_1);
-  printf("#######\n");
-  print_complete_poketudiant(poketudiant_2);
-  
-  delete_poketudiant(poketudiant_1);
-  delete_poketudiant(poketudiant_2);
-  delete_attack(att_1);
-  delete_attack(att_2);
-  delete_attack(att_3);
-  delete_attack(att_4);
-  */
 
   att = create_hash_table(20);
   poke = create_hash_table(20);
@@ -109,19 +88,36 @@ int main(void)
   */
   /* print_team(trainer);
    */
+  /*if(earn_experience(test,750))
+    make_poketudiant_upgrade(center,test);
+  if(earn_experience(test,100))
+  make_poketudiant_upgrade(center,test);*/
+
   /*print_hash_table(poke);
   printf("\n\n##########\n\n");
   print_hash_table(att);
   */
+
+
+  
+  g0 = generate_random_poketudiant(factory_poke,1);
+  g1 = generate_random_poketudiant(factory_poke,1);
+  g2 = generate_random_poketudiant(factory_poke,1);
+  g3 = generate_random_poketudiant(factory_poke,1);
   cafe = create_pokecafetaria();
   
-  /*add_poketudiant_to_cafetaria(cafe,test);
-  add_poketudiant_to_cafetaria_by_position(cafe,test,0,3);
-  */
-  
+
+  add_poketudiant_to_cafetaria(cafe,g0);
+  add_poketudiant_to_cafetaria_by_position(cafe,g1,0,3);
+  add_poketudiant_to_cafetaria_by_position(cafe,g2,2,0);
+  add_poketudiant_to_cafetaria(cafe,g3);
+  print_pokecafetaria(cafe);
+
+
   delete_poketudiant(test4);
-  delete_pokecafetaria(cafe);
   delete_trainer(trainer);
+  delete_pokecafetaria(cafe);
+  delete_battle_module(battle);
   delete_poketudiant_factory(factory_poke);
   delete_evolve_center(center);
   delete_hash_table(poke);

@@ -15,7 +15,7 @@ typedef struct Pokecafetaria
 /*
  * @author : Gabriel
  * @date   : 02 / 11 / 2016
- * @state  : [not tested]
+ * @state  : [possible bug]
  * 
  * @name   : create_pokecafetaria
  * @arg    : none
@@ -28,7 +28,7 @@ Pokecafetaria* create_pokecafetaria();
 /*
  * @author : Gabriel
  * @date   : 02 / 11 / 2016
- * @state  : [not tested]
+ * @state  : [possible bug]
  * 
  * @name   : add_poketudiant_to_cafetaria
  * @arg    : caf, pointer on pokecafetaria that will recieve the poketudiant
@@ -42,7 +42,7 @@ int add_poketudiant_to_cafetaria(Pokecafetaria* caf, Poketudiant* etu);
 /*
  * @author : Gabriel
  * @date   : 03 / 11 / 2016
- * @state  : [not tested]
+ * @state  : [possible bug]
  * 
  * @name   : add_poketudiant_to_cafetaria_by_postion
  * @arg    : caf, pointer on pokecafetaria that will recieve the poketudiant
@@ -58,7 +58,7 @@ int add_poketudiant_to_cafetaria_by_position(Pokecafetaria* caf, Poketudiant* et
 /*
  * @author : Gabriel
  * @date   : 03 / 11 / 2016
- * @state  : [not tested]
+ * @state  : [possible bug]
  * 
  * @name   : get_poketudiant_from_cafetaria_by_position
  * @arg    : caf, pointer on pokecafetaria where we will get the poketudiant
@@ -73,7 +73,7 @@ Poketudiant* get_poketudiant_from_cafetaria_by_position(Pokecafetaria* caf, int 
 /*
  * @author : Gabriel
  * @date   : 03 / 11 / 2016
- * @state  : [not tested]
+ * @state  : [possible bug]
  * 
  * @name   : swap_position_poketudiant_in_cafetaria
  * @arg    : caf, pointer on pokecafetaria that we will modify
@@ -87,7 +87,7 @@ void swap_position_poketudiant_in_cafetaria(Pokecafetaria* caf, int t1, int c1, 
 /*
  * @author : Gabriel
  * @date   : 03 / 11 / 2016
- * @state  : [not tested]
+ * @state  : [possible bug]
  * 
  * @name   : pop_poketudiant_from_cafetaria
  * @arg    : caf, pointer on pokecafetaria that we will modify
@@ -101,7 +101,7 @@ Poketudiant* pop_poketudiant_from_cafetaria(Pokecafetaria* caf, int t, int c);
 /*
  * @author : Gabriel
  * @date   : 03 / 11 / 2016
- * @state  : [not implemented]
+ * @state  : [possible bug]
  * 
  * @name   : delete_poketudiant_from_table
  * @arg    : caf, pointer on pokecafetaria that we will modify
@@ -110,15 +110,13 @@ Poketudiant* pop_poketudiant_from_cafetaria(Pokecafetaria* caf, int t, int c);
  *
  * @return : none
  */
-
-/*
 void delete_poketudiant_from_table(Pokecafetaria* caf, int t, int c);
-*/
+
 
 /*
  * @author : Gabriel
  * @date   : 03 / 11 / 2016
- * @state  : [not tested]
+ * @state  : [possible bug]
  * 
  * @name   : delete_pokecafetaria
  * @arg    : caf, pointer on pokecafetaria that we will delete
@@ -131,7 +129,7 @@ void delete_pokecafetaria(Pokecafetaria* caf);
 /*
  * @author : Gabriel
  * @date   : 03 / 11 / 2016
- * @state  : [not tested]
+ * @state  : [possible bug]
  * 
  * @name   : calcul_pos_pokecafetaria
  * @arg    : c,t position of a poketudiant
@@ -140,4 +138,31 @@ void delete_pokecafetaria(Pokecafetaria* caf);
  * @return : the position
  */
 int calcul_pos_pokecafetaria(int t, int c);
+
+/*
+ * @author : Gabriel
+ * @date   : 03 / 11 / 2016
+ * @state  : [possible bug]
+ * 
+ * @name   : print_pokecafetaria
+ * @arg    : caf, pointer on a pokecafetaria
+ * @desc   : print the table of the pokecafetaria 
+ *
+ * @return : none
+ */
+void print_pokecafetaria(Pokecafetaria* caf);
+
+/*
+ * @author : Gabriel
+ * @date   : 03 / 11 / 2016
+ * @state  : [possible bug]
+ * 
+ * @name   : print_table_pokecafetaria
+ * @arg    : caf, pointer on a pokecafetaria
+ * @arg    : t, position of a table in the pokecafetaria
+ * @desc   : print the poketudiants in tha table 
+ *
+ * @return : none
+ */
+void print_table_pokecafetaria(Pokecafetaria* caf, int t);
 #endif
