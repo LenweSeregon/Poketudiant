@@ -18,7 +18,9 @@ OBJS = 			$(B)/main.o\
 			$(B)/generic_control_function.o\
 			$(B)/factories.o\
 			$(B)/evolve_module.o\
-			$(B)/pokecafetaria.o
+			$(B)/pokecafetaria.o\
+			$(B)/trainer.o\
+			$(B)/battle_module.o
 
 executable : 		$(OBJS)
 	$(CC) -o $@ $^ -lm
@@ -31,6 +33,19 @@ $(B)/main.o : 		$(S)/main.c\
 			$(I)/generic_control_function.h\
 			$(I)/factories.h\
 			$(I)/pokecafetaria.h
+	$(CC) $(CFLAGS) -c $< -I $(I) -o $@
+
+$(B)/battle_module.o :	$(S)/battle_module.c\
+			$(I)/battle_module.h\
+			$(I)/math_utils.h\
+			$(I)/container.h\
+			$(I)/linked_list.h\
+			$(I)/hash_table.h\
+			$(I)/type_poke.h\
+			$(I)/attack.h\
+			$(I)/poketudiant.h\
+			$(I)/trainer.h\
+			$(I)/factories.h
 	$(CC) $(CFLAGS) -c $< -I $(I) -o $@
 
 $(B)/evolve_module.o : 	$(S)/evolve_module.c\
@@ -73,6 +88,14 @@ $(B)/generic_control_function.o : \
 			$(I)/attack.h\
 			$(I)/type_poke.h\
 			$(I)/poketudiant.h
+	$(CC) $(CFLAGS) -c $< -I $(I) -o $@
+
+$(B)/trainer.o :	$(S)/trainer.c\
+			$(I)/trainer.h\
+			$(I)/type_poke.h\
+			$(I)/attack.h\
+			$(I)/poketudiant.h\
+			$(I)/generic_control_function.h
 	$(CC) $(CFLAGS) -c $< -I $(I) -o $@
 
 $(B)/poketudiant.o : 	$(S)/poketudiant.c\

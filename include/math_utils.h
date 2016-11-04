@@ -1,7 +1,9 @@
 #ifndef __MATH_UTILS_H__
 #define __MATH_UTILS_H__
 
-
+#ifndef max
+#define max(a,b) ((a) > (b) ? (a) : (b))
+#endif
 /*
  * @author : Nicolas
  * @date   : 28 / 10 / 2016

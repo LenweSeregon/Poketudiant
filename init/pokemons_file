@@ -23,7 +23,7 @@
 # { //Debut d’un nouveau pokétudiant
 #	name = x
 #	type = [N]
-#  	capturable = [true,false]
+#  	capturable = [0,1]
 #	evolution = [none,X]
 #	attack = x 
 #	defense = x
@@ -34,7 +34,7 @@
 {
 	name = Parlfor
 	type = NOISY
-	capturable = true
+	capturable = 1
 	evolution = none
 	attack = 60
 	defense = 40
@@ -44,7 +44,7 @@
 {
 	name = Ismar
 	type = NOISY
-	capturable = true
+	capturable = 1
 	evolution = Rigolamor
 	attack = 50
 	defense = 30
@@ -54,7 +54,7 @@
 {
 	name = Rigolamor
 	type = NOISY
-	capturable = false
+	capturable = 0
 	evolution = none
 	attack = 85
 	defense = 55
@@ -66,7 +66,7 @@
 {
 	name = Procrastino
 	type = LAZY
-	capturable = true
+	capturable = 1
 	evolution = none
 	attack = 40
 	defense = 60
@@ -76,7 +76,7 @@
 {
 	name = Couchtar
 	type = LAZY
-	capturable = true
+	capturable = 1
 	evolution = Nuidebou
 	attack = 30
 	defense = 50
@@ -86,7 +86,7 @@
 {
 	name = Nuidebou
 	type = LAZY
-	capturable = false
+	capturable = 0
 	evolution = none
 	attack = 55
 	defense = 85
@@ -98,7 +98,7 @@
 {
 	name = Buchafon
 	type = MOTIVATED
-	capturable = true
+	capturable = 1
 	evolution = none
 	attack = 50
 	defense = 50
@@ -108,7 +108,7 @@
 {
 	name = Belmention
 	type = MOTIVATED
-	capturable = true
+	capturable = 1
 	evolution = Promomajor
 	attack = 30
 	defense = 50
@@ -118,7 +118,7 @@
 {
 	name = Promomajor
 	type = MOTIVATED
-	capturable = false
+	capturable = 0
 	evolution = none
 	attack = 70
 	defense = 70
@@ -130,7 +130,7 @@
 {
 	name = Enseignant-dresseur
 	type = TEACHER
-	capturable = false
+	capturable = 0
 	evolution = none
 	attack = 100
 	defense = 100

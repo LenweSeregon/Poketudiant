@@ -65,6 +65,27 @@ int cmp_poketudiant_fct_via_variety(void* a, void* b)
     return 1;
 }
 
+int cmp_poketudiant_fct_via_id(void* a, void* b)
+{
+  Poketudiant* aBis = (Poketudiant*)a;
+  unsigned int id = *((int*)b);
+
+  if(aBis->id == id)
+    return 0;
+  else
+    return 1;
+}
+
+int cmp_poketudiant_fct_via_capturable(void* a, void* b)
+{
+  Poketudiant* aBis = (Poketudiant*)a;
+  int capt = *((int*)b);
+
+  if(aBis->capturable == capt)
+    return 0;
+  else
+    return 1;
+}
 
 int hash_attack_fct(void* element)
 {

@@ -29,7 +29,7 @@ struct Poketudiant
   unsigned int attack;
   unsigned int defense;
   unsigned int hp_max;
-  unsigned int hp;
+  int hp;
   
   unsigned int level;
   unsigned int xp;

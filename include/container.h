@@ -30,6 +30,7 @@ struct Container
 
   void (*display_element_fct)(void *);
   int (*cmp_fct)(void*,void*);
+  void (*delete_fct)(void*);
 };
 typedef struct Container Container;
 
@@ -76,9 +77,23 @@ void delete_container(Container* container);
  *
  * @return : no return;
  */
-void add_to_container(Container* container, void* element);
+int add_to_container(Container* container, void* element);
 
-
+/*
+ * @author : Nicolas
+ * @date   : 04 / 11 / 2016
+ * @state  : [No bug]
+ * 
+ * @name   : add_to_container_if_not_exist
+ * @arg    : container , pointer on container where we want to add element 
+ * @arg    : element , element that's we want to insert in container
+ * @desc   : This function is use to add an element in container. If you're container
+             is create as static, and if there's no more place, insertion is cancel.
+	     Also, according to cmp function, if element already exist, insertion is cancel
+ *
+ * @return : no return;
+ */
+int add_to_container_if_not_exist(Container* container, void* element);
 
 /*
  * @author : Nicolas
@@ -88,12 +103,12 @@ void add_to_container(Container* container, void* element);
  * @name   : remove_to_container
  * @arg    : container , pointer on container where we want to remove element 
  * @arg    : element, element that's we want to insert in container
- * @desc   : This function is use to remove an element and ensure no leak memory by freeing
-             properly the element
+ * @desc   : This function is use to remove an element from our container. take care
+             this function remove the pointer but doesn't free it !
  *
- * @return : no return;
+ * @return : return the removed element;
  */
-void remove_to_container(Container* container, void* element);
+void* remove_to_container(Container* container, void* element);
 
 
 /*

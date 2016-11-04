@@ -56,11 +56,27 @@ void delete_poketudiant_factory(Poketudiant_factory* factory);
  * 
  * @name   : generate_random_poketudiant
  * @arg    : factory , pointer on factory with which we want to generate poketudiant
- * @desc   : This function is used to generate a random poketudiant without restriction
+ * @arg    : level , level that we want our generated poketudiant to have
+ * @desc   : This function is used to generate a random poketudiant at level specify in parameters
  *
  * @return : pointer on poketudiant created;
  */
-Poketudiant* generate_random_poketudiant(Poketudiant_factory* factory);
+Poketudiant* generate_random_poketudiant(Poketudiant_factory* factory,int level);
+
+/*
+ * @author : Nicolas
+ * @date   : 03 / 11 / 2016
+ * @state  : [No bug]
+ * 
+ * @name   : generate_random_capturable_poketudiant
+ * @arg    : factory , pointer on factory with which we want to generate poketudiant
+ * @arg    : level , level that we want our poketudiant to get
+ * @desc   : This function is used to generate a random capturable poketudiant at level 
+             specify in parameter
+ *
+ * @return : pointer on poketudiant created;
+ */
+Poketudiant* generate_random_capturable_poketudiant(Poketudiant_factory* factory, int level);
 
 /*
  * @author : Nicolas
@@ -70,10 +86,12 @@ Poketudiant* generate_random_poketudiant(Poketudiant_factory* factory);
  * @name   : generate_random_poketudiant_from_name
  * @arg    : factory , pointer on factory with which we want to generate poketudiant
  * @arg    : name , poketudiant name that we want to generate
- * @desc   : This function is used to generate a poketudiant from his variety name
+ * @arg    : level , level that we want our generated poketudiant to get
+ * @desc   : This function is used to generate a poketudiant from his variety name at level 
+             specify in parameter
  *
  * @return : pointer on poketudiant created;
  */
-Poketudiant* generate_poketudiant_from_name(Poketudiant_factory* factory, char* name);
+Poketudiant* generate_poketudiant_from_name(Poketudiant_factory* factory, char* name, int level);
 
 #endif
