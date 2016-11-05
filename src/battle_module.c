@@ -51,7 +51,7 @@ void display_opponents(Poketudiant* poke_player, Poketudiant* poke_ia)
   printf("Your poketudiant :\n");
   print_complete_poketudiant(poke_player);
   printf("Enemy poketudiant :\n");
-  print_concise_poketudiant(poke_ia);
+  print_complete_poketudiant(poke_ia);
 }
 
 void display_battle_menu_vs_wild_poketudiant()
@@ -112,27 +112,27 @@ State_action manage_order_vs_wild_poketudiant()
   return action;
 }
 
-/*
 State_action manage_order_vs_trainer()
 {
-  int valid = 0;
+int valid = 0;
+  State_action action;
   while(!valid)
     {
       int answer;
       scanf("%d",&answer);
       switch(answer)
 	{
-	case FIRST_ATTACK:
+	case 1:
 	  valid = 1;
-	  printf("Launching first attack . . . BOOM\n");
+	  action = FIRST_ATTACK;
 	  break;
-	case SECOND_ATTACK:
+	case 2:
 	  valid = 1;
-	  printf("Launching second attack . . . BAM\n");
+	  action = SECOND_ATTACK;
 	  break;
-	case CHANGE_POKE:
+	case 3:
 	  valid = 1;
-	  printf("Change poketudiant . . .\n");
+	  action = CHANGE_POKE;
 	  break;
 	default:
 	  printf("Your answer is unavailable please make choice according to menu\n");
@@ -141,9 +141,9 @@ State_action manage_order_vs_trainer()
 	  break;
 	}
     }
-  return 0;
+  
+  return action;
 }
-*/
 
 void distribute_xp_to_poketudiants(Battle_module* battle_module, Container* all_poke, int total_xp)
 {
@@ -478,8 +478,8 @@ int trainer_versus_random_trainer(Battle_module* battle_module,
 	  else
 	    {
 	      display_opponents(current_fighter, current_opponent);
-	      display_battle_menu_vs_wild_poketudiant();
-	      action_player = manage_order_vs_wild_poketudiant();
+	      display_battle_menu_vs_trainer();
+	      action_player = manage_order_vs_trainer();
 	      
 	      switch(action_player)
 		{

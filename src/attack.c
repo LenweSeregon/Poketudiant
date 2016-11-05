@@ -25,7 +25,7 @@ void delete_attack(Attack* attack)
 
 void print_attack(const Attack* attack)
 {
-  printf("Name = %s | Type = %s | Pow = %d",attack->name,
+  printf("Name = %s | Type = %s | Pow = %d\n",attack->name,
 	                                    string_from_enum_type_poke(attack->type),
 	                                    attack->pow);
 }

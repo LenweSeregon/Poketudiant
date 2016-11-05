@@ -74,13 +74,12 @@ int main(void)
   add_poketudiant_to_team(trainer,test3);
   add_poketudiant_to_team(trainer,test4);
   
-  print_team(trainer);
-
-  /*trainer_versus_random_wild_poketudiant(battle,trainer,1,2);*/
-  
+  /*print_team(trainer);
+   */
+  /*trainer_versus_random_wild_poketudiant(battle,trainer,1,2);
+   */
   trainer_versus_random_trainer(battle,trainer,1,1);
   print_team(trainer);
-
   
   g0 = generate_random_poketudiant(factory_poke,1);
   g1 = generate_random_poketudiant(factory_poke,1);
@@ -95,7 +94,6 @@ int main(void)
   add_poketudiant_to_cafetaria(cafe,g3);
   
   /*print_pokecafetaria(cafe);*/
-
 
   delete_poketudiant(test4);
   delete_trainer(trainer);

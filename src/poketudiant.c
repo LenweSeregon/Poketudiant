@@ -102,14 +102,14 @@ void print_complete_poketudiant(const Poketudiant* pok)
 {
   printf("**************************************************************************\n");
   printf("**************************************************************************\n");
-  printf("**\t\t\t\tCaracteristics:\t\t\t\t**\n");
-  printf("** ID = %d | Variety = %s | Type = %s\t\t**\n",pok->id,pok->variety,string_from_enum_type_poke(pok->type));
-  printf("** Attack = %d | Defense = %d | Hp = %d / %d\t\t\t**\n",pok->attack,pok->defense,pok->hp,pok->hp_max);
-  printf("** Level = %d | XP = %d / %d\t\t\t\t\t\t**\n",pok->level,pok->xp,pok->xp_next);
+  printf("\tCaracteristics:\n");
+  printf("ID = %d | Variety = %s | Type = %s\n",pok->id,pok->variety,string_from_enum_type_poke(pok->type));
+  printf("Attack = %d | Defense = %d | Hp = %d / %d\n",pok->attack,pok->defense,pok->hp,pok->hp_max);
+  printf("Level = %d | XP = %d / %d\n",pok->level,pok->xp,pok->xp_next);
   printf("**************************************************************************\n");
-  printf("**\t\t\t\t    Attack :\t\t\t\t**\n");
-  printf("**\t");print_attack(pok->ref_attack_1);printf("\t\t**\n");
-  printf("**\t");print_attack(pok->ref_attack_2);printf("\t\t\t**\n");
+  printf("\tAttack :\n");
+  print_attack(pok->ref_attack_1);
+  print_attack(pok->ref_attack_2);
   printf("**************************************************************************\n");
   printf("**************************************************************************\n");
 }
@@ -118,10 +118,10 @@ void print_concise_poketudiant(const Poketudiant* pok)
 {
   printf("**************************************************************************\n");
   printf("**************************************************************************\n");
-  printf("**\t\t\t\tCaracteristics:\t\t\t\t**\n");
-  printf("** ID = %d | Variety = %s | Type = %s\t\t\t\t**\n",pok->id,pok->variety,string_from_enum_type_poke(pok->type));
-  printf("** Attack = %d | Defense = %d | Hp = %d / %d\t\t\t\t**\n",pok->attack,pok->defense,pok->hp,pok->hp_max);
-  printf("** Level = %d | XP = %d / %d\t\t\t\t\t\t**\n",pok->level,pok->xp,pok->xp_next);
+  printf("\tCaracteristics:\n");
+  printf("ID = %d | Variety = %s\n",pok->id,pok->variety);
+  printf("Hp = %d / %d\n",pok->hp,pok->hp_max);
+  printf("Level = %d\n",pok->level);
   printf("**************************************************************************\n");
   printf("**************************************************************************\n");
   }
