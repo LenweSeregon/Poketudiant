@@ -55,7 +55,7 @@ typedef struct Poketudiant Poketudiant;
 Poketudiant* create_poketudiant(Type_poke type, char* variety, 
 				Attack* att_1, Attack* att_2,
 				unsigned int att, unsigned int def, unsigned int hp_max,
-				int capturable, char* evolution,int real_poketudiant);
+				int capturable, char* evolution);
 
 
 /*

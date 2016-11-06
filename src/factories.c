@@ -11,6 +11,7 @@
 #include "attack.h"
 #include "poketudiant.h"
 #include "generic_control_function.h"
+#include "pokecafetaria.h"
 #include "trainer.h"
 #include "factories.h"
 
@@ -257,7 +258,7 @@ Poketudiant* generate_random_poketudiant_without_teacher(Poketudiant_factory* fa
     }
 }
 
-Poketudiant* generate_poketudiant_from_name(Poketudiant_factory* factory,char* name, int level)
+Poketudiant* generate_poketudiant_from_name(Poketudiant_factory* factory, char* name, int level)
 {
   if(level <= 0 || level > 10)
     {
@@ -343,7 +344,7 @@ Trainer* generate_random_trainer(Poketudiant_factory* factory, int level)
   Poketudiant* ia_2;
   Poketudiant* ia_3;
 
-  trainer = create_trainer("IA trainer");
+  trainer = create_trainer("IA trainer",1);
   ia_1 = generate_poketudiant_from_name(factory,"Enseignant-dresseur",level);
   ia_2 = generate_random_poketudiant_without_teacher(factory,level);
   ia_3 = generate_random_poketudiant_without_teacher(factory,level);

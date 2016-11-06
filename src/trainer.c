@@ -8,11 +8,12 @@
 #include "attack.h"
 #include "poketudiant.h"
 #include "generic_control_function.h"
+#include "pokecafetaria.h"
 #include "trainer.h"
 
 
 #define MAX_POKE_IN_TEAM 3
-Trainer* create_trainer(const char* name)
+Trainer* create_trainer(const char* name, int ia_trainer)
 {
   unsigned int size_name = strlen(name) + 1;
   Trainer* trainer = malloc(sizeof(Trainer));
@@ -22,6 +23,17 @@ Trainer* create_trainer(const char* name)
   trainer->team = create_container(STATIC,3,1);
   trainer->team->display_element_fct = print_poketudiant_fct;
   trainer->team->delete_fct = delete_poketudiant_fct;
+  
+  trainer->ia_trainer = ia_trainer;
+  if(ia_trainer)
+    {
+      trainer->cafetaria = NULL;
+    }
+  else
+    {
+      trainer->cafetaria = create_pokecafetaria();
+    }
+  
   return trainer;
 }
 
@@ -29,15 +41,45 @@ void delete_trainer(Trainer* trainer)
 {
   free(trainer->name);
   delete_container(trainer->team);
+  if(trainer->cafetaria != NULL)
+    {
+      delete_pokecafetaria(trainer->cafetaria);
+    }
   free(trainer);
 }
 
 int add_poketudiant_to_team(Trainer* trainer, Poketudiant* poke)
 {
+  static int id = 0;
+  
+  int succeed = 1;
   if(!add_to_container(trainer->team,poke))
     {
-      printf("No more space in your team . . . Sending this poketudiant to pokecafetaria.\n");
+      succeed = 0;
+      printf("No more space in your team . . . Sending %s to pokecafetaria.\n",poke->variety);
+      if(!add_poketudiant_to_cafetaria(trainer->cafetaria,poke))
+	{
+	  printf("No more space in your cafetaria . . . %s run away in wild.\n",poke->variety);
+	  succeed = 0;
+	}
+      else
+	{
+	  printf("Your %s has well arrived to pokecafetaria.\n",poke->variety);
+	  succeed = 1;
+	}
+    }
+  
+  /* Impossible to add poketudiant to team or cafeteria, he run away we have to free it */
+  if(!succeed)
+    {
+      delete_poketudiant(poke);
       return 0;
+    }
+  /* Insertion has succeed, we shoud give an appropriate id for our poketudiant because we know 
+     he'll be atleast for a time durable in game */
+  if(!trainer->ia_trainer)
+    {
+      poke->id = id++;
     }
   return 1;
 }

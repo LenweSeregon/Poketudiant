@@ -6,27 +6,18 @@
 #include "attack.h"
 #include "poketudiant.h"
 
-static id = 0;
-
 Poketudiant* create_poketudiant(Type_poke type, char* variety, 
 				Attack* att_1, Attack* att_2,
 				unsigned int att, unsigned int def, unsigned int hp_max,
-				int capturable, char* evolution, int real_poketudiant)
+				int capturable, char* evolution)
 {
 
   Poketudiant* poketudiant = malloc(sizeof(Poketudiant));
   unsigned int size_variety = strlen(variety) + 1;
   unsigned int size_evolution = strlen(evolution) + 1;
-  
-  if(real_poketudiant)
-    {
-      poketudiant->id = id++;
-    }
-  else
-    {
-      poketudiant->id = -1;
-    } 
-  
+   
+  poketudiant->id = -1;
+
   poketudiant->variety = malloc(size_variety * sizeof(char));
   poketudiant->evolution = malloc(size_evolution * sizeof(char));
   strcpy(poketudiant->variety,variety);
@@ -58,7 +49,7 @@ Poketudiant* create_poketudiant_from_another(const Poketudiant* pok)
   Poketudiant* new_poke = create_poketudiant(pok->type,pok->variety,
 					     pok->ref_attack_1,pok->ref_attack_2,
 					     pok->attack,pok->defense,pok->hp_max,
-					     pok->capturable,pok->evolution,1);
+					     pok->capturable,pok->evolution);
   return new_poke;
 }
 

@@ -77,7 +77,7 @@ Poketudiant* generate_random_poketudiant(Poketudiant_factory* factory,int level)
  *
  * @return : pointer on poketudiant created;
  */
-Poketudiant* generate_random_poketudiant_without_teacher(Poketudiant_factory* factory,int level);
+Poketudiant* generate_random_poketudiant_without_teacher(Poketudiant_factory* factory, int level);
 
 
 /*
@@ -109,7 +109,7 @@ Poketudiant* generate_random_capturable_poketudiant(Poketudiant_factory* factory
  *
  * @return : pointer on poketudiant created;
  */
-Poketudiant* generate_poketudiant_from_name(Poketudiant_factory* factory, char* name, int level);
+Poketudiant* generate_poketudiant_from_name(Poketudiant_factory* factory,char* name,int level);
 
 /*
  * @author : Nicolas

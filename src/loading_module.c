@@ -95,7 +95,7 @@ void load_base_poketudiant(Hash_table* table_poke, const char* file_name)
 	      poke = create_poketudiant(type,variety,
 					NULL,NULL,
 					attack,defense,hp,
-					capturable,evolution,0);
+					capturable,evolution);
 	      
 	      add_to_hash_table(table_poke,poke);
 	    }

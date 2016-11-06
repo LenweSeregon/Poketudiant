@@ -15,6 +15,7 @@
 #include "attack.h"
 #include "poketudiant.h"
 
+#include "pokecafetaria.h"
 #include "trainer.h"
 
 #include "generic_control_function.h"
@@ -24,8 +25,6 @@
 #include "factories.h"
 
 #include "battle_module.h"
-
-#include "pokecafetaria.h"
 
 /* lol  mdr */
 int main(void)
@@ -67,8 +66,8 @@ int main(void)
   test2 = generate_random_capturable_poketudiant(factory_poke,1);
   test3 = generate_random_capturable_poketudiant(factory_poke,5);
   test4 = generate_random_capturable_poketudiant(factory_poke,1);
-  
-  trainer = create_trainer("Josh");
+
+  trainer = create_trainer("Josh",0);
   add_poketudiant_to_team(trainer,test);
   add_poketudiant_to_team(trainer,test2);
   add_poketudiant_to_team(trainer,test3);
@@ -95,7 +94,6 @@ int main(void)
   
   /*print_pokecafetaria(cafe);*/
 
-  delete_poketudiant(test4);
   delete_trainer(trainer);
   delete_pokecafetaria(cafe);
   delete_battle_module(battle);

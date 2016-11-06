@@ -95,7 +95,8 @@ $(B)/trainer.o :	$(S)/trainer.c\
 			$(I)/type_poke.h\
 			$(I)/attack.h\
 			$(I)/poketudiant.h\
-			$(I)/generic_control_function.h
+			$(I)/generic_control_function.h\
+			$(I)/pokecafetaria.h
 	$(CC) $(CFLAGS) -c $< -I $(I) -o $@
 
 $(B)/poketudiant.o : 	$(S)/poketudiant.c\

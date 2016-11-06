@@ -10,7 +10,7 @@
 typedef struct Pokecafetaria
 {
   Poketudiant** list;
-} Pokecafetaria;
+}Pokecafetaria;
 
 /*
  * @author : Gabriel
@@ -31,7 +31,7 @@ Pokecafetaria* create_pokecafetaria();
  * @state  : [possible bug]
  * 
  * @name   : add_poketudiant_to_cafetaria
- * @arg    : caf, pointer on pokecafetaria that will recieve the poketudiant
+ * @arg    : caf, pointer on pokecafetaria that will receive the poketudiant
  * @arg    : etu, pointer on poketudiant that we will add to the pokecafetaria
  * @desc   : This function add a poketudiant in the first free position in the pokecafetaria and do nothing is there is no free position
  *

@@ -10,6 +10,7 @@
 #include "type_poke.h"
 #include "attack.h"
 #include "poketudiant.h"
+#include "pokecafetaria.h"
 #include "trainer.h"
 #include "factories.h"
 #include "generic_control_function.h"

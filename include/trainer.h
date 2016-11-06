@@ -5,10 +5,12 @@ struct Trainer
 {
   char* name;
   Container* team;
+  Pokecafetaria* cafetaria;
+  int ia_trainer;
 };
 typedef struct Trainer Trainer;
 
-Trainer* create_trainer(const char* name);
+Trainer* create_trainer(const char* name, int ia_trainer);
 void delete_trainer(Trainer* trainer);
 
 int add_poketudiant_to_team(Trainer* trainer, Poketudiant* poke);
