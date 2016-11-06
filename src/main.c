@@ -79,7 +79,10 @@ int main(void)
    */
   trainer_versus_random_trainer(battle,trainer,1,1);
   print_team(trainer);
-  
+  heal_all_team(trainer);
+  print_team(trainer);
+
+
   g0 = generate_random_poketudiant(factory_poke,1);
   g1 = generate_random_poketudiant(factory_poke,1);
   g2 = generate_random_poketudiant(factory_poke,1);

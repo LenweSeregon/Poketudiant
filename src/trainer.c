@@ -48,6 +48,19 @@ void delete_trainer(Trainer* trainer)
   free(trainer);
 }
 
+
+void heal_all_team(Trainer* trainer)
+{
+  unsigned int i;
+  /* Heal current Team */
+  for(i = 0; i < trainer->team->current; i++)
+    {
+      ((Poketudiant*)trainer->team->list[i])->hp = ((Poketudiant*)trainer->team->list[i])->hp_max;
+    }
+  /* Heal poketudiant in cafetaria */
+  heal_all_pokecafetaria(trainer->cafetaria);
+}
+
 int add_poketudiant_to_team(Trainer* trainer, Poketudiant* poke)
 {
   static int id = 0;
@@ -144,7 +157,7 @@ int swap_poketudiant_position(Trainer* trainer, int i, int j)
     }
 }
 
-int get_index_of_poketudiant_id(Trainer* trainer,int id)
+int get_index_of_poketudiant_id(const Trainer* trainer,int id)
 {
   int position;
   int (*cmp_save)(void*,void*) = trainer->team->cmp_fct;
@@ -154,6 +167,17 @@ int get_index_of_poketudiant_id(Trainer* trainer,int id)
 
   trainer->team->cmp_fct = cmp_save;
   return position;
+}
+
+void print_poketudiant_id(const Trainer* trainer, int id)
+{
+  int index;
+  if((index = get_index_of_poketudiant_id(trainer,id)) != -1)
+    {
+      print_complete_poketudiant((Poketudiant*)trainer->team->list[index]);
+      return;
+    }
+  
 }
 
 void print_team_alive(const Trainer* trainer)

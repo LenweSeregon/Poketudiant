@@ -41,9 +41,64 @@ int add_poketudiant_to_cafetaria_by_position(Pokecafetaria* caf, Poketudiant* et
   return 0;
 }
 
+void heal_all_pokecafetaria(Pokecafetaria* caf)
+{
+  int i;
+  for(i=0;i<MAX_POKETUDIANT_BY_TABLE*NB_TABLE_POKECAFETARIA;i++)
+    {
+      if(caf->list[i] != NULL)
+	{
+	  caf->list[i]->hp = caf->list[i]->hp_max;
+	}
+    }
+}
+
+Poketudiant* get_poketudiant_from_cafetaria_by_id(Pokecafetaria* caf, int id)
+{
+  int position = get_position_poketudiant_id_in_cafetaria(caf,id);
+  if(position == -1)
+    return NULL;
+  else
+    return caf->list[position];
+}
+
+int get_position_poketudiant_id_in_cafetaria(Pokecafetaria* caf, unsigned int id)
+{
+  int i;
+  for(i=0;i<MAX_POKETUDIANT_BY_TABLE*NB_TABLE_POKECAFETARIA;i++)
+    {
+      if(caf->list[i] != NULL && caf->list[i]->id == id)
+	{
+	  caf->list[i]->hp = caf->list[i]->hp_max;
+	}
+    }
+  return -1;
+}
+
 Poketudiant* get_poketudiant_from_cafetaria_by_position(Pokecafetaria* caf, int t, int c)
 {
   return caf->list[calcul_pos_pokecafetaria(t,c)];
+}
+
+void swap_position_poketudiant_in_cafetaria_via_id(Pokecafetaria* caf, int id_1, int id_2)
+{
+  int pos_1 = get_position_poketudiant_id_in_cafetaria(caf,id_1);
+  int pos_2 = get_position_poketudiant_id_in_cafetaria(caf,id_2);
+  Poketudiant* tmp;
+  if(pos_1 == -1)
+    {
+      printf("There is no poketudiant in cafetaria with ID = %d. Swap impossible\n",id_1);
+      return;
+    }
+  if(pos_2 == -1)
+    {
+      printf("There is no poketudiant in cafetaria with ID = %d. Swap impossible\n",id_2);
+      return;
+    }
+
+  tmp = caf->list[pos_1];
+  caf->list[pos_1] = caf->list[pos_2];
+  caf->list[pos_2] = tmp;
 }
 
 void swap_position_poketudiant_in_cafetaria(Pokecafetaria* caf, int t1, int c1, int t2, int c2)
@@ -56,6 +111,21 @@ void swap_position_poketudiant_in_cafetaria(Pokecafetaria* caf, int t1, int c1, 
   tmp = caf->list[pos1];
   caf->list[pos1] = caf->list[pos2];
   caf->list[pos2] = tmp; 
+}
+
+Poketudiant* pop_poketudiant_from_cafetaria_via_id(Pokecafetaria* caf, int id)
+{
+  int pos = get_position_poketudiant_id_in_cafetaria(caf,id);
+  Poketudiant* to_pop;
+  if(pos == -1)
+    {
+      printf("Poketudiant with that id is not present in cafetaria, pop is impossible.\n");
+      return NULL;
+    }
+  
+  to_pop = caf->list[pos];
+  caf->list[pos] = NULL;
+  return to_pop;
 }
 
 Poketudiant* pop_poketudiant_from_cafetaria(Pokecafetaria* caf, int t, int c)
@@ -72,6 +142,20 @@ void delete_poketudiant_from_table(Pokecafetaria* caf, int t, int c)
 {
   Poketudiant* tmp = pop_poketudiant_from_cafetaria(caf,t,c);
   if(tmp!=NULL) delete_poketudiant(tmp);
+}
+
+void delete_poketudiant_from_cafetaria_by_id(Pokecafetaria* caf, int id)
+{
+  int pos = get_position_poketudiant_id_in_cafetaria(caf,id);
+  Poketudiant* to_remove;
+  if(pos == -1)
+    {
+      printf("Poketudiant with that id is not present in cafetaria, delete is impossible.\n");
+      return;
+    }
+  to_remove = caf->list[pos];
+  caf->list[pos] = NULL;
+  delete_poketudiant(to_remove);
 }
 
 void delete_pokecafetaria(Pokecafetaria* caf)
