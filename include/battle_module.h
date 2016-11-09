@@ -11,6 +11,21 @@ enum State_action
   };
 typedef enum State_action State_action;
 
+/*
+struct Weakness
+{
+  Type_poke **tab;
+  unsigned int current;
+};
+typedef struct Weakness Weakness;
+
+Weakness* create_weakness(unsigned int initial_size);
+void delete_weakness(Weakness* weakness);
+
+void load_weaknesses_file(const char* file_name);
+void add_weakness(Weakness* weakness, Type_poke base, Type_poke weakness);
+*/
+
 struct Battle_module
 {
   Poketudiant_factory* ref_poke_factory;

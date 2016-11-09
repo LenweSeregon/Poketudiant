@@ -23,7 +23,7 @@ int is_still_poketudiant_alive(Trainer* trainer);
 int swap_poketudiant_position(Trainer* trainer, int i, int j);
 int get_index_of_poketudiant_id(const Trainer* trainer,int id);
 
-void print_poketudiant_id(const Trainer* trainer, int id);
+void print_poketudiant_id_from_trainer(const Trainer* trainer, int id);
 void print_team_alive(const Trainer* trainer);
 void print_team_alive_except_current_fighter(const Trainer* trainer, Poketudiant* fighter);
 void print_team(const Trainer* trainer);

@@ -25,11 +25,13 @@ double random_double(double min, double max)
 
 double random_double_in_poke_range()
 {
-  int value = random_int(0,2);
+  return random_double(0.9,1.1);
+  
+  /*int value = random_int(0,2);
   if(value == 0)
     return 0.9;
   else if(value == 1)
     return 1.0;
   else
-    return 1.1;
+  return 1.1;*/
 }

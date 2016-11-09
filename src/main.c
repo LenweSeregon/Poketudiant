@@ -54,10 +54,10 @@ int main(void)
   att->print_fct_linked_list = print_attack_fct;
   att->free_fct_linked_list = delete_attack_fct;
   att->cmp_fct_linked_list = cmp_attack_fct_via_type;
-  
+ 
   load_base_attack(att,"init/attacks_file");
   load_base_poketudiant(poke,"init/pokemons_file");
-  
+ 
   center = create_evolve_center(poke);
   factory_poke = create_poketudiant_factory(poke,att);
   battle = create_battle_module(factory_poke,center);
@@ -74,15 +74,16 @@ int main(void)
   add_poketudiant_to_team(trainer,test4);
   
   /*print_team(trainer);
-   */
-  /*trainer_versus_random_wild_poketudiant(battle,trainer,1,2);
-   */
+  trainer_versus_random_wild_poketudiant(battle,trainer,1,2); 
   trainer_versus_random_trainer(battle,trainer,1,1);
   print_team(trainer);
   heal_all_team(trainer);
   print_team(trainer);
+  */
+  print_team(trainer);
 
-
+  print_poketudiant_id_from_trainer(trainer,3);
+  
   g0 = generate_random_poketudiant(factory_poke,1);
   g1 = generate_random_poketudiant(factory_poke,1);
   g2 = generate_random_poketudiant(factory_poke,1);
@@ -97,6 +98,7 @@ int main(void)
   
   /*print_pokecafetaria(cafe);*/
 
+  
   delete_trainer(trainer);
   delete_pokecafetaria(cafe);
   delete_battle_module(battle);

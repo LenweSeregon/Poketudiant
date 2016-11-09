@@ -19,6 +19,40 @@
 
 #define XP_START_WILD_POKE 300
 
+/* Weakness */
+
+/*
+Weakness* create_weakness(unsigned int initial_size)
+{
+  Weakness* weakness = malloc(sizeof(Weaknes));
+  weakness->current = 0;
+  
+  return weakness;
+}
+
+void delete_weakness(Weakness* weakness)
+{
+  unsigned int i;
+  for(i = 0; i < weakness->current; i++)
+    {
+      free(weakness[i]);
+    }
+  free(weakness);
+}
+
+void load_weaknesses_file(const char* file_name)
+{
+  
+}
+
+void add_weakness(Weakness* weakness, Type_poke base, Type_poke weakness)
+{
+
+}
+*/
+
+/* Battle module */
+
 Battle_module* create_battle_module(Poketudiant_factory* ref_poke_facto,
 				    Evolve_center* ref_evolve_center)
 {
@@ -158,7 +192,7 @@ void distribute_xp_to_poketudiants(Battle_module* battle_module, Container* all_
 	{
 	  make_poketudiant_upgrade(battle_module->ref_evolve_center,
 				   (Poketudiant*)all_poke->list[i]);
-	}
+	} 
     }
 }
 
@@ -268,7 +302,8 @@ int trainer_versus_random_wild_poketudiant(Battle_module* battle_module,
   Poketudiant* current_opponent;
   Poketudiant* current_fighter;
   int win;
-
+  int captured;
+  
   container_poke_participate = create_container(DYNAMIC,3,0);
   current_opponent = generate_random_capturable_poketudiant(battle_module->ref_poke_factory,random_level);
   current_fighter = select_first_poketudiant_in_life(trainer);
@@ -277,6 +312,7 @@ int trainer_versus_random_wild_poketudiant(Battle_module* battle_module,
   container_poke_participate->delete_fct = delete_poketudiant_fct;
   add_to_container_if_not_exist(container_poke_participate,current_fighter);
   win = 0;
+  captured = 0;
 
   /* If poketudiant is level 1 let's make him with 300 xp to allow player to gain xp
      XP_START_WILD_POKE has value 300 */
@@ -304,6 +340,8 @@ int trainer_versus_random_wild_poketudiant(Battle_module* battle_module,
 	  if(current_fighter->hp < 1)
 	    {
 	      printf("Your %s is dead !\n",current_fighter->variety);
+	      /* Poketudiant is dead, he shoudn't earn experience if trainer win battle */
+	      remove_to_container(container_poke_participate,&(current_fighter->id));
 	      current_fighter = change_current_poketudiant_fighter(trainer,current_fighter);
 	      if(current_fighter == NULL)
 		{
@@ -367,8 +405,14 @@ int trainer_versus_random_wild_poketudiant(Battle_module* battle_module,
 		    if(res)
 		      {
 			printf("Capture succeed ! You capture %s , level %d\n",current_opponent->variety,current_opponent->level);
+			add_poketudiant_to_team(trainer,current_opponent);
 			battle_ended = 1;
 			win = 1;
+			captured = 1;
+		      }
+		    else
+		      {
+			printf("Capture failed.\n");
 		      }
 		    break;
 		  }
@@ -410,7 +454,10 @@ int trainer_versus_random_wild_poketudiant(Battle_module* battle_module,
     }
 
   delete_container(container_poke_participate);
-  delete_poketudiant(current_opponent);
+  if(!captured)
+    {
+      delete_poketudiant(current_opponent);
+    }
   return win;
 }
 
@@ -460,6 +507,8 @@ int trainer_versus_random_trainer(Battle_module* battle_module,
 	  if(current_fighter->hp < 1)
 	    {
 	      printf("Your %s is dead !\n",current_fighter->variety);
+	      /* Poketudiant is dead, he shoudn't earn experience */
+	      remove_to_container(container_poke_participate,&(current_fighter->id));
 	      current_fighter = change_current_poketudiant_fighter(trainer,current_fighter);
 	      if(current_fighter == NULL)
 		{

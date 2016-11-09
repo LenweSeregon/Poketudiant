@@ -169,15 +169,23 @@ int get_index_of_poketudiant_id(const Trainer* trainer,int id)
   return position;
 }
 
-void print_poketudiant_id(const Trainer* trainer, int id)
+void print_poketudiant_id_from_trainer(const Trainer* trainer, int id)
 {
   int index;
+  Poketudiant* poke;
+  /* Trying to print id from trainer team */
   if((index = get_index_of_poketudiant_id(trainer,id)) != -1)
     {
       print_complete_poketudiant((Poketudiant*)trainer->team->list[index]);
       return;
     }
-  
+  /* Trying to print id from trainer pokecafetaria */
+  if((poke = get_poketudiant_from_cafetaria_by_id(trainer->cafetaria,id)) != NULL)
+    {
+      print_complete_poketudiant(poke);
+      return;
+    }
+  printf("There is no poketudiant in your team or your poketudiant with ID = %d\n",id);
 }
 
 void print_team_alive(const Trainer* trainer)
