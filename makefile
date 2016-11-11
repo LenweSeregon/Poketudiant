@@ -20,7 +20,8 @@ OBJS = 			$(B)/main.o\
 			$(B)/evolve_module.o\
 			$(B)/pokecafetaria.o\
 			$(B)/trainer.o\
-			$(B)/battle_module.o
+			$(B)/battle_module.o\
+			$(B)/weakness.o
 
 executable : 		$(OBJS)
 	$(CC) -o $@ $^ -lm
@@ -32,7 +33,8 @@ $(B)/main.o : 		$(S)/main.c\
 			$(I)/math_utils.h\
 			$(I)/generic_control_function.h\
 			$(I)/factories.h\
-			$(I)/pokecafetaria.h
+			$(I)/pokecafetaria.h\
+			$(I)/weakness.h
 	$(CC) $(CFLAGS) -c $< -I $(I) -o $@
 
 $(B)/battle_module.o :	$(S)/battle_module.c\
@@ -109,6 +111,11 @@ $(B)/attack.o : 	$(S)/attack.c\
 			$(I)/attack.h\
 			$(I)/type_poke.h
 	$(CC) $(CFLAGS) -c $< -I $(I) -o $@
+
+$(B)/weakness.o : 	$(S)/weakness.c\
+			$(I)/weakness.h\
+			$(I)/type_poke.h
+	$(CC) $(CLAGS) -c $< -I $(I) -o $@
 
 $(B)/type_poke.o : 	$(S)/type_poke.c\
 			$(I)/type_poke.h
