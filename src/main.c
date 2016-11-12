@@ -27,6 +27,8 @@
 #include "battle_module.h"
 #include "game.h"
 
+#include "weakness.h"
+
 /* lol  mdr */
 int main(void)
 {
@@ -50,6 +52,7 @@ int main(void)
   Pokecafetaria* cafe;
   Trainer* trainer;
   Battle_module* battle;
+  Weakness* weakness;
   init_seed_to_null();
 
   att = create_hash_table(20);
@@ -101,7 +104,11 @@ int main(void)
   
   print_pokecafetaria(cafe);
 
-  
+  weakness=create_weakness(5);
+  add_weakness(weakness, 0, 0);
+  add_weakness(weakness, 2,3);
+  printf("%d et %d et %d\n", is_weak(weakness,0,0), is_weak(weakness,2,3), is_weak(weakness, 4,4));
+  delete_weakness(weakness,5);
   delete_trainer(trainer);
   delete_pokecafetaria(cafe);
   delete_battle_module(battle);
