@@ -59,3 +59,12 @@ void remove_last_occurence(char* string, char c)
     }
   *ptr_writer = '\0';
 }
+
+void empty_buffer()
+{
+  int c = 0;
+  while (c != '\n' && c != EOF)
+    {
+      c = getchar();
+    }
+}

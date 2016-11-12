@@ -43,7 +43,6 @@ int try_to_capture(Poketudiant* poketudiant_ia);
 int try_to_escape(Poketudiant* poketudiant_player, Poketudiant* poketudiant_ia);
 Poketudiant* change_current_poketudiant_fighter(Trainer* trainer, Poketudiant* current_fighter);
 
-void empty_buffer();
 void display_opponents(Poketudiant* poke_player, Poketudiant* poke_ia);
 void display_entrance_message(const char* name_1, const char* name_2);
 void display_battle_menu_vs_wild_poketudiant();

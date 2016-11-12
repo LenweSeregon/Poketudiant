@@ -3,6 +3,7 @@
 #include <string.h>
 #include <math.h>
 
+#include "string_utils.h"
 #include "math_utils.h"
 #include "container.h"
 #include "linked_list.h"
@@ -63,14 +64,6 @@ Battle_module* create_battle_module(Poketudiant_factory* ref_poke_facto,
 }
 
 
-void empty_buffer()
-{
-  int c = 0;
-  while (c != '\n' && c != EOF)
-    {
-      c = getchar();
-    }
-}
 void delete_battle_module(Battle_module* battle_module)
 {
   free(battle_module);

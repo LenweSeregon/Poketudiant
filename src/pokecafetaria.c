@@ -69,7 +69,7 @@ int get_position_poketudiant_id_in_cafetaria(Pokecafetaria* caf, unsigned int id
     {
       if(caf->list[i] != NULL && caf->list[i]->id == id)
 	{
-	  caf->list[i]->hp = caf->list[i]->hp_max;
+	  return i;
 	}
     }
   return -1;
@@ -80,25 +80,20 @@ Poketudiant* get_poketudiant_from_cafetaria_by_position(Pokecafetaria* caf, int 
   return caf->list[calcul_pos_pokecafetaria(t,c)];
 }
 
-void swap_position_poketudiant_in_cafetaria_via_id(Pokecafetaria* caf, int id_1, int id_2)
+int swap_position_poketudiant_in_cafetaria_via_id(Pokecafetaria* caf, int id_1, int id_2)
 {
   int pos_1 = get_position_poketudiant_id_in_cafetaria(caf,id_1);
   int pos_2 = get_position_poketudiant_id_in_cafetaria(caf,id_2);
   Poketudiant* tmp;
-  if(pos_1 == -1)
+  if(pos_1 == -1 || pos_2 == -1)
     {
-      printf("There is no poketudiant in cafetaria with ID = %d. Swap impossible\n",id_1);
-      return;
-    }
-  if(pos_2 == -1)
-    {
-      printf("There is no poketudiant in cafetaria with ID = %d. Swap impossible\n",id_2);
-      return;
+      return 0;
     }
 
   tmp = caf->list[pos_1];
   caf->list[pos_1] = caf->list[pos_2];
   caf->list[pos_2] = tmp;
+  return 1;
 }
 
 void swap_position_poketudiant_in_cafetaria(Pokecafetaria* caf, int t1, int c1, int t2, int c2)

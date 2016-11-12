@@ -25,10 +25,18 @@
 #include "factories.h"
 
 #include "battle_module.h"
+#include "game.h"
 
 /* lol  mdr */
 int main(void)
 {
+  Game* game;
+  init_seed_to_null();
+  game = create_game("Arthur");
+
+  launch_game(game);
+  delete_game(game);
+  /*
   Hash_table* att;
   Hash_table* poke;
   Poketudiant_factory* factory_poke;
@@ -36,7 +44,7 @@ int main(void)
   Poketudiant* test2;
   Poketudiant* test3;
   Poketudiant* test4;
-  /*Poketudiant* to_remove;*/
+  Poketudiant* to_remove;
   Poketudiant *g0,*g1,*g2,*g3;
   Evolve_center* center;
   Pokecafetaria* cafe;
@@ -73,16 +81,11 @@ int main(void)
   add_poketudiant_to_team(trainer,test3);
   add_poketudiant_to_team(trainer,test4);
   
-  /*print_team(trainer);
+  print_team(trainer);
   trainer_versus_random_wild_poketudiant(battle,trainer,1,2); 
   trainer_versus_random_trainer(battle,trainer,1,1);
   print_team(trainer);
-  heal_all_team(trainer);
-  print_team(trainer);
-  */
-  print_team(trainer);
-
-  print_poketudiant_id_from_trainer(trainer,3);
+  
   
   g0 = generate_random_poketudiant(factory_poke,1);
   g1 = generate_random_poketudiant(factory_poke,1);
@@ -96,7 +99,7 @@ int main(void)
   add_poketudiant_to_cafetaria_by_position(cafe,g2,2,0);
   add_poketudiant_to_cafetaria(cafe,g3);
   
-  /*print_pokecafetaria(cafe);*/
+  print_pokecafetaria(cafe);
 
   
   delete_trainer(trainer);
@@ -106,5 +109,7 @@ int main(void)
   delete_evolve_center(center);
   delete_hash_table(poke);
   delete_hash_table(att);
+
+  */
   return 0;
 }

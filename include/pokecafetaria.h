@@ -140,7 +140,7 @@ void swap_position_poketudiant_in_cafetaria(Pokecafetaria* caf, int t1, int c1, 
  *
  * @return : none
  */
-void swap_position_poketudiant_in_cafetaria_via_id(Pokecafetaria* caf, int id_1, int id_2);
+int swap_position_poketudiant_in_cafetaria_via_id(Pokecafetaria* caf, int id_1, int id_2);
 
 /*
  * @author : Gabriel

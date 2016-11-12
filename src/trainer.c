@@ -23,7 +23,8 @@ Trainer* create_trainer(const char* name, int ia_trainer)
   trainer->team = create_container(STATIC,3,1);
   trainer->team->display_element_fct = print_poketudiant_fct;
   trainer->team->delete_fct = delete_poketudiant_fct;
-  
+  trainer->team->cmp_fct = cmp_poketudiant_fct_via_id;
+
   trainer->ia_trainer = ia_trainer;
   if(ia_trainer)
     {
@@ -59,6 +60,62 @@ void heal_all_team(Trainer* trainer)
     }
   /* Heal poketudiant in cafetaria */
   heal_all_pokecafetaria(trainer->cafetaria);
+}
+
+void drop_to_pokecafetaria(Trainer* trainer, int id)
+{
+  Poketudiant* to_drop;
+  int index;
+  
+  index = get_index_of_poketudiant_id(trainer,id);
+  if(index != -1)
+    {
+      /* we need to know if there is some place for new poketudiant */
+      to_drop = (Poketudiant*)trainer->team->list[index];
+      
+      if(to_drop->type == TEACHER)
+	{
+	  printf("You can't drop your teacher in pokecafeteria !\n");
+	  return;
+	}
+      if(add_poketudiant_to_cafetaria(trainer->cafetaria,to_drop))
+	{
+	  remove_to_container(trainer->team,to_drop);
+	}
+      else
+	{
+	  printf("There is no more place in cafetaria for poketudiant ... drop cancel\n");
+	}
+    }
+  else
+    {
+      printf("There is no poketudiant with this id in your team\n");
+    }
+}
+
+void pick_from_pokecafetaria(Trainer* trainer, int id)
+{
+  if(trainer->team->current <= 2)
+    {
+      Poketudiant* to_pick = get_poketudiant_from_cafetaria_by_id(trainer->cafetaria,id);
+      if(to_pick == NULL)
+	{
+	  printf("There is no poketudiant with this id in trainer's cafetaria\n");
+	}
+      else
+	{
+	  add_poketudiant_to_team(trainer,to_pick);
+	}
+    }
+  else
+    {
+      printf("No more places for pick a poketudiant from cafetaria... pick cancel\n");
+    }
+}
+
+void release_from_pokecafetaria(Trainer* trainer, int id)
+{
+  delete_poketudiant_from_cafetaria_by_id(trainer->cafetaria,id);
 }
 
 int add_poketudiant_to_team(Trainer* trainer, Poketudiant* poke)
@@ -138,13 +195,55 @@ int is_still_poketudiant_alive(Trainer* trainer)
   return (select_first_poketudiant_in_life(trainer) != NULL);
 }
 
-int swap_poketudiant_position(Trainer* trainer, int i, int j)
+int swap_poketudiant(Trainer* trainer, int id_1, int id_2)
 {
-  int position_first = get_index_of_poketudiant_id(trainer,i);
-  int position_second = get_index_of_poketudiant_id(trainer,j);
+  if(swap_position_poketudiant_by_id(trainer,id_1,id_2) ||
+     swap_position_poketudiant_in_cafetaria_via_id(trainer->cafetaria,id_1,id_2))
+    {
+      return 1;
+    }
+  else
+    {
+      int pos_1_in_team = get_index_of_poketudiant_id(trainer,id_1);
+      int pos_2_in_team = get_index_of_poketudiant_id(trainer,id_2);
+      int pos_1_in_cafe = get_position_poketudiant_id_in_cafetaria(trainer->cafetaria,id_1);
+      int pos_2_in_cafe = get_position_poketudiant_id_in_cafetaria(trainer->cafetaria,id_2);
+      
+      int in_team = -1;
+      int in_cafe = -1;
+      if(pos_1_in_team != -1) in_team = pos_1_in_team;
+      else if(pos_2_in_team != -1) in_team = pos_2_in_team;
+      
+      if(pos_1_in_cafe != -1) in_cafe = pos_1_in_cafe;
+      else if(pos_2_in_cafe != -1) in_cafe = pos_2_in_cafe;
+
+      if(in_team == -1 || in_cafe == -1)
+	{
+	  printf("There is no poketudiants with thoses ids, check before trying switch\n");
+	  return 0;
+	}
+      else if(((Poketudiant*)trainer->team->list[in_team])->type == TEACHER)
+	{
+	  printf("You can't switch your teacher poketudiant to set it in pokecafeteria\n");
+	  return 0;
+	} 
+      else
+	{
+	  /* Swap */
+	  Poketudiant* tmp = (Poketudiant*)trainer->team->list[in_team];
+	  trainer->team->list[in_team] = trainer->cafetaria->list[in_cafe];
+	  trainer->cafetaria->list[in_cafe] = tmp;
+	  return 1;
+	}
+    }
+}
+
+int swap_position_poketudiant_by_id(Trainer* trainer, int id_1, int id_2)
+{
+  int position_first = get_index_of_poketudiant_id(trainer,id_1);
+  int position_second = get_index_of_poketudiant_id(trainer,id_2);
   if(position_first == -1 || position_second == -1)
     {
-      printf("There is no poketudiant with this id in your team !\n");
       return 0;
     }
   else
@@ -218,4 +317,14 @@ void print_team(const Trainer* trainer)
 {
   printf("%s's team\n",trainer->name);
   print_container(trainer->team);
+}
+
+void print_trainer_cafetaria(const Trainer* trainer)
+{
+  print_pokecafetaria(trainer->cafetaria);
+}
+
+void print_trainer_revision_table_t(const Trainer* trainer, int t)
+{
+  print_table_pokecafetaria(trainer->cafetaria,t);
 }

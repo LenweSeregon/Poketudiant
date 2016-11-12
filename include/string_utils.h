@@ -46,4 +46,6 @@ void remove_first_occurence(char* string, char c);
  */
 void remove_last_occurence(char* string, char c);
 
+void empty_buffer();
+
 #endif
