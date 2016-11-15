@@ -17,6 +17,7 @@
 
 #include "pokecafetaria.h"
 #include "trainer.h"
+#include "weakness.h"
 
 #include "generic_control_function.h"
 #include "loading_module.h"
@@ -27,7 +28,6 @@
 #include "battle_module.h"
 #include "game.h"
 
-#include "weakness.h"
 
 /* lol  mdr */
 int main(void)
@@ -36,6 +36,8 @@ int main(void)
   init_seed_to_null();
   game = create_game("Arthur");
 
+  
+  
   launch_game(game);
   delete_game(game);
 

@@ -1,0 +1,29 @@
+{
+	strong = NOISY
+	weak = LAZY
+}
+
+{
+	strong = LAZY
+	weak = MOTIVATED
+}
+
+{
+	strong = MOTIVATED
+	weak = NOISY
+}
+
+{
+	strong = TEACHER
+	weak = LAZY
+}
+
+{
+	strong = TEACHER
+	weak = MOTIVATED
+}
+
+{
+	strong = TEACHER
+	weak = NOISY
+}

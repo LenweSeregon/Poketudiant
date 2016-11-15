@@ -97,7 +97,7 @@ void pick_from_pokecafetaria(Trainer* trainer, int id)
 {
   if(trainer->team->current <= 2)
     {
-      Poketudiant* to_pick = get_poketudiant_from_cafetaria_by_id(trainer->cafetaria,id);
+      Poketudiant* to_pick = pop_poketudiant_from_cafetaria_via_id(trainer->cafetaria,id);
       if(to_pick == NULL)
 	{
 	  printf("There is no poketudiant with this id in trainer's cafetaria\n");

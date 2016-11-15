@@ -9,6 +9,7 @@
 #include "type_poke.h"
 #include "attack.h"
 #include "poketudiant.h"
+#include "weakness.h"
 #include "loading_module.h"
 
 #define MAX_STRING_FILE_SIZE 300
@@ -168,6 +169,67 @@ void load_base_attack(Hash_table* table_attack, const char* file_name)
 	      
 	      attack = create_attack(name,type,pow);
 	      add_to_hash_table(table_attack,attack);
+	    }
+	}
+      fclose(file);
+    }
+  else
+    {
+      printf("Error, impossible to open file\n");
+    }
+}
+
+void load_base_weakness(Weakness* weakness, const char* file_name)
+{
+  FILE* file;
+  file = fopen(file_name,"r");
+  if(file)
+    {
+      char string_getter[MAX_STRING_FILE_SIZE] = "";
+      while(fgets(string_getter,MAX_STRING_FILE_SIZE,file) != NULL)
+	{
+	  remove_occurences(string_getter,' ');
+	  remove_occurences(string_getter,'\n');
+	  remove_occurences(string_getter,'\t');
+	  if(strcmp(string_getter,"{") == 0) /* Detect new weakness flag */ 
+	    {
+	      Type_poke type1, type2;
+	      int end_objet = 0;
+	      while(!end_objet)
+		{
+		  fgets(string_getter,MAX_STRING_FILE_SIZE,file);
+		  remove_occurences(string_getter,' ');
+		  remove_occurences(string_getter,'\n');
+		  remove_occurences(string_getter,'\t');
+		  
+		  if(string_getter[0] == '#'){} /* Commentary */
+		  else if(string_getter[0] == '}'){end_objet = 1;} /* End objet */
+		  else
+		    {
+		      long eq_position;
+		      char id[MAX_STRING_ATTRIBUTS_POKETUDIANT] = {0};
+		      char val[MAX_STRING_ATTRIBUTS_POKETUDIANT] = {0};
+		      
+		      eq_position = strchr(string_getter,'=') - string_getter;
+		      strncpy(id,string_getter,eq_position);
+		      strcpy(val,strchr(string_getter,'=') + sizeof(char));
+		      		      
+		      if(strcmp(id,"strong") == 0)
+			{
+			  type1 = enum_from_string_type_poke(val);
+			}
+		      else if(strcmp(id,"weak") == 0)
+			{
+			  type2 = enum_from_string_type_poke(val);
+			}
+		      else
+			{
+			  printf("Unkown value in pokemon loading from file!\n");
+			}
+		    }
+		}
+	      add_weakness(weakness, type2, type1);
+	      
 	    }
 	}
       fclose(file);

@@ -1,5 +1,5 @@
 CC = gcc
-CFLAGS = -ansi -pedantic -Wall -Wextra -g
+CFLAGS = -pedantic -Wall -Wextra -g
 
 S = ./src
 I = ./include
@@ -131,6 +131,7 @@ $(B)/loading_module.o : $(S)/loading_module.c\
 			$(I)/string_utils.h\
 			$(I)/poketudiant.h\
 			$(I)/attack.h\
+			$(I)/weakness.h\
 			$(I)/hash_table.h 
 	$(CC) $(CFLAGS) -c $< -I $(I) -o $@
 
