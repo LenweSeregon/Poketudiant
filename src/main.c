@@ -32,19 +32,15 @@
 /* lol  mdr */
 int main(void)
 {
-  /*Game* game;
+  Game* game;
   init_seed_to_null();
   game = create_game("Arthur");
 
   
   
   launch_game(game);
-  delete_game(game);*/
+  delete_game(game);
 
-  Weakness* weakness = create_weakness(4);
-  load_base_weakness(weakness, "init/weakness_file");
-  printf("oui %d\n", is_weak(weakness,NOISY,LAZY));
-  delete_weakness(weakness,4);
   /*
   Hash_table* att;
   Hash_table* poke;
