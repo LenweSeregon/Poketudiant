@@ -43,6 +43,12 @@ processing_fct get_action_from_command(const char* command)
 {
   int i = 0;
   char* current = token_list[i];
+
+  if(command == NULL)
+    {
+      return NULL;
+    }
+
   while(current)
     {
       if(strcmp(current,command) == 0)
@@ -57,6 +63,7 @@ processing_fct get_action_from_command(const char* command)
 char* get_command_from_user()
 {
   char user_command[MAX_SIZE_USER_COMMAND] = {0};
+  
   if(fgets(user_command,MAX_SIZE_USER_COMMAND,stdin) != NULL)
     {
       char* position_end_line = strchr(user_command, '\n');
@@ -81,6 +88,30 @@ char* get_command_from_user()
     }
 }
 
+int is_real_integer(const char* string)
+{
+  char* c;
+  if(string == NULL)
+    {
+      return 0;
+    }
+  
+  c = (char*)string;
+  if(*c == '-' || *c == '+')
+    {
+      c++;
+    }
+  while(*c != '\0')
+    {
+      if(!(*c >= '0' && *c <= '9'))
+	{
+	  return 0;
+	} 
+      c++;
+    }
+  return 1;
+}
+
 int check_argument_is_integer(char* argument)
 {
   char* tmp;
@@ -92,7 +123,7 @@ int check_argument_is_integer(char* argument)
   
   value = strtol(argument,&tmp,BASE_USER);
   
-  return (errno == 0 && value >= INT_MIN && value <= INT_MAX);
+  return (is_real_integer(argument) && errno == 0 && value >= INT_MIN && value <= INT_MAX);
 }
 int check_argument_is_integer_in_range(char* argument, int min, int max)
 {
@@ -105,5 +136,5 @@ int check_argument_is_integer_in_range(char* argument, int min, int max)
   
   value = strtol(argument,&tmp,BASE_USER);
   
-  return (errno == 0 && value >= min && value <= max);
+  return (is_real_integer(argument) && errno == 0 && value >= min && value <= max);
 }

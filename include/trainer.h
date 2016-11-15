@@ -14,6 +14,7 @@ Trainer* create_trainer(const char* name, int ia_trainer);
 void delete_trainer(Trainer* trainer);
 
 int add_poketudiant_to_team(Trainer* trainer, Poketudiant* poke);
+int poketudiant_movement_from_cafet_to_trainer(Trainer* trainer, Poketudiant* poke);
 Poketudiant* remove_poketudiant_from_team(Trainer* trainer, int id); 
 
 void heal_all_team(Trainer* trainer);

@@ -175,7 +175,7 @@ int valid = 0;
 
 void distribute_xp_to_poketudiants(Battle_module* battle_module, Container* all_poke, int total_xp)
 {
-  unsigned int xp_per_poke = (int)round(total_xp/(float)all_poke->current);
+  unsigned int xp_per_poke = (int)floor(total_xp/(float)all_poke->current);
   unsigned int i;
   printf("Experience won = %d\n",total_xp);
   printf("Experience per poke = %d\n",xp_per_poke);
@@ -442,7 +442,7 @@ int trainer_versus_random_wild_poketudiant(Battle_module* battle_module,
 
   if(win)
     {
-      unsigned int xp_won = (int)round((current_opponent->xp * 10)/100.0); /* 10% of enemy exp */
+      unsigned int xp_won = (int)floor((current_opponent->xp * 10)/100.0); /* 10% of enemy exp */
       distribute_xp_to_poketudiants(battle_module,container_poke_participate,xp_won);
     }
 
@@ -588,7 +588,7 @@ int trainer_versus_random_trainer(Battle_module* battle_module,
 	      */
 	      if(current_opponent->hp < 1)
 		{
-		  unsigned int xp_won = (int)round((current_opponent->xp * 10)/100.0); /* 10%*/
+		  unsigned int xp_won = (int)floor((current_opponent->xp * 10)/100.0); /* 10%*/
 		  distribute_xp_to_poketudiants(battle_module,container_poke_participate,xp_won);
 		  empty_container(container_poke_participate);
 		  add_to_container_if_not_exist(container_poke_participate,current_fighter);

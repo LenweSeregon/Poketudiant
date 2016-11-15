@@ -38,6 +38,7 @@ int main(void)
 
   launch_game(game);
   delete_game(game);
+
   /*
   Hash_table* att;
   Hash_table* poke;

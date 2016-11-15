@@ -104,7 +104,7 @@ void pick_from_pokecafetaria(Trainer* trainer, int id)
 	}
       else
 	{
-	  add_poketudiant_to_team(trainer,to_pick);
+	  poketudiant_movement_from_cafet_to_trainer(trainer,to_pick);
 	}
     }
   else
@@ -150,6 +150,16 @@ int add_poketudiant_to_team(Trainer* trainer, Poketudiant* poke)
   if(!trainer->ia_trainer)
     {
       poke->id = id++;
+    }
+  return 1;
+}
+
+int poketudiant_movement_from_cafet_to_trainer(Trainer* trainer, Poketudiant* poke)
+{
+  if(!add_to_container(trainer->team,poke))
+    {
+      printf("There is no more space in your team to add poketudiant !\n");
+      return 0;
     }
   return 1;
 }

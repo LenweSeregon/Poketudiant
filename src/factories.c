@@ -64,9 +64,9 @@ Poketudiant* generate_random_poketudiant(Poketudiant_factory* factory, int level
 	  r_def = random_double_in_poke_range();
 	  r_hp =  random_double_in_poke_range();
 	  level_multiplier = 1+((level/10.0)-0.1);
-	  poke->attack = (int)round(poke->attack * r_att);
-	  poke->defense = (int)round(poke->defense * r_def);
-	  poke->hp_max = (int)round(poke->hp_max * r_hp);
+	  poke->attack = (int)floor(poke->attack * r_att);
+	  poke->defense = (int)floor(poke->defense * r_def);
+	  poke->hp_max = (int)floor(poke->hp_max * r_hp);
 	  poke->hp = poke->hp_max;
 	  /* let up to level in parameter */
 	  poke->level = level;
@@ -142,9 +142,9 @@ Poketudiant* generate_random_capturable_poketudiant(Poketudiant_factory* factory
 	  r_hp =  random_double_in_poke_range();
 	  level_multiplier = 1+((level/10.0)-0.1);
 	  /* let's build caracteristic */
-	  poke->attack = (int)round(poke->attack * r_att);
-	  poke->defense = (int)round(poke->defense * r_def);
-	  poke->hp_max = (int)round(poke->hp_max * r_hp);
+	  poke->attack = (int)floor(poke->attack * r_att);
+	  poke->defense = (int)floor(poke->defense * r_def);
+	  poke->hp_max = (int)floor(poke->hp_max * r_hp);
 	  /* let up to level in parameter */
 	  poke->level = level;
 	  if(level > 1)
@@ -223,9 +223,9 @@ Poketudiant* generate_random_poketudiant_without_teacher(Poketudiant_factory* fa
 	  r_att = random_double_in_poke_range();
 	  r_def = random_double_in_poke_range();
 	  r_hp =  random_double_in_poke_range();
-	  poke->attack = (int)round(poke->attack * r_att);
-	  poke->defense = (int)round(poke->defense * r_def);
-	  poke->hp_max = (int)round(poke->hp_max * r_hp);
+	  poke->attack = (int)floor(poke->attack * r_att);
+	  poke->defense = (int)floor(poke->defense * r_def);
+	  poke->hp_max = (int)floor(poke->hp_max * r_hp);
 	  poke->hp = poke->hp_max;
 	  /* let up to level in parameter */
 	  poke->level = level;
@@ -302,9 +302,9 @@ Poketudiant* generate_poketudiant_from_name(Poketudiant_factory* factory, char* 
 	  r_att = random_double_in_poke_range();
 	  r_def = random_double_in_poke_range();
 	  r_hp =  random_double_in_poke_range();
-	  poke->attack = (int)round(poke->attack * r_att);
-	  poke->defense = (int)round(poke->defense * r_def);
-	  poke->hp_max = (int)round(poke->hp_max * r_hp);
+	  poke->attack = (int)floor(poke->attack * r_att);
+	  poke->defense = (int)floor(poke->defense * r_def);
+	  poke->hp_max = (int)floor(poke->hp_max * r_hp);
 	  poke->hp = poke->hp_max;
 	  /* let up to level in parameter */
 	  poke->level = level;

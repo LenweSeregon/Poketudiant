@@ -120,11 +120,11 @@ void make_poketudiant_upgrade(Evolve_center* center, Poketudiant* poke)
   poke->level++;
   if(poke->level < 10) /* If poketudiant level is 10, we don't need to update anymore xp_next */
     {
-      poke->xp_next = (int)round(500 * ((float)(1 + poke->level) / 2));
+      poke->xp_next = (int)floor(500 * ((float)(1 + poke->level) / 2));
     }
-  poke->attack += (int)round(((int)(base_poke->attack * coeff_att)*10)/100);
-  poke->defense += (int)round(((int)(base_poke->defense * coeff_def)*10)/100);
-  poke->hp_max += (int)round(((int)(base_poke->hp_max * coeff_hp)*10)/100);
+  poke->attack += (int)floor(((int)(base_poke->attack * coeff_att)*10)/100);
+  poke->defense += (int)floor(((int)(base_poke->defense * coeff_def)*10)/100);
+  poke->hp_max += (int)floor(((int)(base_poke->hp_max * coeff_hp)*10)/100);
   poke->hp = poke->hp_max;
   printf("Your poketudiant has evolved to level %d\n",poke->level);
 

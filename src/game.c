@@ -217,7 +217,9 @@ int processing_wild_command(Game* game)
 	}
       else
 	{
-	  return trainer_versus_random_wild_poketudiant(game->battle_module,game->trainer,min,max);
+	  int res = trainer_versus_random_wild_poketudiant(game->battle_module,game->trainer,min,max); 
+	  empty_buffer();
+	  return res; 
 	}
     }
   else
@@ -261,12 +263,14 @@ int processing_rival_command(Game* game)
 	}
       else
 	{
-	  return trainer_versus_random_trainer(game->battle_module,game->trainer,min,max);
+	  int res = trainer_versus_random_trainer(game->battle_module,game->trainer,min,max);
+	  empty_buffer();
+	  return res;
 	}
     }
   else
     {
-      printf("Battle aborted because of command error\n");
+      empty_buffer();
       return 1;
     }
 }
@@ -281,6 +285,7 @@ int processing_nurse(Game* game)
     {
       heal_all_team(game->trainer);
     }
+  printf("Nurse did\n");
   return 1;
 }
 
@@ -538,12 +543,14 @@ void launch_game(Game* game)
     {
       char* command = NULL;
       processing_fct action = NULL;
+      printf("Enter command :\n");
       command = get_command_from_user();
-      remove_occurences(command,'\n');
-      remove_occurences(command,'\t');
       if(command != NULL && strcmp(command,"") != 0)
 	{
-	  char* split_command = strtok(command,COMMAND_SEPARATOR);
+	  char* split_command;
+	  remove_occurences(command,'\n');
+	  remove_occurences(command,'\t');
+	  split_command = strtok(command,COMMAND_SEPARATOR);
 	  action = get_action_from_command(split_command);
 	  if(action == NULL)
 	    {
@@ -553,8 +560,11 @@ void launch_game(Game* game)
 	    {
 	      game_continue = action(game);
 	    }
-	  
+	}
+      /* Delete command pointer */
+      if(command != NULL)
+	{
 	  free(command);
 	}
     }
- }
+}

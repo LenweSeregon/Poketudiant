@@ -63,7 +63,7 @@ void remove_last_occurence(char* string, char c)
 void empty_buffer()
 {
   int c = 0;
-  while (c != '\n' && c != EOF)
+  while(c != '\n' && c != EOF)
     {
       c = getchar();
     }
