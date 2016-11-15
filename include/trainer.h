@@ -21,7 +21,7 @@ void drop_to_pokecafetaria(Trainer* trainer, int id);
 void pick_from_pokecafetaria(Trainer* trainer, int id);
 void release_from_pokecafetaria(Trainer* trainer, int id);
 
-
+Poketudiant* select_poketudiant_by_id_in_trainer(const Trainer* trainer, int id);
 Poketudiant* select_first_poketudiant_in_life(Trainer* trainer);
 int is_still_poketudiant_alive(Trainer* trainer);
 int swap_poketudiant(Trainer* trainer, int id_1, int id_2);

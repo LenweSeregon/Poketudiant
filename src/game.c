@@ -28,6 +28,7 @@
 
 #define COMMAND_SEPARATOR " "
 #define BASE_USER 10
+#define LEVEL_POKETUDIANT_CATCH_COMMAND 1
 
 Game* create_game(const char* trainer_name)
 {
@@ -83,6 +84,94 @@ void delete_game(Game* game)
   delete_hash_table(game->base_poke);
   delete_hash_table(game->base_att);
   free(game);
+}
+
+int processing_catch(Game* game)
+{
+  int accept_command = 1;
+  char* nb_poke = strtok(NULL,COMMAND_SEPARATOR);
+  /* Verification */
+  if(!check_argument_is_integer(nb_poke))
+    {
+      printf("Your first argument must be an integer representing number of poketudiant\n");
+      accept_command = 0;
+    }
+  if(strtok(NULL,COMMAND_SEPARATOR) != NULL)
+    {
+      printf("You have more than 1 argument !\n");
+      accept_command = 0;
+    }
+  /* Processing */
+  if(accept_command)
+    {
+      int i;
+      char* tmp;
+      int nb = strtol(nb_poke,&tmp,BASE_USER);
+      for(i = 0; i < nb; i++)
+	{
+	  Poketudiant* poke = generate_random_capturable_poketudiant(game->factory_poke,
+								     LEVEL_POKETUDIANT_CATCH_COMMAND);
+	  
+	  add_poketudiant_to_team(game->trainer,poke);
+	}
+      return 1;
+    }
+  else
+    {
+      printf("Catch aborted because of command error\n");
+      return 1;
+    }
+}
+
+int processing_xp(Game* game)
+{
+  int accept_command = 1;
+  char* id = strtok(NULL,COMMAND_SEPARATOR);
+  char* nb = strtok(NULL,COMMAND_SEPARATOR);
+
+  /* Checking */
+  if(!check_argument_is_integer(id))
+    {
+      printf("Your first argument must be an integer representing number of poketudiant\n");
+      accept_command = 0;
+    }
+  if(!check_argument_is_integer(nb))
+    {
+      printf("Your second argument must be an integer representing number of poketudiant\n");
+      accept_command = 0;
+    }
+  if(strtok(NULL,COMMAND_SEPARATOR) != NULL)
+    {
+      printf("You have more than 2 argument !\n");
+      accept_command = 0;
+    }
+  /* Processing */
+  if(accept_command)
+    {
+      char* tmp;
+      Poketudiant* poke;
+      int id_i = strtol(id,&tmp,BASE_USER);
+      int nb_i = strtol(nb,&tmp,BASE_USER);
+      
+      poke = select_poketudiant_by_id_in_trainer(game->trainer,id_i);
+      if(poke != NULL)
+	{
+	  if(earn_experience(poke,nb_i))
+	    {
+	      make_poketudiant_upgrade(game->evolve_center,poke);
+	    }
+	}
+      else
+	{
+	  printf("There is no poketudiant with that's id in trainer team or cafetaria !\n");
+	}
+      return 1;
+    }
+  else
+    {
+      printf("Xp aborted because of command error\n");
+      return 1;
+    }
 }
 
 int processing_exit(Game* game)

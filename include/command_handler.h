@@ -5,7 +5,7 @@ typedef int (*processing_fct)(Game* game);
 int lol_fct(Game*g);
 
 static char* token_list[] = {"wild","rival","nurse","show","switch",
-			     "move_table","drop","pick","release","exit",NULL};
+			     "move_table","drop","pick","release","exit","catch","xp",NULL};
 static int (*fct_list[])(Game*) = {processing_wild_command,
 				   processing_rival_command,
 				   processing_nurse,
@@ -16,6 +16,8 @@ static int (*fct_list[])(Game*) = {processing_wild_command,
 				   processing_pick,
 				   processing_release,
 				   processing_exit,
+				   processing_catch,
+				   processing_xp
 						    /*processing_wild_command,
 						      processing_rival_command,
 						      processing_nurse_command,

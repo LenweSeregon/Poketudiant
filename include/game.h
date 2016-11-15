@@ -15,7 +15,10 @@ struct Game
 };
 typedef struct Game Game;
 
+int processing_catch(Game* game);
+int processing_xp(Game* game);
 int processing_exit(Game* game);
+
 int processing_wild_command(Game* game);
 int processing_rival_command(Game* game);
 int processing_nurse(Game* game);

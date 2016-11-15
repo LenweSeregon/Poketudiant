@@ -177,6 +177,25 @@ Poketudiant* remove_poketudiant_from_team(Trainer* trainer, int id)
   return (Poketudiant*)removed;
 }
 
+Poketudiant* select_poketudiant_by_id_in_trainer(const Trainer* trainer, int id)
+{
+  /* Try to get poketudiant in team */
+  Poketudiant* poke;
+  int index = get_index_of_poketudiant_id(trainer,id);
+  if(index != -1)
+    {
+      return ((Poketudiant*)trainer->team->list[index]);
+    }
+  /* Try to get poketudiant in pokecafetaria */
+  poke = get_poketudiant_from_cafetaria_by_id(trainer->cafetaria,id);
+  if(poke != NULL)
+    {
+      return poke;
+    }
+  /* There is no poketudiant with this id */
+  return NULL;
+}
+
 Poketudiant* select_first_poketudiant_in_life(Trainer* trainer)
 {
   unsigned int i;
