@@ -17,6 +17,8 @@
 
 #include "pokecafetaria.h"
 #include "trainer.h"
+#include "weakness.h"
+
 
 #include "generic_control_function.h"
 #include "loading_module.h"
