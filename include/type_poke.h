@@ -1,6 +1,8 @@
 #ifndef __TYPE_POKE_H__
 #define __TYPE_POKE_H__
 
+#define NB_TYPE_POKE 4
+
 enum Type_poke
   {
     LAZY, 
