@@ -25,6 +25,7 @@
 #include "evolve_module.h"
 #include "factories.h"
 
+#include "constantes.h"
 #include "battle_module.h"
 #include "game.h"
 
@@ -36,8 +37,6 @@ int main(void)
   init_seed_to_null();
   game = create_game("Arthur");
 
-  
-  
   launch_game(game);
   delete_game(game);
 

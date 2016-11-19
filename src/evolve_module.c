@@ -121,7 +121,7 @@ void make_poketudiant_upgrade(Evolve_center* center, Poketudiant* poke)
   poke->level++;
   if(poke->level < MAX_LEVEL_POKETUDIANT) /* If poketudiant level is 10, we don't need to update anymore xp_next */
     {
-      poke->xp_next = (int)floor(500 * ((float)(1 + poke->level) / 2));
+      poke->xp_next = NEXT_LEVEL_CALC(poke->level);
     }
   poke->attack += (int)floor(((int)(base_poke->attack * coeff_att)*10)/100);
   poke->defense += (int)floor(((int)(base_poke->defense * coeff_def)*10)/100);

@@ -4,6 +4,7 @@
 #include <time.h>
 #include <math.h>
 
+#include "constantes.h"
 #include "math_utils.h"
 
 

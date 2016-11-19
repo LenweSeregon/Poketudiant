@@ -1,7 +1,14 @@
 #ifndef __CONSTANTE_H__
 #define __CONSTANTE_H__
 
+#include <math.h>
+/* Math define function for calculation */
+/*#define CAPTURE_CALC(hp_player,hp_ia) (2 * max((0.5-((float)(hp_player)/(hp_ia))),0))*/
+#define CAPTURE_CALC(hp_current,hp_max) (2 * (max((0.5-((float)(hp_current)/(hp_max))),0)))
+#define NEXT_LEVEL_CALC(level) ((int)floor(500 * ((float)(1+(level)) / 2)))
 
+
+/* General define for poketudiant management */
 #define MIN_LEVEL_POKETUDIANT 1
 #define MAX_LEVEL_POKETUDIANT 10
 #define MULTIPLIER_DMG_WEAK 2

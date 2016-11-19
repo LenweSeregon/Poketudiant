@@ -163,12 +163,10 @@ int attack_poketudiant(Battle_module* b_module,
   double rand_multi = random_double_in_poke_range();
   int damage = rand_multi * ((float)poke_att->attack / poke_def->defense) * att->pow;
   
-  printf("Damage = %d\n",damage);
   if(multiply)
     {
       damage *= MULTIPLIER_DMG_WEAK;
     }
-  printf("New damage = %d\n",damage);
   
   return take_damage(poke_def,damage);
 }
@@ -228,7 +226,8 @@ Poketudiant* change_current_poketudiant_fighter(Trainer* trainer, Poketudiant* c
 
 int try_to_capture(Poketudiant* poketudiant_ia)
 {
-  double probability = (2 * max((0.5-((float)poketudiant_ia->hp/poketudiant_ia->hp_max)),0));
+  double probability = CAPTURE_CALC(poketudiant_ia->hp,poketudiant_ia->hp_max);
+  /*double probability = (2 * max((0.5-((float)poketudiant_ia->hp/poketudiant_ia->hp_max)),0));*/
   double random_val = random_double(0.0,1.0);
 
   return random_val <= probability;
@@ -270,6 +269,7 @@ int trainer_versus_random_wild_poketudiant(Battle_module* battle_module,
   Poketudiant* current_fighter;
   int win;
   int captured;
+  int escaped;
   
   container_poke_participate = create_container(DYNAMIC,MAX_POKETUDIANT_TEAM,0);
   current_opponent = generate_random_capturable_poketudiant(battle_module->ref_poke_factory,random_level);
@@ -280,6 +280,7 @@ int trainer_versus_random_wild_poketudiant(Battle_module* battle_module,
   add_to_container_if_not_exist(container_poke_participate,current_fighter);
   win = 0;
   captured = 0;
+  escaped = 0;
 
   /* If poketudiant is level 1 let's make him with 300 xp to allow player to gain xp
      XP_START_WILD_POKE has value 300 */
@@ -397,6 +398,7 @@ int trainer_versus_random_wild_poketudiant(Battle_module* battle_module,
 			printf("You succeed to escape battle !\n");
 			battle_ended = 1;
 			win = 1;
+			escaped = 1;
 		      }
 		    break;
 		  }
@@ -426,7 +428,7 @@ int trainer_versus_random_wild_poketudiant(Battle_module* battle_module,
 	}
     }
 
-  if(win)
+  if(win && !escaped && !captured)
     {
       unsigned int xp_won = (int)floor((current_opponent->xp * 10)/100.0); /* 10% of enemy exp */
       distribute_xp_to_poketudiants(battle_module,container_poke_participate,xp_won);

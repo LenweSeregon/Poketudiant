@@ -68,13 +68,19 @@ Poketudiant* generate_random_poketudiant(Poketudiant_factory* factory, int level
 	  poke->defense = (int)floor(poke->defense * r_def);
 	  poke->hp_max = (int)floor(poke->hp_max * r_hp);
 	  poke->hp = poke->hp_max;
+	  
 	  /* let up to level in parameter */
 	  poke->level = level;
 	  if(level > MIN_LEVEL_POKETUDIANT)
 	    {
 	      poke->xp = 500 * ((1 + (float)(poke->level-1)) / 2); 
 	    }
-	  poke->xp_next = 500 * ((float)(1+poke->level)/ 2);
+	  /* Ensure to has a logic xp next */
+	  if(poke->level == MAX_LEVEL_POKETUDIANT)
+	    poke->xp_next = NEXT_LEVEL_CALC(poke->level-1);
+	  else
+	    poke->xp_next = NEXT_LEVEL_CALC(poke->level);
+
 	  poke->attack *= level_multiplier;
 	  poke->defense *= level_multiplier;
 	  poke->hp_max *= level_multiplier;
@@ -152,7 +158,12 @@ Poketudiant* generate_random_capturable_poketudiant(Poketudiant_factory* factory
 	    {
 	      poke->xp = 500 * ((1 + (float)(poke->level-1)) / 2); 
 	    }
-	  poke->xp_next = 500 * ((float)(1+poke->level)/ 2);
+	  /* Ensure to has a logic xp next */
+	  if(poke->level == MAX_LEVEL_POKETUDIANT)
+	    poke->xp_next = NEXT_LEVEL_CALC(poke->level-1);
+	  else
+	    poke->xp_next = NEXT_LEVEL_CALC(poke->level);
+
 	  poke->attack *= level_multiplier;
 	  poke->defense *= level_multiplier;
 	  poke->hp_max *= level_multiplier;
@@ -234,7 +245,13 @@ Poketudiant* generate_random_poketudiant_without_teacher(Poketudiant_factory* fa
 	    {
 	      poke->xp = 500 * ((1 + (float)(poke->level-1)) / 2); 
 	    }
-	  poke->xp_next = 500 * ((float)(1+poke->level)/ 2);
+
+	  /* Ensure to has a logic xp next */
+	  if(poke->level == MAX_LEVEL_POKETUDIANT)
+	    poke->xp_next = NEXT_LEVEL_CALC(poke->level-1);
+	  else
+	    poke->xp_next = NEXT_LEVEL_CALC(poke->level);
+	  
 	  poke->attack *= level_multiplier;
 	  poke->defense *= level_multiplier;
 	  poke->hp_max *= level_multiplier;
@@ -313,7 +330,12 @@ Poketudiant* generate_poketudiant_from_name(Poketudiant_factory* factory, char* 
 	    {
 	      poke->xp = 500 * ((1 + (float)(poke->level-1)) / 2); 
 	    }
-	  poke->xp_next = 500 * ((float)(1+poke->level)/ 2);
+	  /* Ensure to has a logic xp next */
+	  if(poke->level == MAX_LEVEL_POKETUDIANT)
+	    poke->xp_next = NEXT_LEVEL_CALC(poke->level-1);
+	  else
+	    poke->xp_next = NEXT_LEVEL_CALC(poke->level);
+	  
 	  poke->attack *= level_multiplier;
 	  poke->defense *= level_multiplier;
 	  poke->hp_max *= level_multiplier;
