@@ -25,6 +25,7 @@
 
 #include "battle_module.h"
 #include "game.h"
+#include "weakness.h"
 #include "command_handler.h"
 
 #define COMMAND_SEPARATOR " "
@@ -57,9 +58,12 @@ Game* create_game(const char* trainer_name)
   load_base_poketudiant(game->base_poke,"init/pokemons_file");
   
   /* Init game control structure */
+  game->weakness = create_weakness();
+  load_base_weakness(game->weakness,"init/weakness_file");
   game->factory_poke = create_poketudiant_factory(game->base_poke, game->base_att);
   game->evolve_center = create_evolve_center(game->base_poke);
-  game->battle_module = create_battle_module(game->factory_poke,game->evolve_center);
+  game->battle_module = create_battle_module(game->factory_poke,game->evolve_center,game->weakness);
+  
   
   /* Init trainer */
   game->trainer = create_trainer(trainer_name,0);
@@ -78,6 +82,7 @@ Game* create_game(const char* trainer_name)
 
 void delete_game(Game* game)
 {
+  delete_weakness(game->weakness);
   delete_trainer(game->trainer);
   delete_battle_module(game->battle_module);
   delete_evolve_center(game->evolve_center);
@@ -177,11 +182,12 @@ int processing_xp(Game* game)
 
 int processing_exit(Game* game)
 {
-  if(game != NULL)
+  if(strtok(NULL,COMMAND_SEPARATOR) != NULL || game == NULL)
     {
-      return 0;
+      printf("You have an argument that's not needed\n");
+      return 1;
     }
-  return 1;
+  return 0;
 }
 
 int processing_wild_command(Game* game)
@@ -286,7 +292,6 @@ int processing_nurse(Game* game)
     {
       heal_all_team(game->trainer);
     }
-  printf("Nurse did\n");
   return 1;
 }
 
@@ -434,7 +439,7 @@ int processing_move_table(Game* game)
       int id_2_i = strtol(id_2,&tmp,BASE_USER);
       /* Somethings */
       
-      printf("Move-table action %d, %d, %p\n",id_1_i,id_2_i,game);
+      move_table_poketudiant(game->trainer,id_1_i,id_2_i);
     }
   else
     {

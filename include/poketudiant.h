@@ -38,10 +38,6 @@ struct Poketudiant
 typedef struct Poketudiant Poketudiant;
 
 /*
- * @author : Nicolas
- * @date   : 31 / 10 / 2016
- * @state  : [No bug]
- * 
  * @name   : create_poketudiant
  * @arg    : type , type of poketudiant in range [NOISY,LAZY,MOTIVATED,TEACHER]
 `* @arg    : variety , char array that represent the variety name of poketudiant
@@ -59,10 +55,6 @@ Poketudiant* create_poketudiant(Type_poke type, char* variety,
 
 
 /*
- * @author : Nicolas
- * @date   : 31 / 10 / 2016
- * @state  : [No bug]
- * 
  * @name   : create_poketudiant_from_another
  * @arg    : pok , poketudiant that we want to copy for our new poketudiant
  * @desc   : This function allocate memory for a poketudiant, build it properly
@@ -74,10 +66,6 @@ Poketudiant* create_poketudiant(Type_poke type, char* variety,
 Poketudiant* create_poketudiant_from_another(const Poketudiant* pok);
 
 /*
- * @author : Nicolas
- * @date   : 31 / 10 / 2016
- * @state  : [No bug]
- * 
  * @name   : delete_poketudiant
  * @arg    : poketudiant , pointer on poketudiant that we want to delete
  * @desc   : This function is use to delete a poketudiant and ensure no memory leak on it
@@ -87,10 +75,6 @@ Poketudiant* create_poketudiant_from_another(const Poketudiant* pok);
 void delete_poketudiant(Poketudiant* pok);
 
 /*
- * @author : Nicolas
- * @date   : 31 / 10 / 2016
- * @state  : [No bug]
- * 
  * @name   : take_damage
  * @arg    : poketudiant , pointer on poketudiant that we want to inflict damage
  * @arg    : damage ,  amount of damage that we want to inflict
@@ -103,10 +87,6 @@ int take_damage(Poketudiant* pok, unsigned int damage);
 
 
 /*
- * @author : Nicolas
- * @date   : 31 / 10 / 2016
- * @state  : [No bug]
- * 
  * @name   : earn_experience
  * @arg    : poketudiant , pointer on poketudiant that we want to earn experience
  * @arg    : experience ,  amount of experience that we want to earn
@@ -118,10 +98,6 @@ int earn_experience(Poketudiant* pok, unsigned int experience);
 
 
 /*
- * @author : Nicolas
- * @date   : 31 / 10 / 2016
- * @state  : [No bug]
- * 
  * @name   : print_complete_poketudiant
  * @arg    : poketudiant , pointer on poketudiant that we want to print
  * @desc   : This function is use to print a pokemon in it complete version

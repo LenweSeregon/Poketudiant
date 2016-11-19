@@ -20,7 +20,7 @@ Trainer* create_trainer(const char* name, int ia_trainer)
   trainer->name = malloc(size_name * sizeof(char));
   strcpy(trainer->name,name);
 
-  trainer->team = create_container(STATIC,3,1);
+  trainer->team = create_container(STATIC,MAX_POKE_IN_TEAM,1);
   trainer->team->display_element_fct = print_poketudiant_fct;
   trainer->team->delete_fct = delete_poketudiant_fct;
   trainer->team->cmp_fct = cmp_poketudiant_fct_via_id;
@@ -49,6 +49,52 @@ void delete_trainer(Trainer* trainer)
   free(trainer);
 }
 
+int move_table_poketudiant(Trainer* trainer, int id, int t)
+{
+  int pos_in_team = get_index_of_poketudiant_id(trainer,id);
+  Poketudiant* poke = get_poketudiant_from_cafetaria_by_id(trainer->cafetaria,id);
+  Poketudiant* move_target;
+  if(pos_in_team == -1)
+    {
+      if(poke == NULL)
+	{
+	  printf("There is no poketudiant with this id in your team or in your cafetaria\n");
+	  return 0;
+	}
+      else
+	{
+	  int saved_position = get_position_poketudiant_id_in_cafetaria(trainer->cafetaria,id);
+	  move_target = pop_poketudiant_from_cafetaria_via_id(trainer->cafetaria,id);
+	  if(!add_poketudiant_to_cafetaria_by_table_position(trainer->cafetaria,move_target,t))
+	    {
+	      trainer->cafetaria->list[saved_position] = move_target;
+	      printf("There is no more place at this table for poketudiant.\nMove-table cancel\n");
+	      return 0;
+	    }
+	  return 1;
+	}
+    }
+  else
+    {
+      /* On va appeler le changement de position entre poketudiant dans team et une table */
+      move_target = (Poketudiant*)trainer->team->list[pos_in_team];
+      if(move_target->type == TEACHER)
+	{
+	  printf("You can't move your teacher poketudiant from your team to your cafetaria\n");
+	  return 0;
+	}
+      if(add_poketudiant_to_cafetaria_by_table_position(trainer->cafetaria,move_target,t))
+	{
+	   remove_to_container(trainer->team,move_target);
+	   return 1;
+	}
+      else
+	{
+	  printf("There is no more place at this table for poketudiant.\nMove-table cancel\n");
+	  return 0;
+	} 
+    }
+}
 
 void heal_all_team(Trainer* trainer)
 {

@@ -9,7 +9,6 @@ enum Container_type
 typedef enum Container_type Container_type;
 
 /*
- * @author : Nicolas
  * @date   : 27 / 10 / 2016
  * 
  * @name   : Container
@@ -35,10 +34,6 @@ struct Container
 typedef struct Container Container;
 
 /*
- * @author : Nicolas
- * @date   : 28 / 10 / 2016
- * @state  : [No bug]
- * 
  * @name   : create_container
  * @arg    : type , enum type to determine if we want static or dynamic collection
  * @arg    : initial_size , this initial size for dynamic collection or final size for static
@@ -50,10 +45,6 @@ typedef struct Container Container;
 Container* create_container(Container_type type, unsigned int initial_size, int memory_element_owner);
 
 /*
- * @author : Nicolas
- * @date   : 28 / 10 / 2016
- * @state  : [No bug]
- * 
  * @name   : delete_container
  * @arg    : container , pointer on container that's we want to delete
  * @desc   : This function is use to delete a container allocate dynamically and it ensure
@@ -65,10 +56,6 @@ void delete_container(Container* container);
 
 
 /*
- * @author : Nicolas
- * @date   : 28 / 10 / 2016
- * @state  : [No bug]
- * 
  * @name   : add_to_container
  * @arg    : container , pointer on container where we want to add element 
  * @arg    : element , element that's we want to insert in container
@@ -80,10 +67,6 @@ void delete_container(Container* container);
 int add_to_container(Container* container, void* element);
 
 /*
- * @author : Nicolas
- * @date   : 04 / 11 / 2016
- * @state  : [No bug]
- * 
  * @name   : add_to_container_if_not_exist
  * @arg    : container , pointer on container where we want to add element 
  * @arg    : element , element that's we want to insert in container
@@ -96,10 +79,6 @@ int add_to_container(Container* container, void* element);
 int add_to_container_if_not_exist(Container* container, void* element);
 
 /*
- * @author : Nicolas
- * @date   : 04 / 11 / 2016
- * @state  : [No bug]
- * 
  * @name   : empty_container
  * @arg    : container , pointer on container that's we want to empty 
  * @desc   : This function is use to empty the container ! It's also free element
@@ -110,10 +89,6 @@ int add_to_container_if_not_exist(Container* container, void* element);
 void empty_container(Container* container);
 
 /*
- * @author : Nicolas
- * @date   : 28 / 10 / 2016
- * @state  : [No bug]
- * 
  * @name   : remove_to_container
  * @arg    : container , pointer on container where we want to remove element 
  * @arg    : element, element that's we want to insert in container
@@ -126,10 +101,6 @@ void* remove_to_container(Container* container, void* element);
 
 
 /*
- * @author : Nicolas
- * @date   : 28 / 10 / 2016
- * @state  : [No bug]
- * 
  * @name   : search_in_container
  * @arg    : container , pointer on container where we are looking for element 
  * @arg    : element , element that's we are looking for
@@ -142,10 +113,6 @@ void* remove_to_container(Container* container, void* element);
 void* search_in_container(const Container* container, void* element);
 
 /*
- * @author : Nicolas
- * @date   : 28 / 10 / 2016
- * @state  : [No bug]
- * 
  * @name   : search_in_container_from_position
  * @arg    : container , pointer on container where we are looking for element 
  * @arg    : pos , position in array that we are looking for element
@@ -157,10 +124,6 @@ void* search_in_container(const Container* container, void* element);
 void* search_in_container_from_position(const Container* container, unsigned int pos);
 
 /*
- * @author : Nicolas
- * @date   : 28 / 10 / 2016
- * @state  : [No bug]
- * 
  * @name   : search_in_container
  * @arg    : container , pointer on container where we are looking for element 
  * @arg    : element , element that's we are looking for
@@ -172,10 +135,6 @@ void* search_in_container_from_position(const Container* container, unsigned int
 int search_position_in_container(const Container* container, void* element);
 
 /*
- * @author : Nicolas
- * @date   : 28 / 10 / 2016
- * @state  : [No bug]
- * 
  * @name   : print_container
  * @arg    : container , const pointer on container that's we want to display 
  * @desc   : This function is use to print the entire container in console according to

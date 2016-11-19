@@ -2,9 +2,6 @@
 #define __LINKED_LIST_H__
 
 /*
- * @author : Nicolas
- * @date   : 27 / 10 / 2016
- * 
  * @name   : Linked_list_element
  * @desc   : This structure is a basic structure that can stock all type of data
              It's use in Linked_list as basic element
@@ -21,9 +18,6 @@ void delete_linked_list_element(Linked_list_element* list_element);
 
 
 /*
- * @author : Nicolas
- * @date   : 27 / 10 / 2016
- * 
  * @name   : Linked_list
  * @desc   : This structure is a basic simple linked list use as a data structure.
              Basically, and at the moment, this linked list is to use manage collision in hash table
@@ -42,10 +36,6 @@ struct Linked_list
 typedef struct Linked_list Linked_list;
 
 /*
- * @author : Nicolas
- * @date   : 28 / 10 / 2016
- * @state  : [No bug]
- * 
  * @name   : create_linked_list
  * @desc   : This function allocate memory for a linked list, set head to NULL
              and return it as a pointer
@@ -55,10 +45,6 @@ typedef struct Linked_list Linked_list;
 Linked_list* create_linked_list();
 
 /*
- * @author : Nicolas
- * @date   : 28 / 10 / 2016
- * @state  : [No bug]
- * 
  * @name   : delete_linked_list
  * @arg    : list , pointer on the linked list that we want to delete 
  * @desc   : This function ensure to delete a linked list totally without memory leak on it
@@ -69,10 +55,6 @@ Linked_list* create_linked_list();
 void delete_linked_list(Linked_list* list);
 
 /*
- * @author : Nicolas
- * @date   : 28 / 10 / 2016
- * @state  : [No bug]
- * 
  * @name   : add_head_linked_list
  * @arg    : list , pointer on the linked list that we want to insert in
  * @arg    : element , void pointer that's gonna be store on a linked_list_element
@@ -83,10 +65,6 @@ void delete_linked_list(Linked_list* list);
 void add_head_linked_list(Linked_list* list, void* element);
 
 /*
- * @author : Nicolas
- * @date   : 28 / 10 / 2016
- * @state  : [No bug]
- * 
  * @name   : add_tail_linked_list
  * @arg    : list , pointer on the linked list that we want to insert in
  * @arg    : element , void pointer that's gonna be store on a linked_list_element
@@ -97,10 +75,6 @@ void add_head_linked_list(Linked_list* list, void* element);
 void add_tail_linked_list(Linked_list* list, void* element);
 
 /*
- * @author : Nicolas
- * @date   : 28 / 10 / 2016
- * @state  : [No bug]
- * 
  * @name   : remove_head
  * @arg    : list , pointer on linked list where we want to remove head 
  * @desc   : This function can be call to remove the head element of the linked list
@@ -111,10 +85,6 @@ void add_tail_linked_list(Linked_list* list, void* element);
 void remove_head(Linked_list* list);
 
 /*
- * @author : Nicolas
- * @date   : 28 / 10 / 2016
- * @state  : [No bug]
- * 
  * @name   : remove_head
  * @arg    : list , pointer on linked list where we want to remove tail 
  * @desc   : This function can be call to remove the tail element of the linked list
@@ -125,10 +95,6 @@ void remove_head(Linked_list* list);
 void remove_tail(Linked_list* list);
 
 /*
- * @author : Nicolas
- * @date   : 28 / 10 / 2016
- * @state  : [No bug]
- * 
  * @name   : remove_element
  * @arg    : list , pointer on linked list where we want to remove element 
  * @arg    : element , element that's we want to remove
@@ -141,10 +107,6 @@ void remove_tail(Linked_list* list);
 void remove_element(Linked_list* list, void* element);
 
 /*
- * @author : Nicolas
- * @date   : 28 / 10 / 2016
- * @state  : [No bug]
- * 
  * @name   : remove_elements
  * @arg    : list , pointer on linked list where we want to remove elements 
  * @arg    : element , element that's we want to remove
@@ -157,10 +119,6 @@ void remove_element(Linked_list* list, void* element);
 void remove_elements(Linked_list* list, void* element);
 
 /*
- * @author : Nicolas
- * @date   : 28 / 10 / 2016
- * @state  : [No bug]
- * 
  * @name   : get_element_in_linked_list
  * @arg    : list , pointer on linked list where we want to get element 
  * @arg    : element , element identifier that's we are looking for
@@ -174,10 +132,6 @@ void remove_elements(Linked_list* list, void* element);
 void* get_element_in_linked_list(const Linked_list* list, void* element);
 
 /*
- * @author : Nicolas
- * @date   : 01 / 11 / 2016
- * @state  : [No bug]
- * 
  * @name   : get_all_element_in_ll_into_container
  * @arg    : list , pointer on linked list where we want to get all element
  * @arg    : container , container where we want to insert reference on element
@@ -189,10 +143,6 @@ void* get_element_in_linked_list(const Linked_list* list, void* element);
 void get_all_element_in_ll_into_container(const Linked_list* list, Container* container);
 
 /*
- * @author : Nicolas
- * @date   : 01 / 11 / 2016
- * @state  : [No bug]
- * 
  * @name   : get_all_element_in_ll_into_container_criteria
  * @arg    : list , pointer on linked list where we want to get all element
  * @arg    : container , container where we want to insert reference on element
@@ -208,10 +158,6 @@ void get_all_element_in_ll_into_container_criteria(const Linked_list* list,
 						   void* criteria);
 
 /*
- * @author : Nicolas
- * @date   : 28 / 10 / 2016
- * @state  : [No bug]
- * 
  * @name   : print_linked_list
  * @arg    : list, pointer on linked list that's we want to display
  * @desc   : This function can be use to print linked list element using the fct 

@@ -16,50 +16,21 @@
 #include "factories.h"
 #include "generic_control_function.h"
 #include "evolve_module.h"
+#include "weakness.h"
 #include "battle_module.h"
 
 #define XP_START_WILD_POKE 300
 
-/* Weakness */
-
-/*
-Weakness* create_weakness(unsigned int initial_size)
-{
-  Weakness* weakness = malloc(sizeof(Weaknes));
-  weakness->current = 0;
-  
-  return weakness;
-}
-
-void delete_weakness(Weakness* weakness)
-{
-  unsigned int i;
-  for(i = 0; i < weakness->current; i++)
-    {
-      free(weakness[i]);
-    }
-  free(weakness);
-}
-
-void load_weaknesses_file(const char* file_name)
-{
-  
-}
-
-void add_weakness(Weakness* weakness, Type_poke base, Type_poke weakness)
-{
-
-}
-*/
-
 /* Battle module */
 
 Battle_module* create_battle_module(Poketudiant_factory* ref_poke_facto,
-				    Evolve_center* ref_evolve_center)
+				    Evolve_center* ref_evolve_center,
+				    Weakness* ref_weakness)
 {
   Battle_module* battle = malloc(sizeof(Battle_module));
   battle->ref_poke_factory = ref_poke_facto;
   battle->ref_evolve_center = ref_evolve_center;
+  battle->ref_weakness = ref_weakness;
   return battle;
 }
 
@@ -67,11 +38,6 @@ Battle_module* create_battle_module(Poketudiant_factory* ref_poke_facto,
 void delete_battle_module(Battle_module* battle_module)
 {
   free(battle_module);
-}
-
-void display_entrance_mesage(const char* name_1, const char* name_2)
-{
-  printf("Battle starting between %s and %s !\n",name_1, name_2);
 }
 
 void display_opponents(Poketudiant* poke_player, Poketudiant* poke_ia)
@@ -189,12 +155,19 @@ void distribute_xp_to_poketudiants(Battle_module* battle_module, Container* all_
     }
 }
 
-int attack_poketudiant(Poketudiant* poke_att, Poketudiant* poke_def, Attack* att)
+int attack_poketudiant(Battle_module* b_module,
+		       Poketudiant* poke_att,
+		       Poketudiant* poke_def, Attack* att)
 {
   /* Attaque avec les resistances etc a voir */
+  int multiply = is_weak(b_module->ref_weakness,poke_def->type,att->type);
   double rand_multi = random_double_in_poke_range();
   int damage = rand_multi * ((float)poke_att->attack / poke_def->defense) * att->pow;
   
+  if(multiply)
+    {
+      damage *= 2;
+    }
   
   return take_damage(poke_def,damage);
 }
@@ -362,7 +335,10 @@ int trainer_versus_random_wild_poketudiant(Battle_module* battle_module,
 		{
 		case FIRST_ATTACK:
 		  {
-		    int res = attack_poketudiant(current_fighter,current_opponent,current_fighter->ref_attack_1);
+		    int res = attack_poketudiant(battle_module,
+						 current_fighter,
+						 current_opponent,
+						 current_fighter->ref_attack_1);
 		    if(res)
 		      {
 			battle_ended = 1;
@@ -373,7 +349,10 @@ int trainer_versus_random_wild_poketudiant(Battle_module* battle_module,
 		  }
 		case SECOND_ATTACK:
 		  { 
-		    int res = attack_poketudiant(current_fighter,current_opponent,current_fighter->ref_attack_2);
+		    int res = attack_poketudiant(battle_module,
+						 current_fighter,
+						 current_opponent,
+						 current_fighter->ref_attack_2);
 		    if(res)
 		      {
 			battle_ended = 1;
@@ -430,11 +409,17 @@ int trainer_versus_random_wild_poketudiant(Battle_module* battle_module,
 	      int random_choice_ia = random_int(1,2);
 	      if(random_choice_ia == 1)
 		{
-		  attack_poketudiant(current_opponent,current_fighter,current_opponent->ref_attack_1);
+		  attack_poketudiant(battle_module,
+				     current_opponent,
+				     current_fighter,
+				     current_opponent->ref_attack_1);
 		}
 	      else
 		{
-		  attack_poketudiant(current_opponent,current_fighter,current_opponent->ref_attack_2);
+		  attack_poketudiant(battle_module,
+				     current_opponent,
+				     current_fighter,
+				     current_opponent->ref_attack_2);
 		}
 	    }
 	}
@@ -528,7 +513,10 @@ int trainer_versus_random_trainer(Battle_module* battle_module,
 		{
 		case FIRST_ATTACK:
 		  {
-		    int res = attack_poketudiant(current_fighter,current_opponent,current_fighter->ref_attack_1);
+		    int res = attack_poketudiant(battle_module,
+						 current_fighter,
+						 current_opponent,
+						 current_fighter->ref_attack_1);
 		    if(res)
 		      {
 			printf("Congratz ! %s has fallen\n",current_opponent->variety);
@@ -537,7 +525,10 @@ int trainer_versus_random_trainer(Battle_module* battle_module,
 		  }
 		case SECOND_ATTACK:
 		  { 
-		    int res = attack_poketudiant(current_fighter,current_opponent,current_fighter->ref_attack_2);
+		    int res = attack_poketudiant(battle_module,
+						 current_fighter,
+						 current_opponent,
+						 current_fighter->ref_attack_2);
 		    if(res)
 		      {
 			printf("Congratz ! %s has fallen.\n",current_opponent->variety);
@@ -608,11 +599,17 @@ int trainer_versus_random_trainer(Battle_module* battle_module,
 		  int random_choice_ia = random_int(1,2);
 		  if(random_choice_ia == 1)
 		    {
-		  attack_poketudiant(current_opponent,current_fighter,current_opponent->ref_attack_1);
+		      attack_poketudiant(battle_module,
+					 current_opponent,
+					 current_fighter,
+					 current_opponent->ref_attack_1);
 		    }
 		  else
 		    {
-		      attack_poketudiant(current_opponent,current_fighter,current_opponent->ref_attack_2);
+		      attack_poketudiant(battle_module,
+					 current_opponent,
+					 current_fighter,
+					 current_opponent->ref_attack_2);
 		    }
 		}
 	    }

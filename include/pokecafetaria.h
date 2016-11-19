@@ -7,16 +7,19 @@
 /* Max number of pokemon on a table */
 #define MAX_POKETUDIANT_BY_TABLE 4
 
+/*
+ * @name  : Pokecafetaria
+ * @desc  : This struct is use to simply store a dynamic array representing a 2D array for
+            cafetaria by giving all method to linear the array. It prevent memory responsablity
+	    and all function need for pokecafetaria manipulation
+ *
+ */
 typedef struct Pokecafetaria
 {
   Poketudiant** list;
 }Pokecafetaria;
 
 /*
- * @author : Gabriel
- * @date   : 02 / 11 / 2016
- * @state  : [possible bug]
- * 
  * @name   : create_pokecafetaria
  * @arg    : none
  * @desc   : This function allocate memory for a pokecafetaria
@@ -26,10 +29,6 @@ typedef struct Pokecafetaria
 Pokecafetaria* create_pokecafetaria();
 
 /*
- * @author : Gabriel
- * @date   : 02 / 11 / 2016
- * @state  : [possible bug]
- * 
  * @name   : add_poketudiant_to_cafetaria
  * @arg    : caf, pointer on pokecafetaria that will receive the poketudiant
  * @arg    : etu, pointer on poketudiant that we will add to the pokecafetaria
@@ -40,10 +39,6 @@ Pokecafetaria* create_pokecafetaria();
 int add_poketudiant_to_cafetaria(Pokecafetaria* caf, Poketudiant* etu);
 
 /*
- * @author : Gabriel
- * @date   : 03 / 11 / 2016
- * @state  : [possible bug]
- * 
  * @name   : add_poketudiant_to_cafetaria_by_postion
  * @arg    : caf, pointer on pokecafetaria that will recieve the poketudiant
  * @arg    : etu, pointer on poketudiant that we will add to the pokecafetaria
@@ -56,10 +51,17 @@ int add_poketudiant_to_cafetaria(Pokecafetaria* caf, Poketudiant* etu);
 int add_poketudiant_to_cafetaria_by_position(Pokecafetaria* caf, Poketudiant* etu, int t, int c);
 
 /*
- * @author : Nicolas
- * @date   : 06 / 11 / 2016
- * @state  : [possible bug]
- * 
+ * @name   : add_poketudiant_to_cafetaria_by_table_position
+ * @arg    : caf, pointer on pokecafetaria that will receive the poketudiant
+ * @arg    : etu, pointer on poketudiant that we will add to the pokecafetaria
+ * @arg    : t, table where we will add the poketudiant
+ * @desc   : This function add a poketudiant on the position in the pokecafetaria and do nothing if this is not a free position
+ *
+ * @return : return 1 if it were a free position, 0 otherwise
+ */
+int add_poketudiant_to_cafetaria_by_table_position(Pokecafetaria* caf, Poketudiant* etu, int t);
+
+/*
  * @name   : heal_all_pokecafetaria
  * @arg    : caf, pointer on pokecafetaria where we want to heal all poketudiant
  * @desc   : This function is heal all poketudiant that are in pokecafetaria
@@ -69,10 +71,6 @@ int add_poketudiant_to_cafetaria_by_position(Pokecafetaria* caf, Poketudiant* et
 void heal_all_pokecafetaria(Pokecafetaria* caf);
 
 /*
- * @author : Gabriel
- * @date   : 03 / 11 / 2016
- * @state  : [possible bug]
- * 
  * @name   : get_poketudiant_from_cafetaria_by_position
  * @arg    : caf, pointer on pokecafetaria where we will get the poketudiant
  * @arg    : t, table where we will get the poketudiant
@@ -84,10 +82,6 @@ void heal_all_pokecafetaria(Pokecafetaria* caf);
 Poketudiant* get_poketudiant_from_cafetaria_by_position(Pokecafetaria* caf, int t, int c);
 
 /*
- * @author : Niclas
- * @date   : 06 / 11 / 2016
- * @state  : [possible bug]
- * 
  * @name   : get_poketudiant_from_cafetaria_by_id
  * @arg    : caf, pointer on pokecafetaria where we will get the poketudiant
  * @arg    : id , id of poketudiant that we are looking for
@@ -99,10 +93,6 @@ Poketudiant* get_poketudiant_from_cafetaria_by_id(Pokecafetaria* caf, int id);
 
 
 /*
- * @author : Niclas
- * @date   : 06 / 11 / 2016
- * @state  : [possible bug]
- * 
  * @name   : get_position_of_poketudiant_id_in_cafetaria
  * @arg    : caf, pointer on pokecafetaria where we will get the position
  * @arg    : id , id of poketudiant that we are looking for
@@ -113,10 +103,6 @@ Poketudiant* get_poketudiant_from_cafetaria_by_id(Pokecafetaria* caf, int id);
 int get_position_poketudiant_id_in_cafetaria(Pokecafetaria* caf, unsigned int id);
 
 /*
- * @author : Gabriel
- * @date   : 03 / 11 / 2016
- * @state  : [possible bug]
- * 
  * @name   : swap_position_poketudiant_in_cafetaria
  * @arg    : caf, pointer on pokecafetaria that we will modify
  * @arg    : t1,t2,c1,c2, position of the poketudiants
@@ -128,10 +114,6 @@ void swap_position_poketudiant_in_cafetaria(Pokecafetaria* caf, int t1, int c1, 
 
 
 /*
- * @author : Nicolas
- * @date   : 06 / 11 / 2016
- * @state  : [possible bug]
- * 
  * @name   : swap_position_poketudiant_in_cafetaria_via_id
  * @arg    : caf, pointer on pokecafetaria that we will modify
  * @arg    : id_1 , id of first poketudiant that we want to swap
@@ -143,10 +125,6 @@ void swap_position_poketudiant_in_cafetaria(Pokecafetaria* caf, int t1, int c1, 
 int swap_position_poketudiant_in_cafetaria_via_id(Pokecafetaria* caf, int id_1, int id_2);
 
 /*
- * @author : Gabriel
- * @date   : 03 / 11 / 2016
- * @state  : [possible bug]
- * 
  * @name   : pop_poketudiant_from_cafetaria
  * @arg    : caf, pointer on pokecafetaria that we will modify
  * @arg    : t,c position of the poketudiant
@@ -157,10 +135,6 @@ int swap_position_poketudiant_in_cafetaria_via_id(Pokecafetaria* caf, int id_1, 
 Poketudiant* pop_poketudiant_from_cafetaria(Pokecafetaria* caf, int t, int c);
 
 /*
- * @author : Nicolas
- * @date   : 06 / 11 / 2016
- * @state  : [possible bug]
- * 
  * @name   : pop_poketudiant_from_cafetaria
  * @arg    : caf, pointer on pokecafetaria that we will modify
  * @arg    : id , id of poketudiant that we want to pop from cafetaria
@@ -171,10 +145,6 @@ Poketudiant* pop_poketudiant_from_cafetaria(Pokecafetaria* caf, int t, int c);
 Poketudiant* pop_poketudiant_from_cafetaria_via_id(Pokecafetaria* caf, int id);
 
 /*
- * @author : Gabriel
- * @date   : 03 / 11 / 2016
- * @state  : [possible bug]
- * 
  * @name   : delete_poketudiant_from_table
  * @arg    : caf, pointer on pokecafetaria that we will modify
  * @arg    : t,c position of the poketudiant
@@ -185,10 +155,6 @@ Poketudiant* pop_poketudiant_from_cafetaria_via_id(Pokecafetaria* caf, int id);
 void delete_poketudiant_from_table(Pokecafetaria* caf, int t, int c);
 
 /*
- * @author : Nicolas
- * @date   : 06 / 11 / 2016
- * @state  : [possible bug]
- * 
  * @name   : delete_poketudiant_from_cafetaria_by_id
  * @arg    : caf, pointer on pokecafetaria that we will modify
  * @arg    : id , id of poketudiant that we want to delete
@@ -200,10 +166,6 @@ void delete_poketudiant_from_cafetaria_by_id(Pokecafetaria* caf, int id);
 
 
 /*
- * @author : Gabriel
- * @date   : 03 / 11 / 2016
- * @state  : [possible bug]
- * 
  * @name   : delete_pokecafetaria
  * @arg    : caf, pointer on pokecafetaria that we will delete
  * @desc   : delete the pokecafetaria and free the memory
@@ -213,10 +175,6 @@ void delete_poketudiant_from_cafetaria_by_id(Pokecafetaria* caf, int id);
 void delete_pokecafetaria(Pokecafetaria* caf);
 
 /*
- * @author : Gabriel
- * @date   : 03 / 11 / 2016
- * @state  : [possible bug]
- * 
  * @name   : calcul_pos_pokecafetaria
  * @arg    : c,t position of a poketudiant
  * @desc   : calcul the position of the poketudiant 
@@ -226,10 +184,6 @@ void delete_pokecafetaria(Pokecafetaria* caf);
 int calcul_pos_pokecafetaria(int t, int c);
 
 /*
- * @author : Gabriel
- * @date   : 03 / 11 / 2016
- * @state  : [possible bug]
- * 
  * @name   : print_pokecafetaria
  * @arg    : caf, pointer on a pokecafetaria
  * @desc   : print the table of the pokecafetaria 
@@ -239,10 +193,6 @@ int calcul_pos_pokecafetaria(int t, int c);
 void print_pokecafetaria(Pokecafetaria* caf);
 
 /*
- * @author : Gabriel
- * @date   : 03 / 11 / 2016
- * @state  : [possible bug]
- * 
  * @name   : print_table_pokecafetaria
  * @arg    : caf, pointer on a pokecafetaria
  * @arg    : t, position of a table in the pokecafetaria

@@ -34,12 +34,6 @@
 #define MAX_SIZE_USER_COMMAND 100
 #define BASE_USER 10
 
-int lol_fct(Game* g)
-{
-  if(g != NULL)
-    printf("lol");
-  return 1;
-}
 
 processing_fct get_action_from_command(const char* command)
 {

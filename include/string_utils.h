@@ -2,10 +2,6 @@
 #define __STRING_UTILS_H__
 
 /*
- * @author : Nicolas
- * @date   : 01 / 11 / 2016
- * @state  : [No bug]
- * 
  * @name   : remove_occurences
  * @arg    : string , string from which we want to remove character
  * @arg    : c , character that we want to remove
@@ -17,10 +13,6 @@
 void remove_occurences(char* string, char c);
 
 /*
- * @author : Nicolas
- * @date   : 01 / 11 / 2016
- * @state  : [No bug]
- * 
  * @name   : remove_first_occurence
  * @arg    : string , string from which we want to remove character
  * @arg    : c , character that we want to remove
@@ -32,10 +24,6 @@ void remove_occurences(char* string, char c);
 void remove_first_occurence(char* string, char c);
 
 /*
- * @author : Nicolas
- * @date   : 01 / 11 / 2016
- * @state  : [No bug]
- * 
  * @name   : remove_last_occurence
  * @arg    : string , string from which we want to remove character
  * @arg    : c , character that we want to remove

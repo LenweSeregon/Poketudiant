@@ -42,6 +42,20 @@ int add_poketudiant_to_cafetaria_by_position(Pokecafetaria* caf, Poketudiant* et
   return 0;
 }
 
+int add_poketudiant_to_cafetaria_by_table_position(Pokecafetaria* caf, Poketudiant* etu, int t)
+{
+  int i;
+  for(i = 0; i < MAX_POKETUDIANT_BY_TABLE; i++)
+    {
+      int res = add_poketudiant_to_cafetaria_by_position(caf,etu,t,i);
+      if(res)
+	{
+	  return 1;
+	}
+    }
+  return 0;
+}
+
 void heal_all_pokecafetaria(Pokecafetaria* caf)
 {
   int i;

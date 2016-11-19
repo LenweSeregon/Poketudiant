@@ -2,9 +2,6 @@
 #define __FACTORIES_H__
 
 /*
- * @author : Nicolas
- * @date   : 01 / 11 / 2016
- * 
  * @name   : Poketudiant_factory
  * @desc   : This structure is a structure that contain a reference to hash table containing
              all base poketudiant and another containing all base attacks. This structure 
@@ -18,10 +15,6 @@ struct Poketudiant_factory
 typedef struct Poketudiant_factory Poketudiant_factory;
 
 /*
- * @author : Nicolas
- * @date   : 01 / 11 / 2016
- * @state  : [No bug]
- * 
  * @name   : create_poketudiant_factory
  * @arg    : ref_poke , pointer on hash table containing all base poketudiants, care
              responsability is not given to factory
@@ -36,10 +29,6 @@ typedef struct Poketudiant_factory Poketudiant_factory;
 Poketudiant_factory* create_poketudiant_factory(Hash_table* ref_poke, Hash_table* ref_att);
 
 /*
- * @author : Nicolas
- * @date   : 01 / 11 / 2016
- * @state  : [No bug]
- * 
  * @name   : delete_poketudiant_factory
  * @arg    : factory , pointer on factory that we want to delete
  * @desc   : This function is used to delete a poketudiant factory and ensure no leak memory
@@ -50,10 +39,6 @@ Poketudiant_factory* create_poketudiant_factory(Hash_table* ref_poke, Hash_table
 void delete_poketudiant_factory(Poketudiant_factory* factory);
 
 /*
- * @author : Nicolas
- * @date   : 01 / 11 / 2016
- * @state  : [No bug]
- * 
  * @name   : generate_random_poketudiant
  * @arg    : factory , pointer on factory with which we want to generate poketudiant
  * @arg    : level , level that we want our generated poketudiant to have
@@ -65,10 +50,6 @@ Poketudiant* generate_random_poketudiant(Poketudiant_factory* factory,int level)
 
 
 /*
- * @author : Nicolas
- * @date   : 01 / 11 / 2016
- * @state  : [No bug]
- * 
  * @name   : generate_random_poketudiant
  * @arg    : factory , pointer on factory with which we want to generate poketudiant
  * @arg    : level , level that we want our generated poketudiant to have
@@ -81,10 +62,6 @@ Poketudiant* generate_random_poketudiant_without_teacher(Poketudiant_factory* fa
 
 
 /*
- * @author : Nicolas
- * @date   : 03 / 11 / 2016
- * @state  : [No bug]
- * 
  * @name   : generate_random_capturable_poketudiant
  * @arg    : factory , pointer on factory with which we want to generate poketudiant
  * @arg    : level , level that we want our poketudiant to get
@@ -96,10 +73,6 @@ Poketudiant* generate_random_poketudiant_without_teacher(Poketudiant_factory* fa
 Poketudiant* generate_random_capturable_poketudiant(Poketudiant_factory* factory, int level);
 
 /*
- * @author : Nicolas
- * @date   : 01 / 11 / 2016
- * @state  : [No bug]
- * 
  * @name   : generate_random_poketudiant_from_name
  * @arg    : factory , pointer on factory with which we want to generate poketudiant
  * @arg    : name , poketudiant name that we want to generate
@@ -112,10 +85,6 @@ Poketudiant* generate_random_capturable_poketudiant(Poketudiant_factory* factory
 Poketudiant* generate_poketudiant_from_name(Poketudiant_factory* factory,char* name,int level);
 
 /*
- * @author : Nicolas
- * @date   : 04 / 11 / 2016
- * @state  : [No bug]
- * 
  * @name   : generate_random_trainer
  * @arg    : factory , pointer on factory with which we want to generate trainer
  * @arg    : level , level that we want our trainer's poketudiant to get

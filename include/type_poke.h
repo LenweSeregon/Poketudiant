@@ -13,10 +13,6 @@ enum Type_poke
 typedef enum Type_poke Type_poke;
 
 /*
- * @author : Nicolas
- * @date   : 01 / 11 / 2016
- * @state  : [No bug]
- * 
  * @name   : string_from_enum_type_poke
  * @arg    : type , enum type that we want to convert as string
  * @desc   : This function is used to get a string format from enum format for poke type
@@ -26,10 +22,6 @@ typedef enum Type_poke Type_poke;
 char* string_from_enum_type_poke(Type_poke type);
 
 /*
- * @author : Nicolas
- * @date   : 01 / 11 / 2016
- * @state  : [No bug]
- * 
  * @name   : enum_from_string_type_poke
  * @desc   : This function is used to get a enum format from a string format for poke type
  *

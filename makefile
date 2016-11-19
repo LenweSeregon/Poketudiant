@@ -64,7 +64,8 @@ $(B)/game.o:		$(S)/game.c\
 			$(I)/evolve_module.h\
 			$(I)/factories.h\
 			$(I)/battle_module.h\
-			$(I)/command_handler.h
+			$(I)/command_handler.h\
+			$(I)/weakness.h
 	$(CC) $(CFLAGS) -c $< -I $(I) -o $@
 
 $(B)/command_handler.o:	$(S)/command_handler.c\
@@ -98,7 +99,8 @@ $(B)/battle_module.o :	$(S)/battle_module.c\
 			$(I)/attack.h\
 			$(I)/poketudiant.h\
 			$(I)/trainer.h\
-			$(I)/factories.h
+			$(I)/factories.h\
+			$(I)/weakness.h
 	$(CC) $(CFLAGS) -c $< -I $(I) -o $@
 
 $(B)/evolve_module.o : 	$(S)/evolve_module.c\
