@@ -3,23 +3,6 @@
 
 typedef int (*processing_fct)(Game* game);
 
-static char* token_list[] = {"wild","rival","nurse","show","switch",
-			     "move-table","drop","pick","release","exit","catch","xp",NULL};
-static int (*fct_list[])(Game*) = {processing_wild_command,
-				   processing_rival_command,
-				   processing_nurse,
-				   processing_show,
-				   processing_switch,
-				   processing_move_table,
-				   processing_drop,
-				   processing_pick,
-				   processing_release,
-				   processing_exit,
-				   processing_catch,
-				   processing_xp
-};
-
-
 /*
  * @name   : check_argument_is_integer
  * @arg    : argument , char* argument that's we want to check if he is an integer

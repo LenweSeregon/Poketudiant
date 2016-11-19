@@ -34,6 +34,22 @@
 #define MAX_SIZE_USER_COMMAND 100
 #define BASE_USER 10
 
+static char* token_list[] = {"wild","rival","nurse","show","switch",
+			     "move-table","drop","pick","release","exit","catch","xp",NULL};
+static int (*fct_list[])(Game*) = {processing_wild_command,
+				   processing_rival_command,
+				   processing_nurse,
+				   processing_show,
+				   processing_switch,
+				   processing_move_table,
+				   processing_drop,
+				   processing_pick,
+				   processing_release,
+				   processing_exit,
+				   processing_catch,
+				   processing_xp
+};
+
 
 processing_fct get_action_from_command(const char* command)
 {

@@ -15,6 +15,7 @@
 #include "trainer.h"
 #include "factories.h"
 
+#define XP_GIVEN_TO_LEVEL_1 300
 
 Poketudiant_factory* create_poketudiant_factory(Hash_table* ref_poke, Hash_table* ref_att)
 {
@@ -350,11 +351,11 @@ Trainer* generate_random_trainer(Poketudiant_factory* factory, int level)
   ia_3 = generate_random_poketudiant_without_teacher(factory,level);
 
   if(ia_1->level == 1)
-    ia_1->xp = 300;
+    ia_1->xp = XP_GIVEN_TO_LEVEL_1;
   if(ia_2->level == 1)
-    ia_2->xp = 300;
+    ia_2->xp = XP_GIVEN_TO_LEVEL_1;
   if(ia_3->level == 1)
-    ia_3->xp = 300;
+    ia_3->xp = XP_GIVEN_TO_LEVEL_1;
 
   add_poketudiant_to_team(trainer,ia_1);
   add_poketudiant_to_team(trainer,ia_2);

@@ -20,6 +20,7 @@
 #include "battle_module.h"
 
 #define XP_START_WILD_POKE 300
+#define MULTIPLIER_DAMAGE 2
 
 /* Battle module */
 
@@ -166,7 +167,7 @@ int attack_poketudiant(Battle_module* b_module,
   
   if(multiply)
     {
-      damage *= 2;
+      damage *= MULTIPLIER_DAMAGE;
     }
   
   return take_damage(poke_def,damage);
@@ -620,11 +621,3 @@ int trainer_versus_random_trainer(Battle_module* battle_module,
   delete_trainer(opponent_trainer);
   return win;
 }
-
-/*int trainer_versus_trainer(Battle_module* battle_module,
-			    Trainer* trainer,
-			    Trainer* ia)
-{
-
-}
-*/
