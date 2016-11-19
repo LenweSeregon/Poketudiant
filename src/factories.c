@@ -13,9 +13,8 @@
 #include "generic_control_function.h"
 #include "pokecafetaria.h"
 #include "trainer.h"
+#include "constantes.h"
 #include "factories.h"
-
-#define XP_GIVEN_TO_LEVEL_1 300
 
 Poketudiant_factory* create_poketudiant_factory(Hash_table* ref_poke, Hash_table* ref_att)
 {
@@ -33,9 +32,9 @@ void delete_poketudiant_factory(Poketudiant_factory* factory)
 
 Poketudiant* generate_random_poketudiant(Poketudiant_factory* factory, int level)
 {
-  if(level <= 0 || level > 10)
+  if(level < MIN_LEVEL_POKETUDIANT || level > MAX_LEVEL_POKETUDIANT)
     {
-      printf("We only can generated poketudiant in range level 1 to 10.\n");
+      printf("We only can generated poketudiant in range level %d to %d.\n",MIN_LEVEL_POKETUDIANT,MAX_LEVEL_POKETUDIANT);
       return NULL;
     }
   else
@@ -71,7 +70,7 @@ Poketudiant* generate_random_poketudiant(Poketudiant_factory* factory, int level
 	  poke->hp = poke->hp_max;
 	  /* let up to level in parameter */
 	  poke->level = level;
-	  if(level > 1)
+	  if(level > MIN_LEVEL_POKETUDIANT)
 	    {
 	      poke->xp = 500 * ((1 + (float)(poke->level-1)) / 2); 
 	    }
@@ -104,9 +103,10 @@ Poketudiant* generate_random_poketudiant(Poketudiant_factory* factory, int level
 
 Poketudiant* generate_random_capturable_poketudiant(Poketudiant_factory* factory, int level)
 {
-  if(level <= 0 || level > 10)
+  
+  if(level < MIN_LEVEL_POKETUDIANT || level > MAX_LEVEL_POKETUDIANT)
     {
-      printf("We only can generated poketudiant in range level 1 to 10.\n");
+      printf("We only can generated poketudiant in range level %d to %d.\n",MIN_LEVEL_POKETUDIANT,MAX_LEVEL_POKETUDIANT);
       return NULL;
     }
   else
@@ -148,7 +148,7 @@ Poketudiant* generate_random_capturable_poketudiant(Poketudiant_factory* factory
 	  poke->hp_max = (int)floor(poke->hp_max * r_hp);
 	  /* let up to level in parameter */
 	  poke->level = level;
-	  if(level > 1)
+	  if(level > MIN_LEVEL_POKETUDIANT)
 	    {
 	      poke->xp = 500 * ((1 + (float)(poke->level-1)) / 2); 
 	    }
@@ -180,9 +180,9 @@ Poketudiant* generate_random_capturable_poketudiant(Poketudiant_factory* factory
 
 Poketudiant* generate_random_poketudiant_without_teacher(Poketudiant_factory* factory,int level)
 {
-  if(level <= 0 || level > 10)
+  if(level < MIN_LEVEL_POKETUDIANT || level > MAX_LEVEL_POKETUDIANT)
     {
-      printf("We only can generated poketudiant in range level 1 to 10.\n");
+      printf("We only can generated poketudiant in range level %d to %d.\n",MIN_LEVEL_POKETUDIANT,MAX_LEVEL_POKETUDIANT);
       return NULL;
     }
   else
@@ -230,7 +230,7 @@ Poketudiant* generate_random_poketudiant_without_teacher(Poketudiant_factory* fa
 	  poke->hp = poke->hp_max;
 	  /* let up to level in parameter */
 	  poke->level = level;
-	  if(level > 1)
+	  if(level > MIN_LEVEL_POKETUDIANT)
 	    {
 	      poke->xp = 500 * ((1 + (float)(poke->level-1)) / 2); 
 	    }
@@ -261,9 +261,9 @@ Poketudiant* generate_random_poketudiant_without_teacher(Poketudiant_factory* fa
 
 Poketudiant* generate_poketudiant_from_name(Poketudiant_factory* factory, char* name, int level)
 {
-  if(level <= 0 || level > 10)
+  if(level < MIN_LEVEL_POKETUDIANT || level > MAX_LEVEL_POKETUDIANT)
     {
-      printf("We only can generated poketudiant in range level 1 to 10.\n");
+      printf("We only can generated poketudiant in range level %d to %d.\n",MIN_LEVEL_POKETUDIANT,MAX_LEVEL_POKETUDIANT);
       return NULL;
     }
   else
@@ -309,7 +309,7 @@ Poketudiant* generate_poketudiant_from_name(Poketudiant_factory* factory, char* 
 	  poke->hp = poke->hp_max;
 	  /* let up to level in parameter */
 	  poke->level = level;
-	  if(level > 1)
+	  if(level > MIN_LEVEL_POKETUDIANT)
 	    {
 	      poke->xp = 500 * ((1 + (float)(poke->level-1)) / 2); 
 	    }
@@ -350,12 +350,12 @@ Trainer* generate_random_trainer(Poketudiant_factory* factory, int level)
   ia_2 = generate_random_poketudiant_without_teacher(factory,level);
   ia_3 = generate_random_poketudiant_without_teacher(factory,level);
 
-  if(ia_1->level == 1)
-    ia_1->xp = XP_GIVEN_TO_LEVEL_1;
-  if(ia_2->level == 1)
-    ia_2->xp = XP_GIVEN_TO_LEVEL_1;
-  if(ia_3->level == 1)
-    ia_3->xp = XP_GIVEN_TO_LEVEL_1;
+  if(ia_1->level == MIN_LEVEL_POKETUDIANT)
+    ia_1->xp = XP_START_WILD_POKE;
+  if(ia_2->level == MIN_LEVEL_POKETUDIANT)
+    ia_2->xp = XP_START_WILD_POKE;
+  if(ia_3->level == MIN_LEVEL_POKETUDIANT)
+    ia_3->xp = XP_START_WILD_POKE;
 
   add_poketudiant_to_team(trainer,ia_1);
   add_poketudiant_to_team(trainer,ia_2);

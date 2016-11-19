@@ -17,10 +17,8 @@
 #include "generic_control_function.h"
 #include "evolve_module.h"
 #include "weakness.h"
+#include "constantes.h"
 #include "battle_module.h"
-
-#define XP_START_WILD_POKE 300
-#define MULTIPLIER_DAMAGE 2
 
 /* Battle module */
 
@@ -165,10 +163,12 @@ int attack_poketudiant(Battle_module* b_module,
   double rand_multi = random_double_in_poke_range();
   int damage = rand_multi * ((float)poke_att->attack / poke_def->defense) * att->pow;
   
+  printf("Damage = %d\n",damage);
   if(multiply)
     {
-      damage *= MULTIPLIER_DAMAGE;
+      damage *= MULTIPLIER_DMG_WEAK;
     }
+  printf("New damage = %d\n",damage);
   
   return take_damage(poke_def,damage);
 }
@@ -241,15 +241,15 @@ int try_to_escape(Poketudiant* poketudiant_player, Poketudiant* poketudiant_ia)
   int gonna_escape = 0;
   if(level_difference <= -3)
     gonna_escape = 0;
-  else if(level_difference == -2 && random <= 25)
+  else if(level_difference == -2 && random <= CHANCE_CAPTURE_2_LEVEL_LESS)
     gonna_escape = 1;
-  else if(level_difference == -1 && random <= 40)
+  else if(level_difference == -1 && random <= CHANCE_CAPTURE_1_LEVEL_LESS)
     gonna_escape = 1;
-  else if(level_difference == 0 && random <= 50)
+  else if(level_difference == 0 && random <= CHANCE_CAPTURE_0_LEVEL_DIFF)
     gonna_escape = 1;
-  else if(level_difference == 1 && random <= 75)
+  else if(level_difference == 1 && random <= CHANCE_CAPTURE_1_LEVEL_MORE)
     gonna_escape = 1;
-  else if(level_difference == 2 && random <= 95)
+  else if(level_difference == 2 && random <= CHANCE_CAPTURE_2_LEVEL_MORE)
     gonna_escape = 1;
   else if(level_difference >= 3)
     gonna_escape = 1;
@@ -271,7 +271,7 @@ int trainer_versus_random_wild_poketudiant(Battle_module* battle_module,
   int win;
   int captured;
   
-  container_poke_participate = create_container(DYNAMIC,3,0);
+  container_poke_participate = create_container(DYNAMIC,MAX_POKETUDIANT_TEAM,0);
   current_opponent = generate_random_capturable_poketudiant(battle_module->ref_poke_factory,random_level);
   current_fighter = select_first_poketudiant_in_life(trainer);
  
@@ -457,7 +457,7 @@ int trainer_versus_random_trainer(Battle_module* battle_module,
   random_level = random_int(min_level,max_level);
   opponent_trainer = generate_random_trainer(battle_module->ref_poke_factory,random_level);
 
-  container_poke_participate = create_container(DYNAMIC,3,0);
+  container_poke_participate = create_container(DYNAMIC,MAX_POKETUDIANT_TEAM,0);
   current_opponent = select_first_poketudiant_in_life(opponent_trainer);
   current_fighter = select_first_poketudiant_in_life(trainer);
  

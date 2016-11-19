@@ -5,7 +5,7 @@
 #include "type_poke.h"
 #include "attack.h"
 #include "poketudiant.h"
-
+#include "constantes.h"
 #include "pokecafetaria.h"
 
 

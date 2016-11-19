@@ -5,17 +5,29 @@
 #define MIN_LEVEL_POKETUDIANT 1
 #define MAX_LEVEL_POKETUDIANT 10
 #define MULTIPLIER_DMG_WEAK 2
-#define XP_START_WILD_POKE 300
+#define XP_START_WILD_POKE 300 /* If wild poke is level 1, we must give him a bit xp */
 #define MAX_POKETUDIANT_TEAM 3
 #define MAX_POKETUDIANT_BY_TABLE 4
 #define NB_TABLE_POKECAFETARIA 3
 #define INIT_SIZE_HASH_TABLE 20
+#define LEVEL_POKETUDIANT_CATCH_COMMAND 1 /* Catch command debbug can generate some capture,
+					     constante represent level of capturated poketudiant */
+#define XP_NEEDED_LEVEL_1 500
 
 /* Evolve interaction */
 #define CHANCE_EVOLVE_LEVEL_3 20.0
 #define CHANCE_EVOLVE_LEVEL_4 37.5
 #define MIN_RANGE_EVOLVE_POSSIBLE 3
 #define MAX_RANGE_EVOLVE_POSSIBLE 5
+
+/* Escape interaction 
+   Less represent poketudiant's player has x level below 
+   More represent poketudiant's player has x level above */
+#define CHANCE_CAPTURE_2_LEVEL_LESS 25
+#define CHANCE_CAPTURE_1_LEVEL_LESS 40
+#define CHANCE_CAPTURE_0_LEVEL_DIFF 50
+#define CHANCE_CAPTURE_1_LEVEL_MORE 75
+#define CHANCE_CAPTURE_2_LEVEL_MORE 95
 
 /* User interaction */ 
 #define MAX_SIZE_USER_COMMAND 100

@@ -9,10 +9,9 @@
 #include "poketudiant.h"
 #include "generic_control_function.h"
 #include "pokecafetaria.h"
+#include "constantes.h"
 #include "trainer.h"
 
-
-#define MAX_POKE_IN_TEAM 3
 Trainer* create_trainer(const char* name, int ia_trainer)
 {
   unsigned int size_name = strlen(name) + 1;
@@ -20,7 +19,7 @@ Trainer* create_trainer(const char* name, int ia_trainer)
   trainer->name = malloc(size_name * sizeof(char));
   strcpy(trainer->name,name);
 
-  trainer->team = create_container(STATIC,MAX_POKE_IN_TEAM,1);
+  trainer->team = create_container(STATIC,MAX_POKETUDIANT_TEAM,1);
   trainer->team->display_element_fct = print_poketudiant_fct;
   trainer->team->delete_fct = delete_poketudiant_fct;
   trainer->team->cmp_fct = cmp_poketudiant_fct_via_id;
@@ -141,7 +140,7 @@ void drop_to_pokecafetaria(Trainer* trainer, int id)
 
 void pick_from_pokecafetaria(Trainer* trainer, int id)
 {
-  if(trainer->team->current <= 2)
+  if(trainer->team->current <= (MAX_POKETUDIANT_TEAM - 1))
     {
       Poketudiant* to_pick = pop_poketudiant_from_cafetaria_via_id(trainer->cafetaria,id);
       if(to_pick == NULL)

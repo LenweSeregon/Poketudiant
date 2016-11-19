@@ -25,5 +25,5 @@ double random_double(double min, double max)
 
 double random_double_in_poke_range()
 {
-  return random_double(0.9,1.1);
+  return random_double(MIN_RANGE_RANDOM_GAME,MAX_RANGE_RANDOM_GAME);
 }

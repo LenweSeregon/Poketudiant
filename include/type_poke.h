@@ -8,7 +8,8 @@ enum Type_poke
     LAZY, 
     NOISY,
     MOTIVATED,
-    TEACHER
+    TEACHER,
+    LAST
   };
 typedef enum Type_poke Type_poke;
 

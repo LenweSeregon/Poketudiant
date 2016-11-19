@@ -28,11 +28,8 @@
 
 #include "battle_module.h"
 #include "game.h"
+#include "constantes.h"
 #include "command_handler.h"
-
-
-#define MAX_SIZE_USER_COMMAND 100
-#define BASE_USER 10
 
 static char* token_list[] = {"wild","rival","nurse","show","switch",
 			     "move-table","drop","pick","release","exit","catch","xp",NULL};

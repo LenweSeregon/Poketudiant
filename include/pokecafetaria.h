@@ -1,12 +1,6 @@
 #ifndef __POKECAFETARIA_H__
 #define __POKECAFETARIA_H__
 
-/* Number of table in the pokecafetaria */
-#define NB_TABLE_POKECAFETARIA 3
-
-/* Max number of pokemon on a table */
-#define MAX_POKETUDIANT_BY_TABLE 4
-
 /*
  * @name  : Pokecafetaria
  * @desc  : This struct is use to simply store a dynamic array representing a 2D array for

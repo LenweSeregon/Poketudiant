@@ -10,10 +10,8 @@
 #include "attack.h"
 #include "poketudiant.h"
 #include "weakness.h"
+#include "constantes.h"
 #include "loading_module.h"
-
-#define MAX_STRING_FILE_SIZE 300
-#define MAX_STRING_ATTRIBUTS_POKETUDIANT 60
 
 void load_base_poketudiant(Hash_table* table_poke, const char* file_name)
 {

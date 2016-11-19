@@ -13,6 +13,7 @@
 #include "attack.h"
 #include "poketudiant.h"
 #include "generic_control_function.h"
+#include "constantes.h"
 #include "evolve_module.h"
 
 
@@ -49,11 +50,11 @@ int make_poketudiant_evolve(Evolve_center* center,
       double random_value = random_double(0.0,100.0);
       int must_evolve = 0;
       /* We'll check if pokemon is ready to evolve */ 
-      if(poke->level == 3 && random_value <= 20)
+      if(poke->level == 3 && random_value <= CHANCE_EVOLVE_LEVEL_3)
 	{
 	  must_evolve = 1;
 	}
-      else if(poke->level == 4 && random_value <= 37.5)
+      else if(poke->level == 4 && random_value <= CHANCE_EVOLVE_LEVEL_4)
 	{
 	  must_evolve = 1;
 	}
@@ -118,7 +119,7 @@ void make_poketudiant_upgrade(Evolve_center* center, Poketudiant* poke)
      xp next evolve as : 500 * ((1 + level) / 2)
   */
   poke->level++;
-  if(poke->level < 10) /* If poketudiant level is 10, we don't need to update anymore xp_next */
+  if(poke->level < MAX_LEVEL_POKETUDIANT) /* If poketudiant level is 10, we don't need to update anymore xp_next */
     {
       poke->xp_next = (int)floor(500 * ((float)(1 + poke->level) / 2));
     }
@@ -128,7 +129,9 @@ void make_poketudiant_upgrade(Evolve_center* center, Poketudiant* poke)
   poke->hp = poke->hp_max;
   printf("Your poketudiant has evolved to level %d\n",poke->level);
 
-  if(poke->level >= 3 && poke->level <= 5 && strcmp(poke->evolution,"none") != 0)
+  if(poke->level >= MIN_RANGE_EVOLVE_POSSIBLE && 
+     poke->level <= MAX_RANGE_EVOLVE_POSSIBLE && 
+     strcmp(poke->evolution,"none") != 0)
     {
       int res;
       unsigned int size_old_variety = strlen(poke->variety) + 1;
@@ -148,7 +151,7 @@ void make_poketudiant_upgrade(Evolve_center* center, Poketudiant* poke)
   /* If poketudiant has enought xp to reupgrade a second time */
   if(poke->xp >= poke->xp_next)
     {
-      if(poke->level < 10)
+      if(poke->level < MAX_LEVEL_POKETUDIANT)
 	{
 	  make_poketudiant_upgrade(center,poke);
 	} 

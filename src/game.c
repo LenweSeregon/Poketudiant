@@ -26,11 +26,8 @@
 #include "battle_module.h"
 #include "game.h"
 #include "weakness.h"
+#include "constantes.h"
 #include "command_handler.h"
-
-#define COMMAND_SEPARATOR " "
-#define BASE_USER 10
-#define LEVEL_POKETUDIANT_CATCH_COMMAND 1
 
 Game* create_game(const char* trainer_name)
 {
@@ -42,8 +39,8 @@ Game* create_game(const char* trainer_name)
   Poketudiant* poke_cafe3;
   Game* game = malloc(sizeof(Game));
   /* Initiliaze base collection */
-  game->base_poke = create_hash_table(20);
-  game->base_att = create_hash_table(20);
+  game->base_poke = create_hash_table(INIT_SIZE_HASH_TABLE);
+  game->base_att = create_hash_table(INIT_SIZE_HASH_TABLE);
   
   game->base_poke->hash_fct = hash_poketudiant_fct_from_poketudiant;
   game->base_poke->print_fct_linked_list = print_poketudiant_fct;
@@ -67,11 +64,11 @@ Game* create_game(const char* trainer_name)
   
   /* Init trainer */
   game->trainer = create_trainer(trainer_name,0);
-  first_poke = generate_poketudiant_from_name(game->factory_poke,"Enseignant-dresseur",1);
-  second_poke = generate_random_capturable_poketudiant(game->factory_poke,1);
-  poke_cafe1 = generate_random_capturable_poketudiant(game->factory_poke,1);
-  poke_cafe2 = generate_random_capturable_poketudiant(game->factory_poke,1);;
-  poke_cafe3 = generate_random_capturable_poketudiant(game->factory_poke,1);;
+  first_poke = generate_poketudiant_from_name(game->factory_poke,"Enseignant-dresseur",MIN_LEVEL_POKETUDIANT);
+  second_poke = generate_random_capturable_poketudiant(game->factory_poke,MIN_LEVEL_POKETUDIANT);
+  poke_cafe1 = generate_random_capturable_poketudiant(game->factory_poke,MIN_LEVEL_POKETUDIANT);
+  poke_cafe2 = generate_random_capturable_poketudiant(game->factory_poke,MIN_LEVEL_POKETUDIANT);
+  poke_cafe3 = generate_random_capturable_poketudiant(game->factory_poke,MIN_LEVEL_POKETUDIANT);
   add_poketudiant_to_team(game->trainer,first_poke);
   add_poketudiant_to_team(game->trainer,second_poke);
   add_poketudiant_to_team(game->trainer,poke_cafe1);
@@ -196,12 +193,12 @@ int processing_wild_command(Game* game)
   char* min_level = strtok(NULL,COMMAND_SEPARATOR);
   char* max_level = strtok(NULL,COMMAND_SEPARATOR);
   /* Verification */
-  if(!check_argument_is_integer_in_range(min_level,1,10))
+  if(!check_argument_is_integer_in_range(min_level,MIN_LEVEL_POKETUDIANT,MAX_LEVEL_POKETUDIANT))
     {
       printf("First argument unavailable or inexistent\n");
       accept_command = 0;
     }
-  if(!check_argument_is_integer_in_range(max_level,1,10))
+  if(!check_argument_is_integer_in_range(max_level,MIN_LEVEL_POKETUDIANT,MAX_LEVEL_POKETUDIANT))
     {
       printf("Second argument unavailable or inexistent\n");
       accept_command = 0;
@@ -242,12 +239,12 @@ int processing_rival_command(Game* game)
   char* min_level = strtok(NULL,COMMAND_SEPARATOR);
   char* max_level = strtok(NULL,COMMAND_SEPARATOR);
   /* Verification */
-  if(!check_argument_is_integer_in_range(min_level,1,10))
+  if(!check_argument_is_integer_in_range(min_level,MIN_LEVEL_POKETUDIANT,MAX_LEVEL_POKETUDIANT))
     {
       printf("First argument unavailable or inexistent\n");
       accept_command = 0;
     }
-  if(!check_argument_is_integer_in_range(max_level,1,10))
+  if(!check_argument_is_integer_in_range(max_level,MIN_LEVEL_POKETUDIANT,MAX_LEVEL_POKETUDIANT))
     {
       printf("Second argument unavailable or inexistent\n");
       accept_command = 0;

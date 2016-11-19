@@ -4,6 +4,7 @@
 
 #include "type_poke.h"
 #include "attack.h"
+#include "constantes.h"
 #include "poketudiant.h"
 
 Poketudiant* create_poketudiant(Type_poke type, char* variety, 
@@ -36,7 +37,7 @@ Poketudiant* create_poketudiant(Type_poke type, char* variety,
 
   poketudiant->level = 1;
   poketudiant->xp = 0;
-  poketudiant->xp_next = 500;
+  poketudiant->xp_next = XP_NEEDED_LEVEL_1;
  
   poketudiant->ref_attack_1 = NULL;
   poketudiant->ref_attack_2 = NULL;
@@ -74,7 +75,7 @@ int take_damage(Poketudiant* pok, unsigned int damage)
 
 int earn_experience(Poketudiant* pok, unsigned int experience)
 {
-  if(pok->level < 10)
+  if(pok->level < MAX_LEVEL_POKETUDIANT)
     {
       pok->xp += experience;
       if(pok->xp >= pok->xp_next)
