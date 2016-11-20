@@ -104,6 +104,7 @@ $(B)/battle_module.o :	$(S)/battle_module.c\
 			$(I)/poketudiant.h\
 			$(I)/trainer.h\
 			$(I)/factories.h\
+			$(I)/game.h\
 			$(I)/weakness.h
 	$(CC) $(CFLAGS) -c $< -I $(I) -o $@
 

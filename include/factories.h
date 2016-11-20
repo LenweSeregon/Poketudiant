@@ -1,6 +1,7 @@
 #ifndef __FACTORIES_H__
 #define __FACTORIES_H__
 
+
 /*
  * @name   : Poketudiant_factory
  * @desc   : This structure is a structure that contain a reference to hash table containing
@@ -37,6 +38,20 @@ Poketudiant_factory* create_poketudiant_factory(Hash_table* ref_poke, Hash_table
  * @return : no return;
  */
 void delete_poketudiant_factory(Poketudiant_factory* factory);
+
+/*
+ * @name   : generate_poketudiant
+ * @arg    : factory , pointer on factory with witch we want to generate poketudiant
+ * @arg    : base_poke , the base poketudiant for generation, this base has specific value
+             according to function that call the function. For example, this base poketudiant
+	     cannot be a teacher base if function is call from generate_without_teacher
+ * @arg    : level , level that we want our generated poketudiant to have
+ * @desc   : This function is use to properly generate poketudiant from his base. It ensure to 
+             give him the right level with multiplication in caracteristics
+ *
+ * @return : pointer on poketudiant generated, NULL if error in generator
+ */
+Poketudiant* generate_poketudiant(Poketudiant_factory* factory, Poketudiant* base_poke, int level);
 
 /*
  * @name   : generate_random_poketudiant

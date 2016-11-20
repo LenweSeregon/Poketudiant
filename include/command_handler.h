@@ -1,7 +1,8 @@
 #ifndef __COMMAND_HANDLER_H__
 #define __COMMAND_HANDLER_H__
 
-typedef int (*processing_fct)(Game* game);
+struct Game;
+typedef int (*processing_fct)(struct Game* game);
 
 /*
  * @name   : check_argument_is_integer

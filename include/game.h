@@ -7,6 +7,7 @@
              Here, there is not reference so every entites gonna be release at the end of the game
 	     when delete game is called.
  */
+
 struct Game
 {
   Hash_table* base_poke;

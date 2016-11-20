@@ -18,6 +18,7 @@
 #include "evolve_module.h"
 #include "weakness.h"
 #include "constantes.h"
+#include "command_handler.h"
 #include "battle_module.h"
 
 /* Battle module */
@@ -41,9 +42,9 @@ void delete_battle_module(Battle_module* battle_module)
 
 void display_opponents(Poketudiant* poke_player, Poketudiant* poke_ia)
 {
-  printf("Your poketudiant :\n");
+  printf("YOUR POKETUDIANT :\n");
   print_complete_poketudiant(poke_player);
-  printf("Enemy poketudiant :\n");
+  printf("\nENEMY POKETUDIANT :\n");
   print_complete_poketudiant(poke_ia);
 }
 
@@ -70,71 +71,97 @@ State_action manage_order_vs_wild_poketudiant()
   State_action action;
   while(!valid)
     {
-      int answer;
-      scanf("%d",&answer);
-      switch(answer)
+      char* user_input = get_command_from_user();
+      remove_occurences(user_input,'\t');
+      remove_occurences(user_input,'\n');
+      remove_occurences(user_input,' ');
+      if(check_argument_is_integer_in_range(user_input,1,5))
 	{
-	case 1:
+	  int user_input_int = strtol(user_input,NULL,BASE_USER);
 	  valid = 1;
-	  action = FIRST_ATTACK;
-	  break;
-	case 2:
-	  valid = 1;
-	  action = SECOND_ATTACK;
-	  break;
-	case 3:
-	  valid = 1;
-	  action = CHANGE_POKE;
-	  break;
-	case 4:
-	  valid = 1;
-	  action = TRY_CAPTURE;
-	  break;
-	case 5:
-	  valid = 1;
-	  action = TRY_ESCAPE;
-	  break;
-	default:
+	  switch(user_input_int)
+	    {
+	    case 1:
+	      valid = 1;
+	      action = FIRST_ATTACK;
+	      break;
+	    case 2:
+	      valid = 1;
+	      action = SECOND_ATTACK;
+	      break;
+	    case 3:
+	      valid = 1;
+	      action = CHANGE_POKE;
+	      break;
+	    case 4:
+	      valid = 1;
+	      action = TRY_CAPTURE;
+	      break;
+	    case 5:
+	      valid = 1;
+	      action = TRY_ESCAPE;
+	      break;
+	    default:
+	      valid = 0;
+	    }
+	}
+      else
+	{
 	  printf("Your answer is unavailable please make choice according to menu\n");
-	  empty_buffer();
 	  display_battle_menu_vs_wild_poketudiant();
-	  break;
+	}
+      /* Check for freeing user input if he's not NULL */
+      if(user_input != NULL)
+	{
+	  free(user_input);
 	}
     }
-  
   return action;
 }
 
 State_action manage_order_vs_trainer()
 {
-int valid = 0;
+  int valid = 0;
   State_action action;
   while(!valid)
     {
-      int answer;
-      scanf("%d",&answer);
-      switch(answer)
+      char* user_input = get_command_from_user();
+      remove_occurences(user_input,'\t');
+      remove_occurences(user_input,'\n');
+      remove_occurences(user_input,' ');
+      if(check_argument_is_integer_in_range(user_input,1,3))
 	{
-	case 1:
+	  int user_input_int = strtol(user_input,NULL,BASE_USER);
 	  valid = 1;
-	  action = FIRST_ATTACK;
-	  break;
-	case 2:
-	  valid = 1;
-	  action = SECOND_ATTACK;
-	  break;
-	case 3:
-	  valid = 1;
-	  action = CHANGE_POKE;
-	  break;
-	default:
+	  switch(user_input_int)
+	    {
+	    case 1:
+	      valid = 1;
+	      action = FIRST_ATTACK;
+	      break;
+	    case 2:
+	      valid = 1;
+	      action = SECOND_ATTACK;
+	      break;
+	    case 3:
+	      valid = 1;
+	      action = CHANGE_POKE;
+	      break;
+	    default:
+	      valid = 0;
+	    }
+	}
+      else
+	{
 	  printf("Your answer is unavailable please make choice according to menu\n");
-	  empty_buffer();
 	  display_battle_menu_vs_trainer();
-	  break;
+	}
+      /* Check for freeing user input if he's not NULL */
+      if(user_input != NULL)
+	{
+	  free(user_input);
 	}
     }
-  
   return action;
 }
 
@@ -171,7 +198,10 @@ int attack_poketudiant(Battle_module* b_module,
   return take_damage(poke_def,damage);
 }
 
-Poketudiant* change_current_poketudiant_fighter(Trainer* trainer, Poketudiant* current_fighter)
+/* REGLER ICI LE -1 */
+Poketudiant* change_current_poketudiant_fighter(Trainer* trainer,
+						Poketudiant* current_fighter,
+						int mandatory_change)
 {
   int id;
   char term;
@@ -196,7 +226,7 @@ Poketudiant* change_current_poketudiant_fighter(Trainer* trainer, Poketudiant* c
       else
 	{
 	  int pos_in_team = get_index_of_poketudiant_id(trainer,id);
-	  if(id == -1)
+	  if(id == -1 && !mandatory_change)
 	    {
 	      printf("Poketudiant change cancel.\n");
 	      valid = 1;
@@ -310,7 +340,7 @@ int trainer_versus_random_wild_poketudiant(Battle_module* battle_module,
 	      printf("Your %s is dead !\n",current_fighter->variety);
 	      /* Poketudiant is dead, he shoudn't earn experience if trainer win battle */
 	      remove_to_container(container_poke_participate,&(current_fighter->id));
-	      current_fighter = change_current_poketudiant_fighter(trainer,current_fighter);
+	      current_fighter = change_current_poketudiant_fighter(trainer,current_fighter,1);
 	      if(current_fighter == NULL)
 		{
 		  printf("All your poketudiant are dead ...\n");
@@ -329,79 +359,92 @@ int trainer_versus_random_wild_poketudiant(Battle_module* battle_module,
 	  */
 	  else
 	    {
-	      display_opponents(current_fighter, current_opponent);
-	      display_battle_menu_vs_wild_poketudiant();
-	      action_player = manage_order_vs_wild_poketudiant();
-	      
-	      switch(action_player)
+	      int remake = 1; /* If change poketudiant is cancel, we must remake player turn */
+	      while(remake)
 		{
-		case FIRST_ATTACK:
-		  {
-		    int res = attack_poketudiant(battle_module,
-						 current_fighter,
-						 current_opponent,
-						 current_fighter->ref_attack_1);
-		    if(res)
+		  remake = 0;
+		  display_opponents(current_fighter, current_opponent);
+		  display_battle_menu_vs_wild_poketudiant();
+		  action_player = manage_order_vs_wild_poketudiant();
+		  
+		  switch(action_player)
+		    {
+		    case FIRST_ATTACK:
 		      {
-			battle_ended = 1;
-			win = 1;
-			printf("Congratuation, you won this battle.\n");
+			int res = attack_poketudiant(battle_module,
+						     current_fighter,
+						     current_opponent,
+						     current_fighter->ref_attack_1);
+			if(res)
+			  {
+			    battle_ended = 1;
+			    win = 1;
+			    printf("Congratuation, you won this battle.\n");
+			  }
+			break;
 		      }
-		    break;
-		  }
-		case SECOND_ATTACK:
-		  { 
-		    int res = attack_poketudiant(battle_module,
-						 current_fighter,
-						 current_opponent,
-						 current_fighter->ref_attack_2);
-		    if(res)
+		    case SECOND_ATTACK:
+		      { 
+			int res = attack_poketudiant(battle_module,
+						     current_fighter,
+						     current_opponent,
+						     current_fighter->ref_attack_2);
+			if(res)
+			  {
+			    battle_ended = 1;
+			    win = 1;
+			    printf("Congratuation, you won this battle.\n");
+			  }
+			break;
+		      }
+		    case CHANGE_POKE:
 		      {
-			battle_ended = 1;
-			win = 1;
-			printf("Congratuation, you won this battle.\n");
+			Poketudiant* new_pok = change_current_poketudiant_fighter(trainer,current_fighter,0);
+			if(new_pok != NULL)
+			  {
+			    current_fighter = new_pok;
+			    add_to_container_if_not_exist(container_poke_participate,current_fighter);
+			  }
+			else
+			  {
+			    remake = 1;
+			  }
+			break;
 		      }
-		    break;
-		  }
-		case CHANGE_POKE:
-		  {
-		    Poketudiant* new_pok = change_current_poketudiant_fighter(trainer,current_fighter);
-		    if(new_pok != NULL)
+		    case TRY_CAPTURE:
 		      {
-			current_fighter = new_pok;
-			add_to_container_if_not_exist(container_poke_participate,current_fighter);
+			int res = try_to_capture(current_opponent);
+			if(res)
+			  {
+			    printf("Capture succeed ! You capture %s , level %d\n",current_opponent->variety,current_opponent->level);
+			    add_poketudiant_to_team(trainer,current_opponent);
+			    battle_ended = 1;
+			    win = 1;
+			    captured = 1;
+			  }
+			else
+			  {
+			    printf("Capture failed.\n");
+			  }
+			break;
 		      }
-		    break;
-		  }
-		case TRY_CAPTURE:
-		  {
-		    int res = try_to_capture(current_opponent);
-		    if(res)
+		    case TRY_ESCAPE:
 		      {
-			printf("Capture succeed ! You capture %s , level %d\n",current_opponent->variety,current_opponent->level);
-			add_poketudiant_to_team(trainer,current_opponent);
-			battle_ended = 1;
-			win = 1;
-			captured = 1;
+			int res = try_to_escape(current_fighter, current_opponent);
+			if(res)
+			  {
+			    printf("You succeed to escape battle !\n");
+			    battle_ended = 1;
+			    win = 1;
+			    escaped = 1;
+			  }
+			else
+			  {
+			    printf("Escape failed.\n");
+			  }
+			break;
 		      }
-		    else
-		      {
-			printf("Capture failed.\n");
-		      }
-		    break;
-		  }
-		case TRY_ESCAPE:
-		  {
-		    int res = try_to_escape(current_fighter, current_opponent);
-		    if(res)
-		      {
-			printf("You succeed to escape battle !\n");
-			battle_ended = 1;
-			win = 1;
-			escaped = 1;
-		      }
-		    break;
-		  }
+		    }
 		}
 	    }
 	  
@@ -490,7 +533,7 @@ int trainer_versus_random_trainer(Battle_module* battle_module,
 	      printf("Your %s is dead !\n",current_fighter->variety);
 	      /* Poketudiant is dead, he shoudn't earn experience */
 	      remove_to_container(container_poke_participate,&(current_fighter->id));
-	      current_fighter = change_current_poketudiant_fighter(trainer,current_fighter);
+	      current_fighter = change_current_poketudiant_fighter(trainer,current_fighter,1);
 	      if(current_fighter == NULL)
 		{
 		  printf("All your poketudiant are dead ...\n");
@@ -508,68 +551,81 @@ int trainer_versus_random_trainer(Battle_module* battle_module,
 	  */
 	  else
 	    {
-	      display_opponents(current_fighter, current_opponent);
-	      display_battle_menu_vs_trainer();
-	      action_player = manage_order_vs_trainer();
-	      
-	      switch(action_player)
+	      int remake = 1; /* If change poketudiant is cancel, we must remake player turn */
+	      while(remake)
 		{
-		case FIRST_ATTACK:
-		  {
-		    int res = attack_poketudiant(battle_module,
-						 current_fighter,
-						 current_opponent,
-						 current_fighter->ref_attack_1);
-		    if(res)
+		  remake = 0;
+		  display_opponents(current_fighter, current_opponent);
+		  display_battle_menu_vs_trainer();
+		  action_player = manage_order_vs_trainer();
+		  
+		  switch(action_player)
+		    {
+		    case FIRST_ATTACK:
 		      {
-			printf("Congratz ! %s has fallen\n",current_opponent->variety);
+			int res = attack_poketudiant(battle_module,
+						     current_fighter,
+						     current_opponent,
+						     current_fighter->ref_attack_1);
+			if(res)
+			  {
+			    printf("Congratz ! %s has fallen\n",current_opponent->variety);
+			  }
+			break;
 		      }
-		    break;
-		  }
-		case SECOND_ATTACK:
-		  { 
-		    int res = attack_poketudiant(battle_module,
-						 current_fighter,
-						 current_opponent,
-						 current_fighter->ref_attack_2);
-		    if(res)
+		    case SECOND_ATTACK:
+		      { 
+			int res = attack_poketudiant(battle_module,
+						     current_fighter,
+						     current_opponent,
+						     current_fighter->ref_attack_2);
+			if(res)
+			  {
+			    printf("Congratz ! %s has fallen.\n",current_opponent->variety);
+			  }
+			break;
+		      }
+		    case CHANGE_POKE:
 		      {
-			printf("Congratz ! %s has fallen.\n",current_opponent->variety);
+			Poketudiant* new_pok = change_current_poketudiant_fighter(trainer,current_fighter,0);
+			if(new_pok != NULL)
+			  {
+			    current_fighter = new_pok;
+			    add_to_container_if_not_exist(container_poke_participate,current_fighter);
+			  }
+			else
+			  {
+			    remake = 1;
+			  }
+			break;
 		      }
-		    break;
-		  }
-		case CHANGE_POKE:
-		  {
-		    Poketudiant* new_pok = change_current_poketudiant_fighter(trainer,current_fighter);
-		    if(new_pok != NULL)
+		    case TRY_CAPTURE:
 		      {
-			current_fighter = new_pok;
-			add_to_container_if_not_exist(container_poke_participate,current_fighter);
+			int res = try_to_capture(current_opponent);
+			if(res)
+			  {
+			    printf("Capture succeed ! You capture %s , level %d\n",current_opponent->variety,current_opponent->level);
+			    battle_ended = 1;
+			    win = 1;
+			  }
+			break;
 		      }
-		    break;
-		  }
-		case TRY_CAPTURE:
-		  {
-		    int res = try_to_capture(current_opponent);
-		    if(res)
+		    case TRY_ESCAPE:
 		      {
-			printf("Capture succeed ! You capture %s , level %d\n",current_opponent->variety,current_opponent->level);
-			battle_ended = 1;
-			win = 1;
+			int res = try_to_escape(current_fighter, current_opponent);
+			if(res)
+			  {
+			    printf("You succeed to escape battle !\n");
+			    battle_ended = 1;
+			    win = 1;
+			  }
+			else
+			  {
+			    printf("Escape failed\n");
+			  }
+			break;
 		      }
-		    break;
-		  }
-		case TRY_ESCAPE:
-		  {
-		    int res = try_to_escape(current_fighter, current_opponent);
-		    if(res)
-		      {
-			printf("You succeed to escape battle !\n");
-			battle_ended = 1;
-			win = 1;
-		      }
-		    break;
-		  }
+		    }
 		}
 	    }
 	  

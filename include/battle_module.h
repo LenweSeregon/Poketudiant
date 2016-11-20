@@ -111,13 +111,16 @@ int try_to_escape(Poketudiant* poketudiant_player, Poketudiant* poketudiant_ia);
  * @name   : change_current_poketudiant_fighter
  * @arg    : trainer , our trainer that's take part in the battle
  * @arg    : current_fighter , our current fighter in battle
+ * @arg    : mandatory_chance , this parameter signal if chance can be cancel or no
  * @desc   : This function is use to change current poketudiant fighter during a battle.
              This function ensure the user to select an acceptable choice that mean a 
 	     poketudiant id present in team and different from the current fighter
  *
  * @return : return pointer on the new poketudiant fighter
 */
-Poketudiant* change_current_poketudiant_fighter(Trainer* trainer, Poketudiant* current_fighter);
+Poketudiant* change_current_poketudiant_fighter(Trainer* trainer,
+						Poketudiant* current_fighter,
+						int mandatory_change);
 
 /*
  * @name   : display_opponents

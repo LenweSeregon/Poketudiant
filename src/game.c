@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <string.h>
 
+#include "constantes.h"
 #include "math_utils.h"
 #include "string_utils.h"
 
@@ -26,7 +27,6 @@
 #include "battle_module.h"
 #include "game.h"
 #include "weakness.h"
-#include "constantes.h"
 #include "command_handler.h"
 
 Game* create_game(const char* trainer_name)
@@ -221,8 +221,7 @@ int processing_wild_command(Game* game)
 	}
       else
 	{
-	  int res = trainer_versus_random_wild_poketudiant(game->battle_module,game->trainer,min,max); 
-	  empty_buffer();
+	  int res = trainer_versus_random_wild_poketudiant(game->battle_module,game->trainer,min,max);
 	  return res; 
 	}
     }
@@ -268,7 +267,6 @@ int processing_rival_command(Game* game)
       else
 	{
 	  int res = trainer_versus_random_trainer(game->battle_module,game->trainer,min,max);
-	  empty_buffer();
 	  return res;
 	}
     }

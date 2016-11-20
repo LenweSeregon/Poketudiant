@@ -27,8 +27,8 @@
 #include "factories.h"
 
 #include "battle_module.h"
-#include "game.h"
 #include "constantes.h"
+#include "game.h"
 #include "command_handler.h"
 
 static char* token_list[] = {"wild","rival","nurse","show","switch",

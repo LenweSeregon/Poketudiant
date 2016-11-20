@@ -209,7 +209,7 @@ void print_pokecafetaria(Pokecafetaria* caf)
 void print_table_pokecafetaria(Pokecafetaria* caf, int t)
 {
   int i;
-  if(t>NB_TABLE_POKECAFETARIA-1)
+  if(t>NB_TABLE_POKECAFETARIA-1 || t < 0)
     {
       printf("No table %d\n",t);
       return;
