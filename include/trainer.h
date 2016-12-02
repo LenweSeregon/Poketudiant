@@ -14,6 +14,9 @@ struct Trainer
   Container* team;
   Pokecafetaria* cafetaria;
   int ia_trainer;
+
+  int posX;
+  int posY;
 };
 typedef struct Trainer Trainer;
 

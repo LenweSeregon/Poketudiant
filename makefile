@@ -23,7 +23,8 @@ OBJS = 			$(B)/main.o\
 			$(B)/battle_module.o\
 			$(B)/command_handler.o\
 			$(B)/game.o\
-			$(B)/weakness.o
+			$(B)/weakness.o\
+			$(B)/map.o
 
 executable : 		$(OBJS)
 	$(CC) -o $@ $^ -lm
@@ -45,7 +46,14 @@ $(B)/main.o : 		$(S)/main.c\
 			$(I)/loading_module.h\
 			$(I)/evolve_module.h\
 			$(I)/factories.h\
-			$(I)/battle_module.h
+			$(I)/battle_module.h\
+			$(I)/map.h
+	$(CC) $(CFLAGS) -c $< -I $(I) -o $@
+
+$(B)/map.o:		$(S)/map.c\
+			$(I)/constantes.h\
+			$(I)/string_utils.h\
+			$(I)/map.h
 	$(CC) $(CFLAGS) -c $< -I $(I) -o $@
 
 $(B)/game.o:		$(S)/game.c\

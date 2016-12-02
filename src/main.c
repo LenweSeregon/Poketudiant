@@ -28,18 +28,25 @@
 #include "constantes.h"
 #include "battle_module.h"
 #include "game.h"
+#include "map.h"
 
 
 /* lol  mdr */
 int main(void)
 {
   Game* game;
+  Map* map;
+  
   init_seed_to_null();
   game = create_game("Arthur");
-
+  map = create_map();
+  
+  load_map(map,"init/map_file");
   launch_game(game);
   delete_game(game);
 
+  /*delete_map(map);*/
+  
   /*
   Hash_table* att;
   Hash_table* poke;
