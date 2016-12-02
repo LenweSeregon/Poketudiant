@@ -143,6 +143,7 @@ void make_poketudiant_upgrade(Evolve_center* center, Poketudiant* poke)
 	{
 	  printf("Congratulation !\nYour %s evolved to %s !\n",old_variety,poke->variety);
 	}
+      free(old_variety);
     }
 
   center->ref_poke_base->hash_fct = hash_save;

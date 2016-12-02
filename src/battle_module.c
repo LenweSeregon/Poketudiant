@@ -185,14 +185,16 @@ int attack_poketudiant(Battle_module* b_module,
 		       Poketudiant* poke_att,
 		       Poketudiant* poke_def, Attack* att)
 {
-  /* Attaque avec les resistances etc a voir */
   int multiply = is_weak(b_module->ref_weakness,poke_def->type,att->type);
   double rand_multi = random_double_in_poke_range();
   int damage = rand_multi * ((float)poke_att->attack / poke_def->defense) * att->pow;
   
+  printf("%s attack %s with %s\n",poke_att->variety,poke_def->variety,att->name);
+  
   if(multiply)
     {
       damage *= MULTIPLIER_DMG_WEAK;
+      printf("It's really efficient !\n");
     }
   
   return take_damage(poke_def,damage);

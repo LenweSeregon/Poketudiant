@@ -10,8 +10,8 @@ Nicolas Serf / Gabriel Révillion}
 \chapter{Guide d'utilisation}
 \section{Compilation et execution}
 Un simple \textbf{make à la racine du projet} permet de compiler l'ensemble du projet.
-Pour l'execution, l'executable produit par le makefile s'appelle 'executable'.
-Ainsi pour lancer le programme, il suffit simplement de saisir la commande \textbf{'./executable'} à la racine du projet.
+Pour l'exécution, l'exécutable produit par le makefile s'appelle 'exécutable'.
+Ainsi pour lancer le programme, il suffit simplement de saisir la commande \textbf{'./exécutable'} à la racine du projet.
 \section{Interpreteur de commande}
 Les différentes commandes présentent dans le polycopier de projet sont utilisables dans le programme.
 Une sécurité est mise sur la saisie des commandes pour permettre de conserver un programme cohérent quand les saisies de l'utilisateur ne sont pas correctes.
@@ -19,40 +19,43 @@ De plus, important, pour permettre de quitter proprement le programme sans fuite
 \section{Combats}
 L'interpréteur lors des combats est très simple, il faut simplement suivre pour les actions voulant être réalisées, le menu qui donne la bonne valeur à saisir.
 
-Lorsqu'un de vos poketudiants meurt, la programme va vous afficher les poketudiants en vie restants, il faudra rentrer l'ID du poketudiant que l'on souhaite faire rentrer en jeu.
-Si tous vos poketudiants sont morts, alors le programme vous affiche que vous avez perdu la bataille et le programme se ferme.
+Lorsqu'un de vos pokétudiants meurt, la programme va vous afficher les pokétudiants en vie restants, il faudra rentrer l'ID du pokétudiant que l'on souhaite faire rentrer en jeu.
+Si tous vos pokétudiants sont morts, alors le programme vous affiche que vous avez perdu la bataille et le programme se ferme.
 
-Lors d'un changement de poketudiant, l'interpreteur va réagir différemment selon certains critères.
-Quand votre poketudiant meurt et que le programme vous demande de rentrer un nouveau pokétudiant, vous n'avez pas le choix et vous devez choisir un nouveau pokétudiant pour combattre (si il en reste, sinon la défaite est détecté). Toute autre valeur d'ID autre qu'un poketudiant valable sera refusée.
-Lorsque vous choississez de changer de poketudiant volontairement alors que le votre est toujours en vie, alors l'interpréteur va accepter une nouveau valeur qui est la valeur \textbf{'-1'}. Celle-ci permet d'annuler le changement de poketudiant. Dans ce cas, votre tour n'est pas perdu et vous pouvez choisir une autre action.
+Lors d'un changement de pokétudiant, l'interpreteur va réagir différemment selon certains critères.
+Quand votre pokétudiant meurt et que le programme vous demande de rentrer un nouveau pokétudiant, vous n'avez pas le choix et vous devez choisir un nouveau pokétudiant pour combattre (si il en reste, sinon la défaite est détectée). Toute autre valeur d'ID autre qu'un pokétudiant valable sera refusée.
+Lorsque vous choississez de changer de pokétudiant volontairement alors que le votre est toujours en vie, alors l'interpréteur va accepter une nouvelle valeur qui est la valeur \textbf{'-1'}. Celle-ci permet d'annuler le changement de pokétudiant. Dans ce cas, votre tour n'est pas perdu et vous pouvez choisir une autre action.
 \chapter{Topo du premier rendu de projet}
 
 \section{Les choix}
 
 Le projet s'est articulé autour de la modularité et de l'évolutivité du projet.
 Ainsi, avant même de commencer à coder les fonctionnalités propres à Pokétudiant, nous avons
-mis en place plusieurs structures génériques telles que une table de hachage gérant les collisions avec des listes chainées et un conteneur générique pouvant être dynamique ou statique et pouvant disposer ou non de la gestion de mémoire de ces élements.
-Pour faire un point objectif, ces structures ont permises par la suite d'être assez productif en disposant de structures de données génériques pour gérer ce que l'on souhaiter rapidement. Cependant il faut noter que nous aurions très bien pu nous en passer et simplement créer plusieurs structures de données répondant au même rôle mais chacune spécifique à un type de données.
+mis en place plusieurs structures génériques telles qu'une table de hachage gérant les collisions avec des listes chainées et un conteneur générique pouvant être dynamique ou statique et pouvant disposer ou non de la gestion de mémoire de ces élements.
+Pour faire un point objectif, ces structures ont permis par la suite d'être assez productif en disposant de structures de données génériques pour gérer ce que l'on souhaitait rapidement. Cependant il faut noter que nous aurions très bien pu nous en passer et simplement créer plusieurs structures de données répondant au même rôle mais chacune spécifique à un type de données.
 
-La modularité et l'évolutivité du programme s'appuie essentiellement sur les defines utilisés qui permettent facilement de modifier le comportement du programme, comme par exemple le nombre maximum de pokétudiant dans une équipe ou encore le niveau maximum que ceux-ci peuvent avoir.
+La modularité et l'évolutivité du programme s'appuie essentiellement sur les defines utilisés qui permettent facilement de modifier le comportement du programme, comme par exemple le nombre maximum de pokétudiants dans une équipe ou encore le niveau maximum que ceux-ci peuvent avoir.
 Mais surtout, cela se trouve dans le chargement dynamique des entités du jeu.
-En effet, toutes les entités du jeu, c'est à dire les différents pokétudiants qui existent, les différentes attaques et les différentes faiblesses se trouvent dans des fichiers de configuration qui sont chargées à la création du programme. Ainsi il est aisé de créer de nouveaux pokétudiants, de nouvelles attaques et de nouveaux types.
+En effet, toutes les entités du jeu, c'est à dire les différents pokétudiants qui existent, les différentes attaques et les différentes faiblesses se trouvent dans des fichiers de configuration qui sont chargés à la création du programme. Ainsi il est aisé de créer de nouveaux pokétudiants, de nouvelles attaques et de nouveaux types.
 Ainsi si l'on souhaite créer un nouveau type, il suffit simplement d'ajouter dans le code une nouvelle valeur d'énumération représentant ce type et de l'ajouter dans les deux fonctions du code C permettant la transition enum<->string.
 Pour ajouter des pokétudiants, des attaques ou des faiblesses, il suffit simplement de suivre la syntaxe utilisée dans les fichiers pour créer de nouvelles entités.
-C'est ainsi qu'on peut comprendre l'utilité des tables de hachage. Celles-ci permettent de stocker les caractéristiques de base d'un poketudiant ou d'un attaque. Ensuite le module chargé de la création des pokétudiants ou de son évolution va simplement aller chercher dans la table de hachage via le nom, les caractéristiques de base d'un pokétudiant pour pouvoir le créer.
 
-Précisions un dernier point dans les choix, concernant la méthode de travail en groupe que nous avons adopté. Pour une facilité de communication et transfert de fichier, nous avons utilisé git via la plateforme github permettant de travailler chacun de son côté et de pouvoir joindre nos différents fichiers sans soucis.
+C'est ainsi qu'on peut comprendre l'utilité des tables de hachage. Celles-ci permettent de stocker les caractéristiques de base d'un pokétudiant ou d'une attaque. Ensuite le module chargé de la création des pokétudiants ou de son évolution va simplement aller chercher dans la table de hachage via le nom, les caractéristiques de base d'un pokétudiant pour pouvoir le créer.
+
+Précisons un dernier point dans les choix, concernant la méthode de travail en groupe que nous avons adopté. Pour une facilité de communication et transfert de fichier, nous avons utilisé git via la plateforme github permettant de travailler chacun de son côté et de pouvoir joindre nos différents fichiers sans soucis.
 
 \section{Les difficultés}
 
 Cette première partie du projet ne nous a pas réellement causé de grosses difficultés. Nous avons grâce à Github pu travailler indépendemment sur nos fichiers et ensuite fusionner nos travaux très facilement.
 La principale difficulé se trouve dans la réflexion que nous avons fait sur l'architecture du programme. Les différents modules présents, l'agencement du projet et le chargement des données du jeu permettant d'être aussi évolutif que possible.
-Nous avons aussi eu quelques soucis avec le buffer qui nous obligait à rentrer des espaces ou des retours chariot parfois incompréhensible à la suite d'une commande venant d'être executé. Cependant ces problèmes ont normalement été réglés.
+Nous avons aussi eut quelques soucis avec le buffer qui nous obligait à rentrer des espaces ou des retours chariot parfois incompréhensible à la suite d'une commande venant d'être executée. Cependant ces problèmes ont normalement été réglés.
 
 \section{Fonctionnels}
 
-\section{Non fonctionnels}
+A l'heure actuelle et au vu des différents tests que nous avions réalisés, le programme posséde toutes les fonctionnalités attendues qui fonctionnent selon le comportement demandé.
+Le programme, s'il détecte une incohérence dans les commandes de l'utilisateur se chargera de le prévenir que celles-ci ne sont pas bonnes.
 
-\section{Conclusion}
+\section{Non fonctionnels}
+Rien à signaler
 
 \end{document}
