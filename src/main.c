@@ -31,7 +31,6 @@
 #include "map.h"
 
 
-/* lol  mdr */
 int main(void)
 {
   Game* game;
@@ -39,9 +38,16 @@ int main(void)
   
   init_seed_to_null();
   game = create_game("Arthur");
-  map = create_map();
-  
+  map = create_map();  
   load_map(map,"init/map_file");
+  set_position_trainer(map,39);
+  trainer_can_move(map,NORTH);
+  trainer_can_move(map,SOUTH);
+  trainer_can_move(map,EAST);
+  trainer_can_move(map,WEST);
+
+  print_map(map);
+  
   launch_game(game);
   delete_game(game);
 

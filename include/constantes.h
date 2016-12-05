@@ -8,6 +8,16 @@
 #define NEXT_LEVEL_CALC(level) ((int)floor(500 * ((float)(1+(level)) / 2)))
 
 
+/* Trainer direction */
+enum Direction
+  {
+    NORTH,
+    WEST,
+    EAST,
+    SOUTH
+  };
+typedef enum Direction Direction;
+
 /* General define for poketudiant management */
 #define MIN_LEVEL_POKETUDIANT 1
 #define MAX_LEVEL_POKETUDIANT 10
