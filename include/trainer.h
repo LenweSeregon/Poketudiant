@@ -20,6 +20,8 @@ struct Trainer
 };
 typedef struct Trainer Trainer;
 
+
+
 /*
  * @name   : create_trainer
  * @arg    : name , name of trainer
