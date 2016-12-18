@@ -18,10 +18,15 @@ struct Game
   Battle_module* battle_module;
   Trainer* trainer;
   Weakness* weakness;
+  Map* map;
   
 };
 typedef struct Game Game;
 
+int processing_z_move(Game* game);
+int processing_s_move(Game* game);
+int processing_q_move(Game* game);
+int processing_d_move(Game* game);
 /*
  * @name   : processing_catch
  * @arg    : game , pointer on game that contain every entites needed for make actions
@@ -151,6 +156,8 @@ Game* create_game(const char* trainer_name);
  * @return : no return 
  */
 void delete_game(Game* game);
+
+void manage_action_deplacement(Game* game);
 
 /*
  * @name   : launch_game

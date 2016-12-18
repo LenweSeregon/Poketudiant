@@ -28,11 +28,13 @@
 
 #include "battle_module.h"
 #include "constantes.h"
+#include "map.h"
 #include "game.h"
 #include "command_handler.h"
 
 static char* token_list[] = {"wild","rival","nurse","show","switch",
-			     "move-table","drop","pick","release","exit","catch","xp",NULL};
+			     "move-table","drop","pick","release","exit","catch","xp",
+			     "z","s","q","d",NULL};
 static int (*fct_list[])(Game*) = {processing_wild_command,
 				   processing_rival_command,
 				   processing_nurse,
@@ -44,7 +46,11 @@ static int (*fct_list[])(Game*) = {processing_wild_command,
 				   processing_release,
 				   processing_exit,
 				   processing_catch,
-				   processing_xp
+				   processing_xp,
+				   processing_z_move,
+				   processing_s_move,
+				   processing_q_move,
+				   processing_d_move
 };
 
 

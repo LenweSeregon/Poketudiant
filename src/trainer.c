@@ -24,6 +24,7 @@ Trainer* create_trainer(const char* name, int ia_trainer)
   trainer->team->delete_fct = delete_poketudiant_fct;
   trainer->team->cmp_fct = cmp_poketudiant_fct_via_id;
 
+  trainer->has_move = 0;
   trainer->ia_trainer = ia_trainer;
   if(ia_trainer)
     {
@@ -47,6 +48,8 @@ void delete_trainer(Trainer* trainer)
     }
   free(trainer);
 }
+
+
 
 int move_table_poketudiant(Trainer* trainer, int id, int t)
 {

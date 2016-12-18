@@ -25,9 +25,12 @@
 #include "factories.h"
 
 #include "battle_module.h"
-#include "game.h"
+#include "map.h"
 #include "weakness.h"
 #include "command_handler.h"
+#include "game.h"
+
+
 
 Game* create_game(const char* trainer_name)
 {
@@ -55,6 +58,9 @@ Game* create_game(const char* trainer_name)
   load_base_poketudiant(game->base_poke,"init/pokemons_file");
   
   /* Init game control structure */
+  game->map = create_map();
+  load_map(game->map,"init/map_file");
+  set_position_trainer_start(game->map,POSITION_START_TRAINER);
   game->weakness = create_weakness();
   load_base_weakness(game->weakness,"init/weakness_file");
   game->factory_poke = create_poketudiant_factory(game->base_poke, game->base_att);
@@ -79,6 +85,7 @@ Game* create_game(const char* trainer_name)
 
 void delete_game(Game* game)
 {
+  delete_map(game->map);
   delete_weakness(game->weakness);
   delete_trainer(game->trainer);
   delete_battle_module(game->battle_module);
@@ -87,6 +94,94 @@ void delete_game(Game* game)
   delete_hash_table(game->base_poke);
   delete_hash_table(game->base_att);
   free(game);
+}
+
+int processing_z_move(Game* game)
+{
+    if(strtok(NULL,COMMAND_SEPARATOR) != NULL)
+    {
+      printf("This action shoudn't take arguments !\n");
+    }
+  else
+    {
+      int res = trainer_can_move(game->map,NORTH);
+      if(res)
+	{
+	  move_trainer(game->map,NORTH);
+	  game->trainer->has_move = 1;
+	}
+      else
+	{
+	  printf("You can't move to this direction !\n");
+	}
+    }
+  return 1;
+}
+
+int processing_s_move(Game* game)
+{
+    if(strtok(NULL,COMMAND_SEPARATOR) != NULL)
+    {
+      printf("This action shoudn't take arguments !\n");
+    }
+  else
+    {
+      int res = trainer_can_move(game->map,SOUTH);
+      if(res)
+	{
+	  move_trainer(game->map,SOUTH);
+	  game->trainer->has_move = 1;
+	}
+      else
+	{
+	  printf("You can't move to this direction !\n");
+	}
+    }
+  return 1;
+}
+
+int processing_q_move(Game* game)
+{
+    if(strtok(NULL,COMMAND_SEPARATOR) != NULL)
+    {
+      printf("This action shoudn't take arguments !\n");
+    }
+  else
+    {
+      int res = trainer_can_move(game->map,WEST);
+      if(res)
+	{
+	  move_trainer(game->map,WEST);
+	  game->trainer->has_move = 1;
+	}
+      else
+	{
+	  printf("You can't move to this direction !\n");
+	}
+    }
+  return 1;
+}
+
+int processing_d_move(Game* game)
+{
+    if(strtok(NULL,COMMAND_SEPARATOR) != NULL)
+    {
+      printf("This action shoudn't take arguments !\n");
+    }
+  else
+    {
+      int res = trainer_can_move(game->map,EAST);
+      if(res)
+	{
+	  move_trainer(game->map,EAST);
+	  game->trainer->has_move = 1;
+	}
+      else
+	{
+	  printf("You can't move to this direction !\n");
+	}
+    }
+  return 1;
 }
 
 int processing_catch(Game* game)
@@ -286,6 +381,7 @@ int processing_nurse(Game* game)
   else
     {
       heal_all_team(game->trainer);
+      printf("All your poketudiants has been healed\n");
     }
   return 1;
 }
@@ -534,6 +630,36 @@ int processing_release(Game* game)
     }
 }
 
+void manage_action_deplacement(Game* game)
+{
+  int res = get_action_associated(game->map);
+  int randA;
+  int randL;
+  switch(res)
+    {
+    case 1: /* Wild */
+      randA = random_int(1,100);
+      if(randA <= 20)
+	{
+	  randL = random_int(1,10);
+	  trainer_versus_random_wild_poketudiant(game->battle_module,game->trainer,1,randL);
+	}
+      break;
+    case 2: /* Road */
+      /* Nothing to do */
+      break;
+    case 3: /* Nurse */
+      heal_all_team(game->trainer);
+      printf("All your poketudiants has been healed\n");
+      break;
+    case 4: /* Enemy */
+      
+      break;
+    default:
+      printf("Error in manage action deplacement !\n");
+      break;
+    }
+}
 
 void launch_game(Game* game)
 {
@@ -544,6 +670,8 @@ void launch_game(Game* game)
     {
       char* command = NULL;
       processing_fct action = NULL;
+      game->trainer->has_move = 0;
+      print_map(game->map);
       printf("Enter command :\n");
       command = get_command_from_user();
       if(command != NULL && strcmp(command,"") != 0)
@@ -561,6 +689,11 @@ void launch_game(Game* game)
 	    {
 	      game_continue = action(game);
 	    }
+	}
+      /* After action, maybe there is deplacement, we must manage if we move on nurse, wild, etc...*/
+      if(game->trainer->has_move)
+	{
+	  manage_action_deplacement(game);
 	}
       /* Delete command pointer */
       if(command != NULL)

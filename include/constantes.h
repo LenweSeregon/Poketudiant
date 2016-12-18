@@ -19,6 +19,7 @@ enum Direction
 typedef enum Direction Direction;
 
 /* General define for poketudiant management */
+#define POSITION_START_TRAINER 0
 #define MIN_LEVEL_POKETUDIANT 1
 #define MAX_LEVEL_POKETUDIANT 10
 #define MULTIPLIER_DMG_WEAK 2

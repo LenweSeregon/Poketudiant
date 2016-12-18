@@ -41,6 +41,12 @@ void delete_map(Map* map)
   free(map);
 }
 
+int get_action_associated(Map* map)
+{
+  int buffer = (int)map->buffer - '0';
+  return buffer;
+}
+
 void init_map_empty(Map* map)
 {
   map->mapArray = malloc((map->width * map->height) * sizeof(char));
@@ -136,14 +142,45 @@ void load_map(Map* map, const char* file_name)
     }
 }
 	  
-void set_position_trainer(Map* map, int i)
+void set_position_trainer_start(Map* map, int i)
 {
   map->position_trainer = i;
+  map->buffer = map->mapArray[i];
 }
 
 int get_position_trainer(Map* map)
 {
   return map->position_trainer;
+}
+
+void move_trainer(Map* map, Direction dir)
+{
+    switch(dir)
+    {
+    case NORTH:
+      map->mapArray[map->position_trainer] = map->buffer;
+      map->buffer = map->mapArray[map->position_trainer-map->width];
+      map->position_trainer -= map->width;
+      break;
+    case SOUTH:
+      map->mapArray[map->position_trainer] = map->buffer;
+      map->buffer = map->mapArray[map->position_trainer+map->width];
+      map->position_trainer += map->width;
+      break;
+    case EAST:
+      map->mapArray[map->position_trainer] = map->buffer;
+      map->buffer = map->mapArray[map->position_trainer+1];
+      map->position_trainer += 1;
+      break;
+    case WEST:
+      map->mapArray[map->position_trainer] = map->buffer;
+      map->buffer = map->mapArray[map->position_trainer-1];
+      map->position_trainer -= 1;
+      break;
+    default:
+      printf("Error\n");
+      break;
+    }
 }
 
 int trainer_can_move(Map* map, Direction dir)
@@ -170,15 +207,6 @@ int trainer_can_move(Map* map, Direction dir)
     default:
       printf("Error\n");
       break;
-    }
-
-  if(!canMove)
-    {
-      printf("You can't move !\n");
-    }
-  else
-    {
-      printf("You can move !\n");
     }
   return canMove;
 }

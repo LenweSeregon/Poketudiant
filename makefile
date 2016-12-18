@@ -75,7 +75,8 @@ $(B)/game.o:		$(S)/game.c\
 			$(I)/factories.h\
 			$(I)/battle_module.h\
 			$(I)/command_handler.h\
-			$(I)/weakness.h
+			$(I)/weakness.h\
+			$(I)/map.h
 	$(CC) $(CFLAGS) -c $< -I $(I) -o $@
 
 $(B)/command_handler.o:	$(S)/command_handler.c\
