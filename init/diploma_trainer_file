@@ -1,0 +1,23 @@
+{
+	name = Mazure
+	level = 5
+	poketudiant_1 = Enseignant-dresseur
+	poketudiant_2 = Nuidebou
+	poketudiant_3 = Parlfor
+}
+
+{
+	name = Lonca
+	level = 8
+	poketudiant_1 = Enseignant-dresseur
+	poketudiant_2 = Belmention
+	poketudiant_3 = Rigolamor
+}
+
+{
+	name = Lagniez
+	level = 10
+	poketudiant_1 = Enseignant-dresseur
+	poketudiant_2 = Promomajor
+	poketudiant_3 = Nuidebou
+}

@@ -190,3 +190,35 @@ Trainer* generate_random_trainer(Poketudiant_factory* factory, int level)
 
   return trainer;
 }
+
+Trainer* generate_trainer_with_specific_poketudiant(Poketudiant_factory* factory,
+						    const char* name,
+						    int level,
+						    const char* name_poke_1,
+						    const char* name_poke_2,
+						    const char* name_poke_3
+						    )
+{
+  Trainer* trainer;
+  Poketudiant* ia_1;
+  Poketudiant* ia_2;
+  Poketudiant* ia_3;
+
+  trainer = create_trainer(name,1);
+  ia_1 = generate_poketudiant_from_name(factory,name_poke_1,level);
+  ia_2 = generate_poketudiant_from_name(factory,name_poke_2,level);
+  ia_3 = generate_poketudiant_from_name(factory,name_poke_3,level);
+
+  if(ia_1->level == MIN_LEVEL_POKETUDIANT)
+    ia_1->xp = XP_START_WILD_POKE;
+  if(ia_2->level == MIN_LEVEL_POKETUDIANT)
+    ia_2->xp = XP_START_WILD_POKE;
+  if(ia_3->level == MIN_LEVEL_POKETUDIANT)
+    ia_3->xp = XP_START_WILD_POKE;
+
+  add_poketudiant_to_team(trainer,ia_1);
+  add_poketudiant_to_team(trainer,ia_2);
+  add_poketudiant_to_team(trainer,ia_3);
+
+  return trainer;
+}

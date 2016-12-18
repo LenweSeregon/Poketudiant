@@ -80,6 +80,9 @@ Game* create_game(const char* trainer_name)
   add_poketudiant_to_team(game->trainer,poke_cafe1);
   add_poketudiant_to_team(game->trainer,poke_cafe2);
   add_poketudiant_to_team(game->trainer,poke_cafe3);
+
+  /* Init diploma_trainer */
+  
   return game;
 }
 

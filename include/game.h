@@ -19,14 +19,49 @@ struct Game
   Trainer* trainer;
   Weakness* weakness;
   Map* map;
+
+  Trainer** diploma_trainers;
   
 };
 typedef struct Game Game;
 
+/*
+ * @name   : processing_z_move
+ * @arg    : game , pointer on game that contain every entites needed for make actions
+ * @desc   : This function is use as an action for processing move at north if possible
+ *
+ * @return : return 1 because this function can't stop the game
+ */
 int processing_z_move(Game* game);
+
+/*
+ * @name   : processing_s_move
+ * @arg    : game , pointer on game that contain every entites needed for make actions
+ * @desc   : This function is use as an action for processing move at south if possible
+ *
+ * @return : return 1 because this function can't stop the game
+ */
 int processing_s_move(Game* game);
+
+/*
+ * @name   : processing_q_move
+ * @arg    : game , pointer on game that contain every entites needed for make actions
+ * @desc   : This function is use as an action for processing move at west if possible
+ *
+ * @return : return 1 because this function can't stop the game
+ */
 int processing_q_move(Game* game);
+
+/*
+ * @name   : processing_d_move
+ * @arg    : game , pointer on game that contain every entites needed for make actions
+ * @desc   : This function is use as an action for processing move at east if possible
+ *
+ * @return : return 1 because this function can't stop the game
+ */
 int processing_d_move(Game* game);
+
+
 /*
  * @name   : processing_catch
  * @arg    : game , pointer on game that contain every entites needed for make actions

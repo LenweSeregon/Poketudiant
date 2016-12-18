@@ -12,6 +12,7 @@
 #include "weakness.h"
 #include "constantes.h"
 #include "loading_module.h"
+#include "trainer.h"
 
 void load_base_poketudiant(Hash_table* table_poke, const char* file_name)
 {
@@ -235,5 +236,91 @@ void load_base_weakness(Weakness* weakness, const char* file_name)
   else
     {
       printf("Error, impossible to open file\n");
+    }
+}
+
+#define BASE_TRAINER_DIPL_NB 3
+
+Trainer** load_diploma_trainers(const char* file_name)
+{
+  FILE* file;
+  file = fopen(file_name);
+  if(file)
+    {
+      Trainer** array = malloc(BASE_TRAINER_DIPL_NB * sizeof(Trainer*));
+      char string_getter[MAX_STRING_FILE_SIZE] = "";
+      while(fgets(string_getter,MAX_STRING_FILE_SIZE,file) != NULL)
+	{
+	  remove_occurences(string_getter,' ');
+	  remove_occurences(string_getter,'\n');
+	  remove_occurences(string_getter,'\t');
+	  if(strcmp(string_getter,"{") == 0) /* Detect new weakness flag */ 
+	    {
+	      char name[MAX_STRING_ATTRIBUTS_POKETUDIANT];
+	      int level;
+	      char name_poke_1[MAX_STRING_ATTRIBUTS_POKETUDIANT];
+	      char name_poke_2[MAX_STRING_ATTRIBUTS_POKETUDIANT];
+	      char name_poke_3[MAX_STRING_ATTRIBUTS_POKETUDIANT];
+	      
+	      
+	      int end_objet = 0;
+	      while(!end_objet)
+		{
+		  fgets(string_getter,MAX_STRING_FILE_SIZE,file);
+		  remove_occurences(string_getter,' ');
+		  remove_occurences(string_getter,'\n');
+		  remove_occurences(string_getter,'\t');
+		  
+		  if(string_getter[0] == '#'){} /* Commentary */
+		  else if(string_getter[0] == '}'){end_objet = 1;} /* End objet */
+		  else
+		    {
+		      /* TRAITEMENT */
+		      Trainer* trainer;
+		      long eq_position;
+		      char id[MAX_STRING_ATTRIBUTS_POKETUDIANT] = {0};
+		      char val[MAX_STRING_ATTRIBUTS_POKETUDIANT] = {0};
+		      
+		      eq_position = strchr(string_getter,'=') - string_getter;
+		      strncpy(id,string_getter,eq_position);
+		      strcpy(val,strchr(string_getter,'=') + sizeof(char));
+		      		      
+		      if(strcmp(id,"name") == 0)
+			{
+			  strcpy(name,val);
+			}
+		      else if(strcmp(id,"level") == 0)
+			{
+			  level = atoi(val);
+			}
+		      else if(strcmp(id,"poketudiant_1") == 0)
+			{
+			  strcpy(name_poke_1,val);
+			}
+		      else if(strcmp(id,"poketudiant_2") == 0)
+			{
+			  strcpy(name_poke_2,val);
+			}
+		      else if(strcmp(id,"poketudiant_3") == 0)
+			{
+			  strcpy(name_poke_3,val);
+			}
+		      else
+			{
+			  printf("Unkown value in pokemon loading from file!\n");
+			}
+		    }
+		}
+	      /* We have gather all datas, we must build our trainer */
+		
+	    }
+	}
+      fclose(file);
+      return array;
+    }
+  else
+    {
+      printf("Error, impossible to open file\n");
+      return NULL;
     }
 }
