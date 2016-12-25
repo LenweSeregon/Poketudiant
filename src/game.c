@@ -19,10 +19,9 @@
 #include "weakness.h"
 
 #include "generic_control_function.h"
-#include "loading_module.h"
-
 #include "evolve_module.h"
 #include "factories.h"
+#include "loading_module.h"
 
 #include "battle_module.h"
 #include "map.h"
@@ -34,6 +33,7 @@
 
 Game* create_game(const char* trainer_name)
 {
+  int i;
   Poketudiant* first_poke;
   Poketudiant* second_poke;
 
@@ -82,12 +82,19 @@ Game* create_game(const char* trainer_name)
   add_poketudiant_to_team(game->trainer,poke_cafe3);
 
   /* Init diploma_trainer */
+  game->current_nb_trainers = 0;
+  game->diploma_trainers = load_diploma_trainers(game->factory_poke,&game->current_nb_trainers,"init/diploma_trainer_file");
+  for(i = 0; i < game->current_nb_trainers; i++)
+    {
+      print_team(game->diploma_trainers[i]);
+    }
   
   return game;
 }
 
 void delete_game(Game* game)
 {
+  int i;
   delete_map(game->map);
   delete_weakness(game->weakness);
   delete_trainer(game->trainer);
@@ -96,6 +103,14 @@ void delete_game(Game* game)
   delete_poketudiant_factory(game->factory_poke);
   delete_hash_table(game->base_poke);
   delete_hash_table(game->base_att);
+  for(i = 0; i < game->current_nb_trainers; i++)
+    {
+      if(game->diploma_trainers[i] != NULL)
+	{
+	  delete_trainer(game->diploma_trainers[i]); 
+	}
+    }
+  free(game->diploma_trainers);
   free(game);
 }
 
@@ -633,35 +648,79 @@ int processing_release(Game* game)
     }
 }
 
-void manage_action_deplacement(Game* game)
+int get_index_diploma_trainer_by_name(Game* game, const char* name)
 {
-  int res = get_action_associated(game->map);
-  int randA;
-  int randL;
+  int i;
+  for(i = 0; i < game->current_nb_trainers; i++)
+    {
+      if(strcmp(game->diploma_trainers[i]->name,name) == 0)
+	{
+	  return i;
+	}
+    }
+  return -1;
+}
+
+int manage_action_deplacement(Game* game)
+{
+  char res = get_action_associated(game->map);
+  int rand_apparition;
+  int level_poke;
+  const char* name_enemy;
+  int index_enemy;
+  int res_battle;
   switch(res)
     {
-    case 1: /* Wild */
-      randA = random_int(1,100);
-      if(randA <= 20)
+    case WILD: /* Wild */
+      rand_apparition = random_int(1,100);
+      if(rand_apparition <= 20)
 	{
-	  randL = random_int(1,10);
-	  trainer_versus_random_wild_poketudiant(game->battle_module,game->trainer,1,randL);
+	  level_poke = get_level_wild_poketudiant(game->map);
+	  printf("Level = %d\n",level_poke);
+	  res_battle = trainer_versus_random_wild_poketudiant(game->battle_module,game->trainer,level_poke,level_poke);
+	  return res_battle;
 	}
       break;
-    case 2: /* Road */
+    case ROAD: /* Road */
       /* Nothing to do */
+      return 1;
       break;
-    case 3: /* Nurse */
+    case NURSE: /* Nurse */
       heal_all_team(game->trainer);
       printf("All your poketudiants has been healed\n");
+      return 1;
       break;
-    case 4: /* Enemy */
+    case ENEMY: /* Enemy */
+      name_enemy = get_name_diploma_trainer(game->map);
+      index_enemy = get_index_diploma_trainer_by_name(game,name_enemy);
+      if(index_enemy == -1)
+	{
+	  printf("Error, enemy not detected\n");
+	  return 1;
+	}
+      else
+	{
+	  res_battle = trainer_versus_trainer(game->battle_module,game->trainer,game->diploma_trainers[index_enemy]);
+	  if(res_battle == 1) /* We won */
+	    {
+	      Trainer* tmp = game->diploma_trainers[index_enemy];
+	      game->diploma_trainers[index_enemy] = game->diploma_trainers[game->current_nb_trainers-1];
+	      game->diploma_trainers[game->current_nb_trainers-1] = tmp;
+	      delete_trainer(game->diploma_trainers[game->current_nb_trainers-1]);
+	      game->diploma_trainers[game->current_nb_trainers-1] = NULL;
+	      game->current_nb_trainers -= 1;
+
+	      destroy_enemy_and_set_road(game->map);
+	    }
+	  return res_battle;
+	}
       
       break;
     default:
       printf("Error in manage action deplacement !\n");
       break;
     }
+  return 1;
 }
 
 void launch_game(Game* game)
@@ -696,12 +755,18 @@ void launch_game(Game* game)
       /* After action, maybe there is deplacement, we must manage if we move on nurse, wild, etc...*/
       if(game->trainer->has_move)
 	{
-	  manage_action_deplacement(game);
+	  game_continue = manage_action_deplacement(game);
 	}
       /* Delete command pointer */
       if(command != NULL)
 	{
 	  free(command);
+	}
+      /* Check if game is won */
+      if(game->current_nb_trainers == 0)
+	{
+	  printf("You won the game, congratualtion !\n");
+	  game_continue = 0;
 	}
     }
 }

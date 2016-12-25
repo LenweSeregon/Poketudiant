@@ -11,8 +11,11 @@
 #include "poketudiant.h"
 #include "weakness.h"
 #include "constantes.h"
-#include "loading_module.h"
+#include "pokecafetaria.h"
 #include "trainer.h"
+#include "factories.h"
+#include "loading_module.h"
+
 
 void load_base_poketudiant(Hash_table* table_poke, const char* file_name)
 {
@@ -241,13 +244,14 @@ void load_base_weakness(Weakness* weakness, const char* file_name)
 
 #define BASE_TRAINER_DIPL_NB 3
 
-Trainer** load_diploma_trainers(const char* file_name)
+Trainer** load_diploma_trainers(Poketudiant_factory* factory, int* nb_trainer, const char* file_name)
 {
   FILE* file;
-  file = fopen(file_name);
+  file = fopen(file_name,"r");
   if(file)
     {
       Trainer** array = malloc(BASE_TRAINER_DIPL_NB * sizeof(Trainer*));
+      int max = BASE_TRAINER_DIPL_NB;
       char string_getter[MAX_STRING_FILE_SIZE] = "";
       while(fgets(string_getter,MAX_STRING_FILE_SIZE,file) != NULL)
 	{
@@ -276,7 +280,6 @@ Trainer** load_diploma_trainers(const char* file_name)
 		  else
 		    {
 		      /* TRAITEMENT */
-		      Trainer* trainer;
 		      long eq_position;
 		      char id[MAX_STRING_ATTRIBUTS_POKETUDIANT] = {0};
 		      char val[MAX_STRING_ATTRIBUTS_POKETUDIANT] = {0};
@@ -312,7 +315,21 @@ Trainer** load_diploma_trainers(const char* file_name)
 		    }
 		}
 	      /* We have gather all datas, we must build our trainer */
-		
+	      if(*nb_trainer == max)
+		{
+		  max *= 2;
+		  array = realloc(array, sizeof(Trainer*) * max);
+		}
+	      else
+		{
+		  array[(*nb_trainer)++] =  generate_trainer_with_specific_poketudiant(factory,
+									    name,
+									    level,
+									    name_poke_1,
+									    name_poke_2,
+									    name_poke_3);
+	    
+		}
 	    }
 	}
       fclose(file);

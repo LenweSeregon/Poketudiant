@@ -8,10 +8,10 @@
 
 #define COLOR(param) printf("\033[%sm",param);
 
-#define WILD 1
-#define ROAD 2
-#define NURSE 3
-#define ENEMY 4
+#define WILD '1'
+#define ROAD '0'
+#define NURSE 'n'
+#define ENEMY 'e'
 
 #define YELLOW_BACK COLOR("43");
 #define BLUE_BACK COLOR("44");
@@ -41,27 +41,44 @@ void delete_map(Map* map)
   free(map);
 }
 
-int get_action_associated(Map* map)
+int get_action_associated(const Map* map)
 {
-  int buffer = (int)map->buffer - '0';
-  return buffer;
+  return map->buffer.type;
+}
+
+int get_level_wild_poketudiant(const Map* map)
+{
+  return map->buffer.tile.wild.level;
+}
+
+const char* get_name_diploma_trainer(const Map* map)
+{
+  return map->buffer.tile.enemy.name;
+}
+
+void destroy_enemy_and_set_road(Map* map)
+{
+  Tile tile;
+  tile.type = ROAD;
+  tile.tile.road.val = 0;
+  map->buffer = tile;
+  map->mapArray[map->position_trainer] = tile;
 }
 
 void init_map_empty(Map* map)
 {
-  map->mapArray = malloc((map->width * map->height) * sizeof(char));
+  map->mapArray = malloc((map->width * map->height) * sizeof(Tile));
 }
 
 void print_map(const Map* map)
 {
   int j,k;
-  for(j = 0; j < map->width; j++)
+  for(j = 0; j < map->height; j++)
     {
-      for(k = 0; k  < map->height; k++)
+      for(k = 0; k < map->width; k++)
 	{
-	  char elem = map->mapArray[j*map->width+k];
-	  int check = elem - '0';
-	  switch(check)
+	  char elem = map->mapArray[j*map->width+k].type;
+	  switch(elem)
 	    {
 	    case WILD:
 	      GREEN_BACK;
@@ -105,8 +122,8 @@ void load_map(Map* map, const char* file_name)
   if(file)
     {
       int i = 0;
-      char char_getter;
       char string_getter[MAX_STRING_FILE_SIZE] = "";
+      char* string_splitter;
       /* Get Width */
       fgets(string_getter,MAX_STRING_FILE_SIZE,file);
       remove_occurences(string_getter,' ');
@@ -124,14 +141,49 @@ void load_map(Map* map, const char* file_name)
 
       do
 	{
-	  char_getter = fgetc(file);
+	  fgets(string_getter,MAX_STRING_FILE_SIZE,file);
+	  
+	  /* End of file */
 	  if( feof(file) )
 	    {
 	      break ;
 	    }
-	  if((char_getter != ' ') && (char_getter != '\n'))
+
+	  /* Split */
+	  string_splitter = strtok(string_getter," ");
+	  while(string_splitter != NULL)
 	    {
-	      map->mapArray[i++] = char_getter;
+	      Tile tile;
+	      if( (strcmp(string_splitter," ") != 0) && (strcmp(string_splitter,"\n") != 0) )
+		{
+		  if(string_splitter[0] == ROAD)
+		    {
+		      tile.type = ROAD;
+		      tile.tile.road.val = string_getter[0];
+		    }
+		  else if(string_splitter[0] == NURSE)
+		    {
+		      tile.type = NURSE;
+		      tile.tile.nurse.val = string_getter[0];
+		    }
+		  else if(string_splitter[0] == ENEMY)
+		    {
+		      
+		      tile.type = ENEMY;
+		      tile.tile.enemy.val = string_getter[0];
+		      strcpy(tile.tile.enemy.name,&string_splitter[2]);
+		    }
+		  else
+		    {
+		      int value = atoi(string_splitter);
+		      tile.type = WILD;
+		      tile.tile.wild.level = value;
+		      tile.tile.wild.val = value;
+		    }
+	      
+		  string_splitter = strtok(NULL," ");
+		}
+	      map->mapArray[i++] = tile;
 	    }
 	}while(1);
       fclose(file);
@@ -146,11 +198,6 @@ void set_position_trainer_start(Map* map, int i)
 {
   map->position_trainer = i;
   map->buffer = map->mapArray[i];
-}
-
-int get_position_trainer(Map* map)
-{
-  return map->position_trainer;
 }
 
 void move_trainer(Map* map, Direction dir)

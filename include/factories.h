@@ -110,11 +110,13 @@ Poketudiant* generate_poketudiant_from_name(Poketudiant_factory* factory,char* n
  */
 Trainer* generate_random_trainer(Poketudiant_factory* factory, int level);
 
+
 Trainer* generate_trainer_with_specific_poketudiant(Poketudiant_factory* factory,
+						    char* name,
 						    int level,
-						    const char* name_poke_1,
-						    const char* name_poke_2,
-						    const char* name_poke_3
+						    char* name_poke_1,
+						    char* name_poke_2,
+						    char* name_poke_3
 						    );
 
 #endif

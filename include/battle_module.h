@@ -209,5 +209,21 @@ int trainer_versus_random_trainer(Battle_module* battle_module,
 				   int min_level,
 				   int max_level);
 
+/*
+ * @name   : trainer_versus_random_trainer
+ * @arg    : battle_module , pointer on battle_module that contain reference needed 
+ * @arg    : player , our trainer that's gonna fight a random poketudiant
+ * @arg    : enemy , enemy trainer that we are facing
+ * @desc   : This function is use to simulate a battle between our trainer and a enemy
+             trainer. This function ensure the game to work well by facing poketudiant,
+	     giving damage and earning experience. This function return a result to know if
+	     our trainer won the battle or not
+ *
+ * @return : return 1 if trainer won the battle , 0 otherwise
+*/
+int trainer_versus_trainer(Battle_module* battle_module,
+			   Trainer* trainer,
+			   Trainer* enemy);
+
 
 #endif

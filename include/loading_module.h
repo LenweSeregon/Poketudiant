@@ -39,6 +39,7 @@ void load_base_weakness(Weakness* weakness, const char* file_name);
  *
  * @return : return the dynamic array containing all diploma trainers
  */
-Trainer** load_diploma_trainers(const char* file_name);
+
+Trainer** load_diploma_trainers(Poketudiant_factory* factory, int* nb_trainer, const char* file_name);
 
 #endif

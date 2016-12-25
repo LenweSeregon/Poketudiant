@@ -20,10 +20,12 @@
 #include "weakness.h"
 
 #include "generic_control_function.h"
-#include "loading_module.h"
-
 #include "evolve_module.h"
 #include "factories.h"
+
+#include "loading_module.h"
+
+
 
 #include "constantes.h"
 #include "battle_module.h"

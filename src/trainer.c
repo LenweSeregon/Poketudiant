@@ -10,6 +10,7 @@
 #include "generic_control_function.h"
 #include "pokecafetaria.h"
 #include "constantes.h"
+#include "pokecafetaria.h"
 #include "trainer.h"
 
 Trainer* create_trainer(const char* name, int ia_trainer)

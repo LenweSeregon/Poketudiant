@@ -19,7 +19,7 @@ enum Direction
 typedef enum Direction Direction;
 
 /* General define for poketudiant management */
-#define POSITION_START_TRAINER 0
+#define POSITION_START_TRAINER 693
 #define MIN_LEVEL_POKETUDIANT 1
 #define MAX_LEVEL_POKETUDIANT 10
 #define MULTIPLIER_DMG_WEAK 2
@@ -55,6 +55,7 @@ typedef enum Direction Direction;
 /* File interaction */
 #define MAX_STRING_FILE_SIZE 300
 #define MAX_STRING_ATTRIBUTS_POKETUDIANT 60
+#define MAX_NAME_DIPLOMA_TRAINER 100
 
 /* Some element use a random number for simulate chance 
    Those values are between 0.9 and 1.1 

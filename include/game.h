@@ -21,6 +21,7 @@ struct Game
   Map* map;
 
   Trainer** diploma_trainers;
+  int current_nb_trainers;
   
 };
 typedef struct Game Game;
@@ -192,7 +193,8 @@ Game* create_game(const char* trainer_name);
  */
 void delete_game(Game* game);
 
-void manage_action_deplacement(Game* game);
+int get_index_diploma_trainer_by_name(Game* game, const char* name);
+int manage_action_deplacement(Game* game);
 
 /*
  * @name   : launch_game
