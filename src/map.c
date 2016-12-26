@@ -13,17 +13,15 @@
 #define NURSE 'n'
 #define ENEMY 'e'
 
-#define YELLOW_BACK COLOR("43");
-#define BLUE_BACK COLOR("44");
-#define GREEN_BACK COLOR("42");
-#define RED_BACK COLOR("41");
-#define WHITE_BACK COLOR("47");
 
-#define YELLOW_TEXT COLOR("33");
-#define BLUE_TEXT COLOR("34");
-#define GREEN_TEXT COLOR("32");
-#define RED_TEXT COLOR("31");
-#define WHITE_TEXT COLOR("37");
+#define LIGHT_GREEN_BACK printf("\x1B[48;5;%dm  ", 10);
+#define GREEN_BACK printf("\x1B[48;5;%dm  ", 34);
+#define DARK_GREEN_BACK printf("\x1B[48;5;%dm  ", 22);
+
+#define MARRON_BACK printf("\x1B[48;5;%dm  ", 130);
+#define RED_BACK printf("\x1B[48;5;%dm  ", 124);
+#define TRAINER_BACK printf("\x1B[48;5;%dm  ", 6);
+#define PURPLE_BACK printf("\x1B[48;5;%dm  ", 5);
 
 
 Map* create_map()
@@ -73,46 +71,64 @@ void init_map_empty(Map* map)
 void print_map(const Map* map)
 {
   int j,k;
+  print_recap(map);
   for(j = 0; j < map->height; j++)
     {
       for(k = 0; k < map->width; k++)
 	{
-	  char elem = map->mapArray[j*map->width+k].type;
-	  switch(elem)
+	  if(j*map->width+k == map->position_trainer) /* Trainer */
 	    {
-	    case WILD:
-	      GREEN_BACK;
-	      GREEN_TEXT;
-	      break;
-	    case ROAD:
-	      YELLOW_BACK;
-	      YELLOW_TEXT;
-	      break;
-	    case NURSE:
-	      BLUE_BACK;
-	      BLUE_TEXT;
-	      break;
-	    case ENEMY:
-	      RED_BACK;
-	      RED_TEXT;
-	      break;
-	    default:
-	      printf("Error\n");
-	    }
-
-	  if(j*map->width+k == map->position_trainer)
-	    {
-	      WHITE_TEXT;
-	      printf("%c ",'X');
+	      TRAINER_BACK
 	    }
 	  else
 	    {
-	      printf("%c ",elem);
+	      Tile tile = map->mapArray[j*map->width+k];
+	      switch(tile.type)
+		{
+		case WILD:
+		  if(tile.tile.wild.level >= 1 && tile.tile.wild.level <= 3)
+		    {
+		      LIGHT_GREEN_BACK
+		    }
+		  else if(tile.tile.wild.level >= 4 && tile.tile.wild.level <= 6)
+		    {
+		      GREEN_BACK
+		    }
+		  else
+		    {
+		      DARK_GREEN_BACK
+		    }
+		  break;
+		case ROAD:
+		  MARRON_BACK
+		  break;
+		case NURSE:
+		  RED_BACK
+		  break;
+		case ENEMY:
+		  PURPLE_BACK
+		  break;
+		default:
+		  printf("Error\n");
+		}
 	    }
+	 
 	  COLOR("0");
 	}
       printf("\n");
     }
+}
+
+void print_recap()
+{
+  MARRON_BACK COLOR("0"); printf(" = Road"); printf("\n"); 
+  LIGHT_GREEN_BACK COLOR("0"); printf(" = Easy wild area"); printf("\n");
+  GREEN_BACK COLOR("0"); printf(" = Medium wild area"); printf("\n");
+  DARK_GREEN_BACK COLOR("0"); printf(" = Hard wild area"); printf("\n");
+  RED_BACK COLOR("0"); printf(" = Nursery");  printf("\n");
+  PURPLE_BACK COLOR("0"); printf(" = Diploma trainer"); printf("\n");
+  TRAINER_BACK COLOR("0"); printf(" = Your trainer"); printf("\n");
+  
 }
 
 void load_map(Map* map, const char* file_name)

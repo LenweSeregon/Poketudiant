@@ -97,5 +97,5 @@ void init_map_empty(Map* map);
 
 void load_map(Map* map, const char* file_name);
 void print_map(const Map* map);
-
+void print_recap();
 #endif
