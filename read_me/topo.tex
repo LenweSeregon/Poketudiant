@@ -10,12 +10,14 @@ Nicolas Serf / Gabriel Révillion}
 \chapter{Guide d'utilisation}
 \section{Compilation et execution}
 Un simple \textbf{make à la racine du projet} permet de compiler l'ensemble du projet.
-Pour l'exécution, l'exécutable produit par le makefile s'appelle 'exécutable'.
-Ainsi pour lancer le programme, il suffit simplement de saisir la commande \textbf{'./exécutable'} à la racine du projet.
+Pour l'exécution, l'exécutable produit par le makefile s'appelle 'executable'.
+Ainsi pour lancer le programme, il suffit simplement de saisir la commande \textbf{'./executable'} à la racine du projet.
 \section{Interpreteur de commande}
 Les différentes commandes présentent dans le polycopier de projet sont utilisables dans le programme.
 Une sécurité est mise sur la saisie des commandes pour permettre de conserver un programme cohérent quand les saisies de l'utilisateur ne sont pas correctes.
 De plus, important, pour permettre de quitter proprement le programme sans fuite de mémoire, la commande \textbf{'exit'} a été ajoutée à la liste des commandes possibles.
+
+Pour la partie 2 du projet, 4 nouvelles commandes ont été ajoutées qui sont : z, s, q, d, qui, respectivement, permettent d'avancer vers le nord, le sud, l'ouest et l'est.
 \section{Combats}
 L'interpréteur lors des combats est très simple, il faut simplement suivre pour les actions voulant être réalisées, le menu qui donne la bonne valeur à saisir.
 
@@ -57,5 +59,27 @@ Le programme, s'il détecte une incohérence dans les commandes de l'utilisateur
 
 \section{Non fonctionnels}
 Rien à signaler
+
+\chapter{Topo du deuxième rendu de projet}
+
+\section{Les choix}
+
+La deuxième partie du projet étant moins dense niveau contenu, il n'y a pas vraiment eu de choix à réaliser pour cette partie du projet. La carte est réalisée de manière classique via un chargement de fichier précisant dans les 2 premières lignes la taille de la carte et ensuite la carte est représentée sous forme de chaine de caractère avec comme expliqué plus en détail dans la partie difficulté, le fonctionnement du parsing.
+Le chargement des dresseurs constituant le conseil des diplômes est fait via un fichier se trouvant à part du fichier de la carte.
+
+\section{Les difficultés}
+
+La partie nous ayant causée le plus de difficultés est la mise en place de zone de niveau pour les régions sauvages et la représentation d'ennemis.
+Nous avions pensé dans un premier temps, charger indépendamment toutes les régions sauvages et ensuite procéder à un parcours des cases voisines d'une case choisie au hasard pour affecter un niveau aléatoire mais cela provoquait des maps changeant à chaque execution est un temps de calcul beaucoup plus grand. Nous avons ainsi opté pour une représentation du niveau de la région sauvage directement dans le fichier en spécifiant le niveau.
+Pour la représentation des ennemis qui représentent le conseil des diplômes, nous avons transformé notre parsing pour que celui-ci soit fait avec des chaines de caractères, ainsi dans le fichier texte de la carte. Nous avons des chaines de caractère avec directement le nom du dresseur du conseil des diplomes, on est ainsi certain que celui-ci ne change pas de place et il est facile de le placer et d'intéragir avec lui lorsque l'on rentre dans sa zone.
+
+\section{Fonctionnels}
+Nous nous sommes rendus compte que nous avions oublié une fuite mémoire dans la première partie lorsqu'un pokémon évolue, le programme réalise un affichage pour donner l'ancien nom du pokétudiant vers le nouveau nom du pokétudiant. Seulement nous avions oublié de free l'ancien nom du pokétudiant. Cette erreur étant maintenant corrigée, le programme posséde normalement toutes les fonctionnalités attendues partie 1 et partie 2 comprises et semble fonctionner sans crash ou de fuite de mémoire.
+
+\section{Non fonctionnels}
+Rien à signaler
+
+\section{Répartition du travail}
+La répartition du travail sur l'ensemble du projet a été réalisé équitablement avec 50/50 pour chaque binôme.
 
 \end{document}

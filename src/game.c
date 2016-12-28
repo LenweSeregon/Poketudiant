@@ -29,17 +29,11 @@
 #include "command_handler.h"
 #include "game.h"
 
-
+#define CLEAR_SCREEN() printf("\033[H\033[2J");
 
 Game* create_game(const char* trainer_name)
 {
-  int i;
   Poketudiant* first_poke;
-  Poketudiant* second_poke;
-
-  Poketudiant* poke_cafe1;
-  Poketudiant* poke_cafe2;
-  Poketudiant* poke_cafe3;
   Game* game = malloc(sizeof(Game));
   /* Initiliaze base collection */
   game->base_poke = create_hash_table(INIT_SIZE_HASH_TABLE);
@@ -71,23 +65,11 @@ Game* create_game(const char* trainer_name)
   /* Init trainer */
   game->trainer = create_trainer(trainer_name,0);
   first_poke = generate_poketudiant_from_name(game->factory_poke,"Enseignant-dresseur",MIN_LEVEL_POKETUDIANT);
-  second_poke = generate_random_capturable_poketudiant(game->factory_poke,MIN_LEVEL_POKETUDIANT);
-  poke_cafe1 = generate_random_capturable_poketudiant(game->factory_poke,MIN_LEVEL_POKETUDIANT);
-  poke_cafe2 = generate_random_capturable_poketudiant(game->factory_poke,MIN_LEVEL_POKETUDIANT);
-  poke_cafe3 = generate_random_capturable_poketudiant(game->factory_poke,MIN_LEVEL_POKETUDIANT);
   add_poketudiant_to_team(game->trainer,first_poke);
-  add_poketudiant_to_team(game->trainer,second_poke);
-  add_poketudiant_to_team(game->trainer,poke_cafe1);
-  add_poketudiant_to_team(game->trainer,poke_cafe2);
-  add_poketudiant_to_team(game->trainer,poke_cafe3);
 
   /* Init diploma_trainer */
   game->current_nb_trainers = 0;
   game->diploma_trainers = load_diploma_trainers(game->factory_poke,&game->current_nb_trainers,"init/diploma_trainer_file");
-  for(i = 0; i < game->current_nb_trainers; i++)
-    {
-      print_team(game->diploma_trainers[i]);
-    }
   
   return game;
 }
@@ -765,8 +747,16 @@ void launch_game(Game* game)
       /* Check if game is won */
       if(game->current_nb_trainers == 0)
 	{
-	  printf("You won the game, congratualtion !\n");
 	  game_continue = 0;
 	}
+    }
+
+  if(game->current_nb_trainers == 0)
+    {
+      printf("You won the game, congratualtion !\n");
+    }
+  else
+    {
+      printf("You lose the game, try again !\n");
     }
 }

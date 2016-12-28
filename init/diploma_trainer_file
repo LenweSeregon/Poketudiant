@@ -2,7 +2,7 @@
 	name = Mazure
 	level = 5
 	poketudiant_1 = Enseignant-dresseur
-	poketudiant_2 = Nuidebou
+	poketudiant_2 = Couchtar
 	poketudiant_3 = Parlfor
 }
 
@@ -11,7 +11,7 @@
 	level = 8
 	poketudiant_1 = Enseignant-dresseur
 	poketudiant_2 = Belmention
-	poketudiant_3 = Rigolamor
+	poketudiant_3 = Ismar
 }
 
 {
@@ -19,5 +19,5 @@
 	level = 10
 	poketudiant_1 = Enseignant-dresseur
 	poketudiant_2 = Promomajor
-	poketudiant_3 = Nuidebou
+	poketudiant_3 = Couchtar
 }
