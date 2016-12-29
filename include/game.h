@@ -22,6 +22,8 @@ struct Game
 
   Trainer** diploma_trainers;
   int current_nb_trainers;
+
+  int load_succeed;
   
 };
 typedef struct Game Game;
@@ -181,7 +183,7 @@ int processing_release(Game* game);
  *
  * @return : return allocated pointer of game structure
  */
-Game* create_game(const char* trainer_name);
+Game* create_game(const char* trainer_name, const char* map_file_name);
 
 /*
  * @name   : delete_game

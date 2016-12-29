@@ -90,12 +90,13 @@ int trainer_can_move(Map* map, Direction dir);
 void move_trainer(Map* map, Direction dir);
 int get_action_associated(const Map* map);
 int get_level_wild_poketudiant(const Map* map);
+int get_first_nurse_from_bottom(const Map* map);
 const char* get_name_diploma_trainer(const Map* map);
 void destroy_enemy_and_set_road(Map* map);
 
+int trainer_exist(Trainer*** diploma_list, int nb_trainer, char* nameT);
 void init_map_empty(Map* map);
-
-void load_map(Map* map, const char* file_name);
+int load_map(Map* map, const char* file_name, int nb_diploma_trainer, Trainer*** diploma_list);
 void print_map(const Map* map);
 void print_recap();
 #endif

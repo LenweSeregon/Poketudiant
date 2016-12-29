@@ -4,6 +4,16 @@
 
 #include "constantes.h"
 #include "string_utils.h"
+#include "container.h"
+#include "linked_list.h"
+#include "hash_table.h"
+
+#include "type_poke.h"
+#include "attack.h"
+#include "poketudiant.h"
+
+#include "pokecafetaria.h"
+#include "trainer.h"
 #include "map.h"
 
 #define COLOR(param) printf("\033[%sm",param);
@@ -35,8 +45,10 @@ Map* create_map()
 
 void delete_map(Map* map)
 {
-  free(map->mapArray);
-  free(map);
+  if(map->mapArray != NULL)
+    free(map->mapArray);
+  if(map != NULL)
+    free(map);
 }
 
 int get_action_associated(const Map* map)
@@ -47,6 +59,17 @@ int get_action_associated(const Map* map)
 int get_level_wild_poketudiant(const Map* map)
 {
   return map->buffer.tile.wild.level;
+}
+
+int get_first_nurse_from_bottom(const Map* map)
+{
+  int i;
+  for(i = (map->width * map->height)-1 ; i >= 0 ; i--)
+    {
+      if(map->mapArray[i].type == NURSE)
+	return i;
+    }
+  return -1;
 }
 
 const char* get_name_diploma_trainer(const Map* map)
@@ -131,12 +154,31 @@ void print_recap()
   
 }
 
-void load_map(Map* map, const char* file_name)
+int trainer_exist(Trainer*** diploma_list, int nb_trainer, char* nameT)
+{
+  int i;
+  remove_occurences(nameT,'\n');
+  remove_occurences(nameT,' ');
+  remove_occurences(nameT,'\t');
+  for(i = 0; i < nb_trainer; i++)
+    {
+      if(strcmp(((*diploma_list)[i])->name,nameT) == 0)
+	{
+	  return 1;
+	}
+    }
+  return 0;
+}
+
+int load_map(Map* map, const char* file_name, int nb_diploma_trainer, Trainer*** diploma_list)
 {
   FILE* file;
   file = fopen(file_name,"r");
   if(file)
     {
+      int nurse_detected = 0;
+      int valid = 1;
+      int nb_trainer = 0;
       int i = 0;
       char string_getter[MAX_STRING_FILE_SIZE] = "";
       char* string_splitter;
@@ -179,34 +221,64 @@ void load_map(Map* map, const char* file_name)
 		    }
 		  else if(string_splitter[0] == NURSE)
 		    {
+		      nurse_detected = 1;
 		      tile.type = NURSE;
 		      tile.tile.nurse.val = string_getter[0];
 		    }
 		  else if(string_splitter[0] == ENEMY)
 		    {
-		      
+		      nb_trainer++;
 		      tile.type = ENEMY;
 		      tile.tile.enemy.val = string_getter[0];
 		      strcpy(tile.tile.enemy.name,&string_splitter[2]);
+		      if(!trainer_exist(diploma_list,nb_diploma_trainer,tile.tile.enemy.name))
+			{
+			  printf("connard\n");
+			  valid = 0;
+			}
 		    }
 		  else
 		    {
 		      int value = atoi(string_splitter);
-		      tile.type = WILD;
-		      tile.tile.wild.level = value;
-		      tile.tile.wild.val = value;
+		      if(value < 1 || value > 10)
+			{
+			  valid = 0;
+			  tile.type = WILD;
+			  tile.tile.wild.level = 0;
+			  tile.tile.wild.val = 0;
+			}
+		      else
+			{
+			  tile.type = WILD;
+			  tile.tile.wild.level = value;
+			  tile.tile.wild.val = value;
+			}
 		    }
 	      
 		  string_splitter = strtok(NULL," ");
 		}
-	      map->mapArray[i++] = tile;
+	      if(i >= map->width * map->height)
+		{
+		  valid = 0;
+		}
+	      else
+		{
+		  map->mapArray[i++] = tile;
+		}
 	    }
 	}while(1);
       fclose(file);
+
+      if((i != (map->width * map->height)) || (nb_trainer != nb_diploma_trainer) || !nurse_detected)
+	{
+	  valid = 0;
+	}
+      return valid;
     }
   else
     {
       printf("Error, impossible to open file\n");
+      return 0;
     }
 }
 	  

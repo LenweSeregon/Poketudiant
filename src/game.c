@@ -31,10 +31,11 @@
 
 #define CLEAR_SCREEN() printf("\033[H\033[2J");
 
-Game* create_game(const char* trainer_name)
+Game* create_game(const char* trainer_name, const char* map_file_name)
 {
   Poketudiant* first_poke;
   Game* game = malloc(sizeof(Game));
+  game->load_succeed = 1;
   /* Initiliaze base collection */
   game->base_poke = create_hash_table(INIT_SIZE_HASH_TABLE);
   game->base_att = create_hash_table(INIT_SIZE_HASH_TABLE);
@@ -52,15 +53,11 @@ Game* create_game(const char* trainer_name)
   load_base_poketudiant(game->base_poke,"init/pokemons_file");
   
   /* Init game control structure */
-  game->map = create_map();
-  load_map(game->map,"init/map_file");
-  set_position_trainer_start(game->map,POSITION_START_TRAINER);
   game->weakness = create_weakness();
   load_base_weakness(game->weakness,"init/weakness_file");
   game->factory_poke = create_poketudiant_factory(game->base_poke, game->base_att);
   game->evolve_center = create_evolve_center(game->base_poke);
   game->battle_module = create_battle_module(game->factory_poke,game->evolve_center,game->weakness);
-  
   
   /* Init trainer */
   game->trainer = create_trainer(trainer_name,0);
@@ -70,6 +67,14 @@ Game* create_game(const char* trainer_name)
   /* Init diploma_trainer */
   game->current_nb_trainers = 0;
   game->diploma_trainers = load_diploma_trainers(game->factory_poke,&game->current_nb_trainers,"init/diploma_trainer_file");
+
+  /* Init map */
+  game->map = create_map();
+  game->load_succeed = load_map(game->map,map_file_name,game->current_nb_trainers,&game->diploma_trainers);
+  if(game->load_succeed)
+    {
+      set_position_trainer_start(game->map,get_first_nurse_from_bottom(game->map));
+    }
   
   return game;
 }

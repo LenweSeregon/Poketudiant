@@ -27,6 +27,21 @@ Si tous vos pokétudiants sont morts, alors le programme vous affiche que vous a
 Lors d'un changement de pokétudiant, l'interpreteur va réagir différemment selon certains critères.
 Quand votre pokétudiant meurt et que le programme vous demande de rentrer un nouveau pokétudiant, vous n'avez pas le choix et vous devez choisir un nouveau pokétudiant pour combattre (si il en reste, sinon la défaite est détectée). Toute autre valeur d'ID autre qu'un pokétudiant valable sera refusée.
 Lorsque vous choississez de changer de pokétudiant volontairement alors que le votre est toujours en vie, alors l'interpréteur va accepter une nouvelle valeur qui est la valeur \textbf{'-1'}. Celle-ci permet d'annuler le changement de pokétudiant. Dans ce cas, votre tour n'est pas perdu et vous pouvez choisir une autre action.
+
+\section{Note sur la carte}
+Nous partons du principe que les fichiers d'initialisation ne doivent pas être touchés par les utilisateurs du programme car ceux-ci dans de gros jeux sont encodés et le programme peut procéder à des vérifications poussées et faire des réparations si les fichiers sont corrompus. Seulement, la carte étant un fichier spécifié lors de la commande pour lancer l'executable, nous avons quand même procédé à quelques vérifications sur l'existance du fichier. Aussi, si l'on souhaite créer une nouvelle carte, voici un exemple de comment faire:
+
+
+1ére ligne : largeur
+
+2éme ligne : hauteur
+
+Lignes suivantes : représentation de la carte avec : 'n' = clinique, '0' = route, de '1' à '10' zone sauvage.
+Attention, le nom des trois dresseurs composants le conseil des diplômes doit être obligatoirement spécifié ! Ainsi, il faut trouver dans la représentation 'e\_Lagniez', 'e\_Mazure', 'e\_Lonca'
+
+
+Nous partons du principe que les cartes sont réalisées par des personnes ayant conscience de ces régles, toutefois nous nous sommes efforcés de faire tout de même un maximum de vérifications à la lecture du fichier. Ainsi nous vérifions la présence des dresseurs, la présence d'au moins une clinique puisque le dresseur y est présent en début de partie, la vérification que les zones sauvages soient bien comprises entre 1 et 10, le bon nombre de case représentatif du largeur \* hauteur, entre autre.
+
 \chapter{Topo du premier rendu de projet}
 
 \section{Les choix}

@@ -33,16 +33,27 @@
 #include "game.h"
 
 
-int main(void)
+int main(int argc, char *argv[])
 {
   Game* game;
-  
-  init_seed_to_null();
-  game = create_game("Arthur");
-  
-  launch_game(game);
-  delete_game(game);
 
+  if(argc <= 1 || argc >= 3)
+    {
+      printf("Not enought arguments or too much.\n");
+    }
+  else
+    {
+      init_seed_to_null();
+      game = create_game("Student",argv[1]);
+
+      if(game->load_succeed)
+	{
+	  launch_game(game);
+	}
+      delete_game(game);
+    }
+  
+  
   /*delete_map(map);*/
   
   /*
